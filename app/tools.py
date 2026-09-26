@@ -8,7 +8,9 @@ concept_graph = {
     "Operasi Bilangan Bulat": {"prasyarat": []},
     "Aljabar Dasar": {"prasyarat": ["Operasi Bilangan Bulat"]},
     "Faktorisasi": {"prasyarat": ["Aljabar Dasar"]},
-    "Persamaan Kuadrat": {"prasyarat": ["Faktorisasi"]}
+    "Persamaan Kuadrat": {"prasyarat": ["Faktorisasi"]}, 
+    "Fungsi": {"prasyarat": ["Aljabar Dasar"]},      # ← baris baru: cabang kedua
+    "Limit": {"prasyarat": ["Fungsi"]}
 }
 
 question_bank = {
@@ -65,6 +67,28 @@ question_bank = {
                 "x = 6": "miskonsepsi_tidak_paham_konsep_akar"
             }
         }
+    ], 
+    "Fungsi": [                                        # ← tambahan baru
+        {
+            "id": "FN001",
+            "soal": "Jika f(x) = 2x + 3, berapa nilai f(4)?",
+            "jawaban_benar": "11",
+            "distraktor": {
+                "14": "miskonsepsi_substitusi_salah",
+                "8": "miskonsepsi_lupa_konstanta"
+            }
+        }
+    ],
+    "Limit": [                                         # ← tambahan baru
+        {
+            "id": "L001",
+            "soal": "Tentukan nilai dari lim x->2 (x^2 - 4)/(x - 2)",
+            "jawaban_benar": "4",
+            "distraktor": {
+                "0": "miskonsepsi_substitusi_langsung",
+                "tidak terdefinisi": "miskonsepsi_bentuk_tak_tentu"
+            }
+        }
     ]
 }
 
@@ -104,6 +128,22 @@ misconception_map = {
     "miskonsepsi_tidak_paham_konsep_akar": {
         "deskripsi": "Siswa tidak memahami bahwa persamaan kuadrat bisa punya 2 akar berbeda dari hasil faktorisasi, hanya menjawab 1 nilai.",
         "akar_masalah": "Persamaan Kuadrat"
+    }, 
+    "miskonsepsi_substitusi_salah": {                  # ← tambahan baru
+        "deskripsi": "Siswa salah memasukkan nilai x ke dalam fungsi, misal keliru urutan operasi (kali dulu vs tambah dulu).",
+        "akar_masalah": "Aljabar Dasar"
+    },
+    "miskonsepsi_lupa_konstanta": {                    # ← tambahan baru
+        "deskripsi": "Siswa lupa menambahkan/mengurangkan konstanta setelah mengalikan koefisien dengan nilai x.",
+        "akar_masalah": "Fungsi"
+    },
+    "miskonsepsi_substitusi_langsung": {                # ← tambahan baru
+        "deskripsi": "Siswa langsung mensubstitusi nilai limit ke fungsi tanpa menyadari bentuk 0/0 perlu disederhanakan dulu (misal lewat faktorisasi).",
+        "akar_masalah": "Fungsi"
+    },
+    "miskonsepsi_bentuk_tak_tentu": {                   # ← tambahan baru
+        "deskripsi": "Siswa tidak tahu cara menangani bentuk limit tak tentu (0/0) lewat faktorisasi atau pembagian, sehingga menyerah atau menjawab 'tidak terdefinisi'.",
+        "akar_masalah": "Faktorisasi"
     }
 }
 
