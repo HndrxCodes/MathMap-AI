@@ -31,3 +31,7 @@ def mastery(student_id: str):
         "mastery": get_mastery_map(student_id),
         "goal": get_goal(student_id)
     }
+
+from fastapi.staticfiles import StaticFiles
+
+app.mount("/", StaticFiles(directory="static", html=True), name="static")
