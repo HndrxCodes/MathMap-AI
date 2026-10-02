@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MathMap AI</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 480px; margin: 0 auto; padding: 16px; background: #0f1117; color: #e5e5e5; }
+  h1 { font-size: 1.3rem; }
+  #mastery { background: #1a1d27; border-radius: 8px; padding: 12px; margin-bottom: 16px; }
+  .bar-row { display: flex; align-items: center; gap: 8px; margin: 6px 0; font-size: 0.85rem; }
+  .bar-label { width: 130px; flex-shrink: 0; }
+  .bar-bg { flex: 1; background: #333; border-radius: 4px; height: 10px; overflow: hidden; }
+  .bar-fill { height: 100%; background: #4ade80; }
+  #chat { background: #1a1d27; border-radius: 8px; padding: 12px; height: 55vh; overflow-y: auto; margin-bottom: 8px; }
+  .msg { margin: 8px 0; padding: 8px 10px; border-radius: 8px; white-space: pre-wrap; font-size: 0.9rem; }
+  .user { background: #2563eb; margin-left: 20%; }
+  .assistant { background: #262a36; margin-right: 10%; }
+  form { display: flex; gap: 8px; }
+  input { flex: 1; padding: 10px; border-radius: 6px; border: none; background: #262a36; color: white; }
+  button { padding: 10px 16px; border-radius: 6px; border: none; background: #4ade80; font-weight: bold; }
+</style>
+</head>
+<body>
+<h1>📘 MathMap AI</h1>
+
+<div id="mastery"><em>Loading mastery...</em></div>
+
+<div id="chat"></div>
+<form id="form">
+  <input id="input" placeholder="Type your message..." autocomplete="off" />
+  <button type="submit">Send</button>
+</form>
+
+<script>
+const studentId = "demo_student";
+let history = [];
+
+const chatEl = document.getElementById("chat");
+const masteryEl = document.getElementById("mastery");
+
+function addMessage(role, text) {
+  const div = document.createElement("div");
+  div.className = "msg " + role;
+  div.textContent = text;
+  chatEl.appendChild(div);
+  chatEl.scrollTop = chatEl.scrollHeight;
+}
+
+async function refreshMastery() {
+  try {
+    const res = await fetch(`/api/mastery/${studentId}`);
+    const data = await res.json();
+    const entries = Object.entries(data.mastery || {});
+    if (entries.length === 0) {
+      masteryEl.innerHTML = "<em>No mastery data yet.</em>";
+      return;
+    }
+    masteryEl.innerHTML = entries.map(([concept, score]) => `
+      <div class="bar-row">
+        <span class="bar-label">${concept}</span>
+        <div class="bar-bg"><div class="bar-fill" style="width:${score*100}%"></div></div>
+        <span>${(score*100).toFixed(0)}%</span>
+      </div>
+    `).join("");
+  } catch (e) {
+    masteryEl.innerHTML = "<em>Could not load mastery data.</em>";
+  }
+}
+
+document.getElementById("form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const input = document.getElementById("input");
+  const message = input.value.trim();
+  if (!message) return;
+
+  addMessage("user", message);
+  input.value = "";
+  addMessage("assistant", "...");
+
+  try {
+    const res = await fetch("/api/agent/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ student_id: studentId, message, history })
+    });
+    const data = await res.json();
+    chatEl.lastChild.remove();
+    addMessage("assistant", data.reply);
+    history = data.history;
+    refreshMastery();
+  } catch (e) {
+    chatEl.lastChild.remove();
+    addMessage("assistant", "Error: could not reach the server.");
+  }
+});
+
+refreshMastery();
+</script>
+</body>
+</html>
