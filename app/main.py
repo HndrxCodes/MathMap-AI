@@ -11,7 +11,7 @@ class ChatRequest(BaseModel):
     history: list = []
 
 
-@app.get("/")
+@app.get("/health")
 def health():
     return {"status": "MathMap AI jalan"}
 
