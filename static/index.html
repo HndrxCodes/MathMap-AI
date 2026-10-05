@@ -4,69 +4,180 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MathMap AI</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
 <style>
-  body { font-family: system-ui, sans-serif; max-width: 480px; margin: 0 auto; padding: 16px; background: #0f1117; color: #e5e5e5; }
-  h1 { font-size: 1.3rem; }
-  #mastery { background: #1a1d27; border-radius: 8px; padding: 12px; margin-bottom: 16px; }
-  .bar-row { display: flex; align-items: center; gap: 8px; margin: 6px 0; font-size: 0.85rem; }
-  .bar-label { width: 130px; flex-shrink: 0; }
-  .bar-bg { flex: 1; background: #333; border-radius: 4px; height: 10px; overflow: hidden; }
-  .bar-fill { height: 100%; background: #4ade80; }
-  #chat { background: #1a1d27; border-radius: 8px; padding: 12px; height: 55vh; overflow-y: auto; margin-bottom: 8px; }
-  .msg { margin: 8px 0; padding: 8px 10px; border-radius: 8px; white-space: pre-wrap; font-size: 0.9rem; }
-  .user { background: #2563eb; margin-left: 20%; }
-  .assistant { background: #262a36; margin-right: 10%; }
-  form { display: flex; gap: 8px; }
-  input { flex: 1; padding: 10px; border-radius: 6px; border: none; background: #262a36; color: white; }
-  button { padding: 10px 16px; border-radius: 6px; border: none; background: #4ade80; font-weight: bold; }
+  :root {
+    --bg: #0b0d12; --panel: #161925; --panel2: #1e2230;
+    --accent: #4ade80; --accent2: #60a5fa; --text: #e8e9ee; --muted: #8b93a7;
+    --danger: #f87171;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: system-ui, -apple-system, sans-serif; margin: 0;
+    background: var(--bg); color: var(--text); padding: 12px;
+  }
+  .app { max-width: 720px; margin: 0 auto; }
+  header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  header h1 { font-size: 1.25rem; margin: 0; display: flex; align-items: center; gap: 8px; }
+  .student-id-input {
+    background: var(--panel2); border: 1px solid #2a2f40; color: var(--text);
+    padding: 6px 10px; border-radius: 6px; font-size: 0.8rem; width: 140px;
+  }
+
+  .panel { background: var(--panel); border-radius: 12px; padding: 14px; margin-bottom: 12px; }
+  .panel-title { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); margin-bottom: 10px; }
+
+  .goal-badge {
+    display: inline-flex; align-items: center; gap: 6px; background: var(--panel2);
+    border-radius: 999px; padding: 6px 12px; font-size: 0.82rem; margin-bottom: 10px;
+  }
+  .goal-badge.empty { color: var(--muted); }
+
+  .mastery-grid { display: flex; flex-direction: column; gap: 10px; }
+  .mastery-card { background: var(--panel2); border-radius: 8px; padding: 10px 12px; }
+  .mastery-top { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px; }
+  .mastery-concept { font-weight: 600; }
+  .mastery-score { color: var(--muted); }
+  .bar-bg { background: #2a2f40; border-radius: 4px; height: 8px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; transition: width 0.4s ease; }
+  .empty-state { color: var(--muted); font-size: 0.85rem; font-style: italic; }
+
+  #chat { height: 48vh; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-right: 4px; }
+  .msg { padding: 10px 13px; border-radius: 12px; font-size: 0.9rem; line-height: 1.5; max-width: 88%; }
+  .msg.user { background: var(--accent2); color: #0b0d12; align-self: flex-end; border-bottom-right-radius: 2px; }
+  .msg.assistant { background: var(--panel2); align-self: flex-start; border-bottom-left-radius: 2px; }
+  .msg p { margin: 0 0 8px; }
+  .msg p:last-child { margin-bottom: 0; }
+  .msg strong { color: var(--accent); }
+  .msg.user strong { color: #0b0d12; }
+  .msg h1, .msg h2, .msg h3 { font-size: 0.95rem; margin: 10px 0 6px; }
+
+  form { display: flex; gap: 8px; margin-top: 10px; }
+  input#input {
+    flex: 1; padding: 11px 14px; border-radius: 8px; border: 1px solid #2a2f40;
+    background: var(--panel2); color: var(--text); font-size: 0.9rem;
+  }
+  button {
+    padding: 11px 18px; border-radius: 8px; border: none; background: var(--accent);
+    color: #0b0d12; font-weight: 700; font-size: 0.9rem;
+  }
+  button:active { opacity: 0.85; }
 </style>
 </head>
 <body>
-<h1>📘 MathMap AI</h1>
+<div class="app">
+  <header>
+    <h1>📘 MathMap AI</h1>
+    <input class="student-id-input" id="studentIdInput" value="demo_student" />
+  </header>
 
-<div id="mastery"><em>Loading mastery...</em></div>
+  <div class="panel">
+    <div class="panel-title">Your Progress</div>
+    <div id="goal" class="goal-badge empty">No goal set yet</div>
+    <div id="masteryGrid" class="mastery-grid">
+      <div class="empty-state">Loading...</div>
+    </div>
+  </div>
 
-<div id="chat"></div>
-<form id="form">
-  <input id="input" placeholder="Type your message..." autocomplete="off" />
-  <button type="submit">Send</button>
-</form>
+  <div class="panel">
+    <div class="panel-title">Chat</div>
+    <div id="chat"></div>
+    <form id="form">
+      <input id="input" placeholder="Type your message..." autocomplete="off" />
+      <button type="submit">Send</button>
+    </form>
+  </div>
+</div>
 
 <script>
-const studentId = "demo_student";
+let studentId = document.getElementById("studentIdInput").value;
 let history = [];
 
 const chatEl = document.getElementById("chat");
-const masteryEl = document.getElementById("mastery");
+const masteryGridEl = document.getElementById("masteryGrid");
+const goalEl = document.getElementById("goal");
+const studentIdInput = document.getElementById("studentIdInput");
+
+marked.setOptions({ breaks: true });
+
+function renderMarkdown(text) {
+  const html = marked.parse(text || "");
+  const div = document.createElement("div");
+  div.innerHTML = html;
+  return div;
+}
 
 function addMessage(role, text) {
-  const div = document.createElement("div");
-  div.className = "msg " + role;
-  div.textContent = text;
-  chatEl.appendChild(div);
+  const wrapper = document.createElement("div");
+  wrapper.className = "msg " + role;
+  if (role === "assistant") {
+    wrapper.appendChild(renderMarkdown(text));
+  } else {
+    wrapper.textContent = text;
+  }
+  chatEl.appendChild(wrapper);
   chatEl.scrollTop = chatEl.scrollHeight;
+  if (window.renderMathInElement) {
+    renderMathInElement(wrapper, {
+      delimiters: [
+        { left: "\\(", right: "\\)", display: false },
+        { left: "\\[", right: "\\]", display: true }
+      ]
+    });
+  }
+  return wrapper;
+}
+
+function scoreColor(score) {
+  if (score >= 0.7) return "#4ade80";
+  if (score >= 0.4) return "#facc15";
+  return "#f87171";
 }
 
 async function refreshMastery() {
   try {
-    const res = await fetch(`/api/mastery/${studentId}`);
+    const res = await fetch(`/api/mastery/${encodeURIComponent(studentId)}`);
     const data = await res.json();
     const entries = Object.entries(data.mastery || {});
+
+    if (data.goal && data.goal.target_concept) {
+      goalEl.textContent = "🎯 Goal: " + data.goal.target_concept;
+      goalEl.classList.remove("empty");
+    } else {
+      goalEl.textContent = "No goal set yet";
+      goalEl.classList.add("empty");
+    }
+
     if (entries.length === 0) {
-      masteryEl.innerHTML = "<em>No mastery data yet.</em>";
+      masteryGridEl.innerHTML = '<div class="empty-state">No concepts attempted yet.</div>';
       return;
     }
-    masteryEl.innerHTML = entries.map(([concept, score]) => `
-      <div class="bar-row">
-        <span class="bar-label">${concept}</span>
-        <div class="bar-bg"><div class="bar-fill" style="width:${score*100}%"></div></div>
-        <span>${(score*100).toFixed(0)}%</span>
+
+    masteryGridEl.innerHTML = entries.map(([concept, score]) => `
+      <div class="mastery-card">
+        <div class="mastery-top">
+          <span class="mastery-concept">${concept}</span>
+          <span class="mastery-score">${(score*100).toFixed(0)}%</span>
+        </div>
+        <div class="bar-bg">
+          <div class="bar-fill" style="width:${score*100}%; background:${scoreColor(score)}"></div>
+        </div>
       </div>
     `).join("");
   } catch (e) {
-    masteryEl.innerHTML = "<em>Could not load mastery data.</em>";
+    masteryGridEl.innerHTML = '<div class="empty-state">Could not load progress.</div>';
   }
 }
+
+studentIdInput.addEventListener("change", () => {
+  studentId = studentIdInput.value.trim() || "demo_student";
+  history = [];
+  chatEl.innerHTML = "";
+  refreshMastery();
+});
 
 document.getElementById("form").addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -76,7 +187,7 @@ document.getElementById("form").addEventListener("submit", async (e) => {
 
   addMessage("user", message);
   input.value = "";
-  addMessage("assistant", "...");
+  const loadingMsg = addMessage("assistant", "...");
 
   try {
     const res = await fetch("/api/agent/chat", {
@@ -85,12 +196,12 @@ document.getElementById("form").addEventListener("submit", async (e) => {
       body: JSON.stringify({ student_id: studentId, message, history })
     });
     const data = await res.json();
-    chatEl.lastChild.remove();
+    loadingMsg.remove();
     addMessage("assistant", data.reply);
     history = data.history;
     refreshMastery();
   } catch (e) {
-    chatEl.lastChild.remove();
+    loadingMsg.remove();
     addMessage("assistant", "Error: could not reach the server.");
   }
 });
