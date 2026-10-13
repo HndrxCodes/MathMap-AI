@@ -178,6 +178,11 @@ def get_mastery_map(student_id):
 def update_mastery(student_id, concept, is_correct, misconception_code=None, is_baseline_test=False):
     get_or_create_student(student_id)
 
+    # Otomatis tandai sebagai baseline selama asesmen awal belum selesai
+    cursor.execute("SELECT baseline_completed FROM students WHERE student_id = ?", (student_id,))
+    baseline_done = cursor.fetchone()[0] == 1
+    is_baseline_test = (not baseline_done) and (concept in BASELINE_CONCEPTS)
+    
     cursor.execute(
         "SELECT score FROM mastery_records WHERE student_id = ? AND concept = ?",
         (student_id, concept)
