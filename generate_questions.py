@@ -10,7 +10,7 @@ client = OpenAI(base_url="https://api.tokenfactory.nebius.com/v1/",
 GEN_MODEL = "deepseek-ai/DeepSeek-V4-Pro"
 VERIFY_MODEL = "nvidia/nemotron-3-super-120b-a12b"
 
-PLAN = {"mudah": 2, "medium": 4, "sulit": 2}   # per konsep
+PLAN = {"mudah": 2, "medium": 5, "sulit": 2}   # per konsep
 PREFIX = {"Operasi Bilangan Bulat": "O", "Aljabar Dasar": "A", "Faktorisasi": "F",
           "Persamaan Kuadrat": "P", "Fungsi": "U", "Limit": "L"}
 ALLOWED = {
@@ -78,7 +78,8 @@ def check(concept, q):
 
 hasil, total_flag = {}, 0
 for concept, pre in PREFIX.items():
-    lama = question_bank.get(concept, [])
+    
+    lama = json.load(open("qb_backup.json")).get(concept, [])
     for q in lama: q.setdefault("level", "medium")
     hasil[concept] = list(lama)
     nomor = max([int(re.sub(r"\D", "", q["id"]) or 0) for q in lama], default=0) + 1
