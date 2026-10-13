@@ -308,6 +308,38 @@ def get_goal(student_id):
         return {"error": "Belum ada goal yang ditetapkan"}
     return {"target_concept": row[0], "description": row[1]}
 
+BASELINE_CONCEPTS = ["Operasi Bilangan Bulat", "Aljabar Dasar", "Faktorisasi", "Fungsi"]
+WEAK_THRESHOLD = 0.5  # sesuaikan dengan skala mastery-mu
+
+def get_baseline_status(student_id: str):
+    conn = get_conn()  # pakai helper koneksi yang sudah ada di database.py
+    cur = conn.cursor()
+
+    cur.execute("SELECT baseline_completed FROM students WHERE student_id=?", (student_id,))
+    row = cur.fetchone()
+    if row and row[0] == 1:
+        return {"completed": True}
+
+    cur.execute("SELECT DISTINCT concept FROM attempt_log WHERE student_id=?", (student_id,))
+    done = {r[0] for r in cur.fetchall()}
+    remaining = [c for c in BASELINE_CONCEPTS if c not in done]
+
+    if remaining:
+        return {
+            "completed": False,
+            "next_concept": remaining[0],
+            "progress": f"{len(BASELINE_CONCEPTS) - len(remaining)}/{len(BASELINE_CONCEPTS)}",
+        }
+
+    # semua konsep sudah dicoba -> tandai selesai + ringkasan
+    cur.execute("UPDATE students SET baseline_completed=1 WHERE student_id=?", (student_id,))
+    conn.commit()
+    cur.execute(
+        "SELECT concept, mastery FROM mastery_records WHERE student_id=?", (student_id,)
+    )
+    result = {c: m for c, m in cur.fetchall() if c in BASELINE_CONCEPTS}
+    weak = [c for c, m in result.items() if m < WEAK_THRESHOLD]
+    return {"completed": True, "just_finished": True, "results": result, "weak_concepts": weak}
 
 # ===================== TOOLS YANG PAKAI LLM =====================
 
