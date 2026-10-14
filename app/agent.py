@@ -50,7 +50,7 @@ kecuali istilah matematika standar yang memang lazim (misal "x", "faktorisasi").
 """
 
 
-def run_agent_turn(user_message, conversation_history):
+def run_agent_turn(user_message, conversation_history, student_id):
     messages = [{"role": "system", "content": SYSTEM_PROMPT}] + conversation_history + [
         {"role": "user", "content": user_message}
     ]
@@ -70,8 +70,10 @@ def run_agent_turn(user_message, conversation_history):
         for tool_call in message.tool_calls:
             func_name = tool_call.function.name
             func_args = json.loads(tool_call.function.arguments)
+            if func_name in ("get_question", "get_baseline_status", "update_mastery"):
+                func_args["student_id"] = student_id
             result = available_functions[func_name](func_args)
-
+                                       
             messages.append({
                 "role": "tool",
                 "tool_call_id": tool_call.id,
