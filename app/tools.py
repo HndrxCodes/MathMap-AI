@@ -80,16 +80,39 @@ THRESHOLD_LEMAH = 0.5
 
 # ===================== TOOLS DETERMINISTIC (no LLM) =====================
 
-def get_question(concept):
-    matched_key = None
-    for key in question_bank.keys():
-        if key.lower() == concept.lower():
-            matched_key = key
-            break
-    if matched_key is None:
-        return json.dumps({"error": f"Belum ada soal untuk konsep {concept}"})
-    soal = question_bank[matched_key][0]
-    return json.dumps({"soal_id": soal["id"], "soal": soal["soal"]})
+def _fmt(q, concept):
+    return {"id": q["id"], "concept": concept, "level": q.get("level", "medium"), "soal": q["soal"]}
+
+def get_question(concept, student_id=None):
+    soal_list = question_bank.get(concept)
+    if not soal_list:
+        return {"error": f"Konsep '{concept}' tidak ditemukan"}
+
+    if not student_id:
+        q = random.choice(soal_list)
+        return _fmt(q, concept)
+
+    cursor.execute(
+        "SELECT soal_id, is_correct FROM attempt_log "
+        "WHERE student_id=? AND concept=? AND soal_id IS NOT NULL ORDER BY id",
+        (student_id, concept))
+    rows = cursor.fetchall()
+    done = {r[0] for r in rows}
+
+    target = "medium"  # soal pertama (termasuk baseline) selalu medium
+    if rows:
+        last_id, last_ok = rows[-1]
+        last_level = next((q.get("level", "medium") for q in soal_list if q["id"] == last_id), "medium")
+        i = LEVELS.index(last_level)
+        target = LEVELS[min(i + 1, 2) if last_ok else max(i - 1, 0)]
+
+    pool = [q for q in soal_list if q["id"] not in done] or soal_list
+    for lv in sorted(LEVELS, key=lambda l: abs(LEVELS.index(l) - LEVELS.index(target))):
+        kandidat = [q for q in pool if q.get("level", "medium") == lv]
+        if kandidat:
+            q = random.choice(kandidat)
+            _last_served[(student_id, concept)] = q["id"]
+            return _fmt(q, concept)
 
 
 def reset_student(student_id):
