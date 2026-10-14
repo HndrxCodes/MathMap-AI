@@ -1,0 +1,591 @@
+{
+  "Operasi Bilangan Bulat": [
+    {
+      "id": "O001",
+      "soal": "Hitung: -4 x (-3)",
+      "jawaban_benar": "12",
+      "distraktor": {
+        "-12": "miskonsepsi_kali_negatif",
+        "-7": "miskonsepsi_tertukar_operasi"
+      },
+      "level": "medium"
+    },
+    {
+      "soal": "Hitung: -6 + 2 x (-4)",
+      "jawaban_benar": "-14",
+      "distraktor": {
+        "16": "miskonsepsi_kali_negatif",
+        "-8": "miskonsepsi_tertukar_operasi"
+      },
+      "id": "O002",
+      "level": "mudah"
+    },
+    {
+      "soal": "Hitung: (-8) x (-2) - 10",
+      "jawaban_benar": "6",
+      "distraktor": {
+        "-26": "miskonsepsi_kali_negatif",
+        "-6": "miskonsepsi_tertukar_operasi"
+      },
+      "id": "O003",
+      "level": "mudah"
+    },
+    {
+      "soal": "Hitung: -5 + (-3) x 4",
+      "jawaban_benar": "-17",
+      "distraktor": {
+        "-8": "miskonsepsi_tertukar_operasi",
+        "-32": "miskonsepsi_kali_negatif"
+      },
+      "id": "O004",
+      "level": "medium"
+    },
+    {
+      "soal": "Hitung: (-2)^3 + 10",
+      "jawaban_benar": "2",
+      "distraktor": {
+        "18": "miskonsepsi_kali_negatif",
+        "4": "miskonsepsi_tertukar_operasi"
+      },
+      "id": "O005",
+      "level": "medium"
+    },
+    {
+      "soal": "Hitung: 12 : (-3) x (-2)",
+      "jawaban_benar": "8",
+      "distraktor": {
+        "-8": "miskonsepsi_kali_negatif",
+        "-2": "miskonsepsi_tertukar_operasi"
+      },
+      "id": "O006",
+      "level": "medium"
+    },
+    {
+      "soal": "Hitung: (-7) x 2 - (-4) x (-3)",
+      "jawaban_benar": "-26",
+      "distraktor": {
+        "-2": "miskonsepsi_kali_negatif",
+        "-16": "miskonsepsi_tertukar_operasi"
+      },
+      "id": "O007",
+      "level": "medium"
+    },
+    {
+      "soal": "Hitung: (-5)^2 x (-2)^3 + 36 : (-6)",
+      "jawaban_benar": "-206",
+      "distraktor": {
+        "-194": "miskonsepsi_kali_negatif",
+        "206": "miskonsepsi_kali_negatif",
+        "-136": "miskonsepsi_tertukar_operasi"
+      },
+      "id": "O008",
+      "level": "sulit"
+    },
+    {
+      "soal": "Hitung: (-48) : 8 x (-3) + (-2)^4 : (-4)",
+      "jawaban_benar": "14",
+      "distraktor": {
+        "-22": "miskonsepsi_kali_negatif",
+        "2": "miskonsepsi_tertukar_operasi",
+        "-14": "miskonsepsi_kali_negatif"
+      },
+      "id": "O009",
+      "level": "sulit"
+    }
+  ],
+  "Aljabar Dasar": [
+    {
+      "id": "A001",
+      "soal": "Sederhanakan: 3x + 5x - 2",
+      "jawaban_benar": "8x - 2",
+      "distraktor": {
+        "6x - 2": "miskonsepsi_gabung_koefisien",
+        "8x - 2x": "miskonsepsi_gabung_suku_tidak_sejenis"
+      },
+      "level": "medium"
+    },
+    {
+      "soal": "Sederhanakan: 2x + 7x - 4",
+      "jawaban_benar": "9x - 4",
+      "distraktor": {
+        "6x - 4": "miskonsepsi_gabung_koefisien",
+        "7x - 2": "miskonsepsi_gabung_koefisien",
+        "5x": "miskonsepsi_gabung_suku_tidak_sejenis"
+      },
+      "id": "A002",
+      "level": "mudah"
+    },
+    {
+      "soal": "Faktorkan: x^2 + 7x + 12",
+      "jawaban_benar": "(x + 3)(x + 4)",
+      "distraktor": {
+        "(x + 2)(x + 6)": "miskonsepsi_gabung_koefisien",
+        "(x + 1)(x + 12)": "miskonsepsi_gabung_koefisien",
+        "x(x + 7) + 12": "miskonsepsi_gabung_suku_tidak_sejenis"
+      },
+      "id": "A003",
+      "level": "mudah"
+    },
+    {
+      "soal": "Sederhanakan: 4a - 3b + 7a + 2b",
+      "jawaban_benar": "11a - b",
+      "distraktor": {
+        "11a - 5b": "miskonsepsi_gabung_koefisien",
+        "4a + 7a - 3b + 2b": "miskonsepsi_gabung_suku_tidak_sejenis"
+      },
+      "id": "A004",
+      "level": "medium"
+    },
+    {
+      "soal": "Faktorkan: x^2 - x - 20",
+      "jawaban_benar": "(x - 5)(x + 4)",
+      "distraktor": {
+        "(x - 10)(x + 2)": "miskonsepsi_gabung_koefisien",
+        "(x - 4)(x + 5)": "miskonsepsi_gabung_suku_tidak_sejenis"
+      },
+      "id": "A005",
+      "level": "medium"
+    },
+    {
+      "soal": "Sederhanakan: (2x^2 + 3x - 1) - (x^2 - 2x + 4)",
+      "jawaban_benar": "x^2 + 5x - 5",
+      "distraktor": {
+        "x^2 + x - 5": "miskonsepsi_gabung_koefisien",
+        "x^2 + 5x + 3": "miskonsepsi_gabung_suku_tidak_sejenis"
+      },
+      "id": "A006",
+      "level": "medium"
+    },
+    {
+      "soal": "Faktorkan: 3x^2 + 14x + 8",
+      "jawaban_benar": "(3x + 2)(x + 4)",
+      "distraktor": {
+        "(3x + 4)(x + 2)": "miskonsepsi_gabung_koefisien",
+        "(3x + 8)(x + 1)": "miskonsepsi_gabung_suku_tidak_sejenis"
+      },
+      "id": "A007",
+      "level": "medium"
+    },
+    {
+      "soal": "Sederhanakan: (4x^2 - 3x + 2) - 2(x^2 + x - 5)",
+      "jawaban_benar": "2x^2 - 5x + 12",
+      "distraktor": {
+        "2x^2 - 5x - 8": "miskonsepsi_gabung_koefisien",
+        "2x^2 - x + 12": "miskonsepsi_gabung_koefisien"
+      },
+      "id": "A008",
+      "level": "sulit"
+    },
+    {
+      "soal": "Faktorkan: 2x^2 + 11x - 21",
+      "jawaban_benar": "(2x - 3)(x + 7)",
+      "distraktor": {
+        "(2x + 3)(x - 7)": "miskonsepsi_gabung_koefisien",
+        "(2x - 7)(x + 3)": "miskonsepsi_gabung_koefisien",
+        "(2x + 21)(x - 1)": "miskonsepsi_gabung_suku_tidak_sejenis"
+      },
+      "id": "A009",
+      "level": "sulit"
+    }
+  ],
+  "Faktorisasi": [
+    {
+      "id": "F001",
+      "soal": "Faktorkan: x^2 - 5x + 6",
+      "jawaban_benar": "(x - 2)(x - 3)",
+      "distraktor": {
+        "(x + 2)(x + 3)": "miskonsepsi_tanda_negatif",
+        "(x - 6)(x - 1)": "miskonsepsi_pemilihan_faktor",
+        "x(x - 5) + 6": "miskonsepsi_tidak_paham_faktorisasi"
+      },
+      "level": "medium"
+    },
+    {
+      "id": "F002",
+      "soal": "Faktorkan: x^2 - 9",
+      "jawaban_benar": "(x - 3)(x + 3)",
+      "distraktor": {
+        "(x - 9)(x + 1)": "miskonsepsi_selisih_kuadrat",
+        "(x - 3)(x - 3)": "miskonsepsi_tanda_negatif"
+      },
+      "level": "medium"
+    },
+    {
+      "soal": "Faktorkan: x^2 + 7x + 12",
+      "jawaban_benar": "(x+3)(x+4)",
+      "distraktor": {
+        "(x-3)(x-4)": "miskonsepsi_tanda_negatif",
+        "(x+6)(x+2)": "miskonsepsi_pemilihan_faktor",
+        "x^2 + 7x + 12": "miskonsepsi_tidak_paham_faktorisasi"
+      },
+      "id": "F003",
+      "level": "mudah"
+    },
+    {
+      "soal": "Faktorkan: x^2 - 16",
+      "jawaban_benar": "(x-4)(x+4)",
+      "distraktor": {
+        "(x-4)^2": "miskonsepsi_selisih_kuadrat",
+        "(x-8)(x+2)": "miskonsepsi_pemilihan_faktor",
+        "x(x-16)": "miskonsepsi_tidak_paham_faktorisasi"
+      },
+      "id": "F004",
+      "level": "mudah"
+    },
+    {
+      "soal": "Faktorkan: x^2 + x - 20",
+      "jawaban_benar": "(x+5)(x-4)",
+      "distraktor": {
+        "(x-5)(x+4)": "miskonsepsi_tanda_negatif",
+        "(x+10)(x-2)": "miskonsepsi_pemilihan_faktor",
+        "x(x+1) - 20": "miskonsepsi_tidak_paham_faktorisasi"
+      },
+      "id": "F005",
+      "level": "medium"
+    },
+    {
+      "soal": "Faktorkan: 4x^2 - 25",
+      "jawaban_benar": "(2x-5)(2x+5)",
+      "distraktor": {
+        "(2x-5)^2": "miskonsepsi_selisih_kuadrat",
+        "(4x-5)(x+5)": "miskonsepsi_pemilihan_faktor",
+        "4(x^2 - 6.25)": "miskonsepsi_tidak_paham_faktorisasi"
+      },
+      "id": "F006",
+      "level": "medium"
+    },
+    {
+      "soal": "Faktorkan: x^2 - 10x + 24",
+      "jawaban_benar": "(x-4)(x-6)",
+      "distraktor": {
+        "(x+4)(x+6)": "miskonsepsi_tanda_negatif",
+        "(x-3)(x-8)": "miskonsepsi_pemilihan_faktor",
+        "x(x-10) + 24": "miskonsepsi_tidak_paham_faktorisasi"
+      },
+      "id": "F007",
+      "level": "medium"
+    },
+    {
+      "soal": "Faktorkan: 9x^2 - 1",
+      "jawaban_benar": "(3x-1)(3x+1)",
+      "distraktor": {
+        "(3x-1)^2": "miskonsepsi_selisih_kuadrat",
+        "(9x-1)(x+1)": "miskonsepsi_pemilihan_faktor",
+        "3(3x^2 - 1/3)": "miskonsepsi_tidak_paham_faktorisasi"
+      },
+      "id": "F008",
+      "level": "medium"
+    },
+    {
+      "soal": "Faktorkan: 2x^2 + 7x - 15",
+      "jawaban_benar": "(2x-3)(x+5)",
+      "distraktor": {
+        "(2x+3)(x-5)": "miskonsepsi_tanda_negatif",
+        "(2x+5)(x-3)": "miskonsepsi_pemilihan_faktor",
+        "2x^2 + 7x - 15 = 2x^2 + 10x - 3x - 15": "miskonsepsi_tidak_paham_faktorisasi"
+      },
+      "id": "F009",
+      "level": "sulit"
+    },
+    {
+      "soal": "Faktorkan: 3x^2 - 11x - 20",
+      "jawaban_benar": "(3x+4)(x-5)",
+      "distraktor": {
+        "(3x-4)(x+5)": "miskonsepsi_tanda_negatif",
+        "(3x-10)(x+2)": "miskonsepsi_pemilihan_faktor",
+        "3x(x - 11) - 20": "miskonsepsi_tidak_paham_faktorisasi"
+      },
+      "id": "F010",
+      "level": "sulit"
+    }
+  ],
+  "Persamaan Kuadrat": [
+    {
+      "id": "P001",
+      "soal": "Selesaikan: x^2 - 5x + 6 = 0",
+      "jawaban_benar": "x = 2 atau x = 3",
+      "distraktor": {
+        "x = -2 atau x = -3": "miskonsepsi_tanda_negatif",
+        "x = 6": "miskonsepsi_tidak_paham_konsep_akar"
+      },
+      "level": "medium"
+    },
+    {
+      "soal": "Faktorkan: x^2 - 7x + 12",
+      "jawaban_benar": "(x-3)(x-4)",
+      "distraktor": {
+        "(x+3)(x+4)": "miskonsepsi_tanda_negatif",
+        "(x-6)(x-2)": "miskonsepsi_pemilihan_faktor",
+        "x=3": "miskonsepsi_tidak_paham_konsep_akar"
+      },
+      "id": "P002",
+      "level": "mudah"
+    },
+    {
+      "soal": "Faktorkan: x^2 + x - 6",
+      "jawaban_benar": "(x+3)(x-2)",
+      "distraktor": {
+        "(x-3)(x+2)": "miskonsepsi_tanda_negatif",
+        "(x+6)(x-1)": "miskonsepsi_pemilihan_faktor",
+        "x=-3": "miskonsepsi_tidak_paham_konsep_akar"
+      },
+      "id": "P003",
+      "level": "mudah"
+    },
+    {
+      "soal": "Faktorkan: x^2 - 9x + 20",
+      "jawaban_benar": "(x-4)(x-5)",
+      "distraktor": {
+        "(x+4)(x+5)": "miskonsepsi_tanda_negatif",
+        "(x-10)(x-2)": "miskonsepsi_pemilihan_faktor",
+        "x = 4 atau x = 5": "miskonsepsi_tidak_paham_konsep_akar"
+      },
+      "id": "P004",
+      "level": "medium"
+    },
+    {
+      "soal": "Selesaikan: x^2 + 2x - 15 = 0",
+      "jawaban_benar": "x = -5 atau x = 3",
+      "distraktor": {
+        "x = 5 atau x = -3": "miskonsepsi_tanda_negatif",
+        "x = -15 atau x = 1": "miskonsepsi_pemilihan_faktor",
+        "x = -5": "miskonsepsi_tidak_paham_konsep_akar"
+      },
+      "id": "P005",
+      "level": "medium"
+    },
+    {
+      "soal": "Faktorkan: 2x^2 + 7x + 3",
+      "jawaban_benar": "(2x+1)(x+3)",
+      "distraktor": {
+        "(2x-1)(x-3)": "miskonsepsi_tanda_negatif",
+        "(2x+3)(x+1)": "miskonsepsi_pemilihan_faktor"
+      },
+      "id": "P006",
+      "level": "medium"
+    },
+    {
+      "soal": "Selesaikan: x^2 - 49 = 0",
+      "jawaban_benar": "x = -7 atau x = 7",
+      "distraktor": {
+        "x = -7 atau x = -7": "miskonsepsi_tanda_negatif",
+        "x = -49 atau x = 1": "miskonsepsi_pemilihan_faktor",
+        "x = 7": "miskonsepsi_tidak_paham_konsep_akar"
+      },
+      "id": "P007",
+      "level": "medium"
+    },
+    {
+      "soal": "Selesaikan: x^2 - 4x - 12 = 0",
+      "jawaban_benar": "x = 6 atau x = -2",
+      "distraktor": {
+        "x = 6": "miskonsepsi_tidak_paham_konsep_akar",
+        "x = -6 atau x = 2": "miskonsepsi_tanda_negatif",
+        "x = 3 atau x = -4": "miskonsepsi_pemilihan_faktor"
+      },
+      "id": "P008",
+      "level": "sulit"
+    },
+    {
+      "soal": "Faktorkan: 3x^2 - 10x - 8",
+      "jawaban_benar": "(3x + 2)(x - 4)",
+      "distraktor": {
+        "(3x - 2)(x + 4)": "miskonsepsi_tanda_negatif",
+        "(3x - 4)(x + 2)": "miskonsepsi_pemilihan_faktor"
+      },
+      "id": "P009",
+      "level": "sulit"
+    }
+  ],
+  "Fungsi": [
+    {
+      "id": "FN001",
+      "soal": "Jika f(x) = 2x + 3, berapa nilai f(4)?",
+      "jawaban_benar": "11",
+      "distraktor": {
+        "14": "miskonsepsi_substitusi_salah",
+        "8": "miskonsepsi_lupa_konstanta"
+      },
+      "level": "medium"
+    },
+    {
+      "soal": "Jika f(x) = 3x - 5, berapa nilai f(2)?",
+      "jawaban_benar": "1",
+      "distraktor": {
+        "6": "miskonsepsi_lupa_konstanta",
+        "-9": "miskonsepsi_substitusi_salah",
+        "11": "miskonsepsi_substitusi_salah"
+      },
+      "id": "U002",
+      "level": "mudah"
+    },
+    {
+      "soal": "Jika g(x) = x^2 + 4, berapa nilai g(3)?",
+      "jawaban_benar": "13",
+      "distraktor": {
+        "10": "miskonsepsi_lupa_konstanta",
+        "19": "miskonsepsi_substitusi_salah"
+      },
+      "id": "U003",
+      "level": "mudah"
+    },
+    {
+      "soal": "Jika f(x) = 5x - 7, berapa nilai f(3)?",
+      "jawaban_benar": "8",
+      "distraktor": {
+        "22": "miskonsepsi_substitusi_salah",
+        "10": "miskonsepsi_lupa_konstanta"
+      },
+      "id": "U004",
+      "level": "medium"
+    },
+    {
+      "soal": "Jika g(x) = 2x^2 - 3x + 1, berapa nilai g(4)?",
+      "jawaban_benar": "21",
+      "distraktor": {
+        "29": "miskonsepsi_substitusi_salah",
+        "33": "miskonsepsi_lupa_konstanta"
+      },
+      "id": "U005",
+      "level": "medium"
+    },
+    {
+      "soal": "Jika h(x) = 10 - 4x, berapa nilai h(2)?",
+      "jawaban_benar": "2",
+      "distraktor": {
+        "12": "miskonsepsi_substitusi_salah",
+        "6": "miskonsepsi_lupa_konstanta"
+      },
+      "id": "U006",
+      "level": "medium"
+    },
+    {
+      "soal": "Jika p(x) = x^2 + 6x - 8, berapa nilai p(5)?",
+      "jawaban_benar": "47",
+      "distraktor": {
+        "55": "miskonsepsi_substitusi_salah",
+        "39": "miskonsepsi_lupa_konstanta"
+      },
+      "id": "U007",
+      "level": "medium"
+    },
+    {
+      "soal": "Jika f(x) = 4x - 7, berapa nilai f(-3)?",
+      "jawaban_benar": "-19",
+      "distraktor": {
+        "-5": "miskonsepsi_lupa_konstanta",
+        "19": "miskonsepsi_substitusi_salah"
+      },
+      "id": "U008",
+      "level": "sulit"
+    },
+    {
+      "soal": "Jika g(x) = 3x^2 - 2x + 5, berapa nilai g(-2)?",
+      "jawaban_benar": "21",
+      "distraktor": {
+        "13": "miskonsepsi_lupa_konstanta",
+        "-11": "miskonsepsi_substitusi_salah"
+      },
+      "id": "U009",
+      "level": "sulit"
+    }
+  ],
+  "Limit": [
+    {
+      "id": "L001",
+      "soal": "Tentukan nilai dari lim x->2 (x^2 - 4)/(x - 2)",
+      "jawaban_benar": "4",
+      "distraktor": {
+        "0": "miskonsepsi_substitusi_langsung",
+        "tidak terdefinisi": "miskonsepsi_bentuk_tak_tentu"
+      },
+      "level": "medium"
+    },
+    {
+      "soal": "Tentukan nilai dari lim x->3 (x^2 - 9)/(x - 3)",
+      "jawaban_benar": "6",
+      "distraktor": {
+        "0/0 atau tidak terdefinisi": "miskonsepsi_bentuk_tak_tentu",
+        "0": "miskonsepsi_substitusi_langsung",
+        "3": "miskonsepsi_substitusi_langsung"
+      },
+      "id": "L002",
+      "level": "mudah"
+    },
+    {
+      "soal": "Tentukan nilai dari lim x->1 (x^2 + 2x - 3)/(x - 1)",
+      "jawaban_benar": "4",
+      "distraktor": {
+        "0/0 atau tidak terdefinisi": "miskonsepsi_bentuk_tak_tentu",
+        "0": "miskonsepsi_substitusi_langsung",
+        "1": "miskonsepsi_substitusi_langsung"
+      },
+      "id": "L003",
+      "level": "mudah"
+    },
+    {
+      "soal": "Tentukan nilai dari lim x->4 (x^2 - 16)/(x - 4)",
+      "jawaban_benar": "8",
+      "distraktor": {
+        "0": "miskonsepsi_substitusi_langsung",
+        "tidak terdefinisi": "miskonsepsi_bentuk_tak_tentu",
+        "4": "miskonsepsi_substitusi_langsung"
+      },
+      "id": "L004",
+      "level": "medium"
+    },
+    {
+      "soal": "Tentukan nilai dari lim x->-2 (x^2 + x - 2)/(x + 2)",
+      "jawaban_benar": "-3",
+      "distraktor": {
+        "0/0": "miskonsepsi_bentuk_tak_tentu",
+        "0": "miskonsepsi_substitusi_langsung",
+        "tidak terdefinisi": "miskonsepsi_bentuk_tak_tentu"
+      },
+      "id": "L005",
+      "level": "medium"
+    },
+    {
+      "soal": "Tentukan nilai dari lim x->5 (x^2 - 2x - 15)/(x - 5)",
+      "jawaban_benar": "8",
+      "distraktor": {
+        "0/0": "miskonsepsi_bentuk_tak_tentu",
+        "10": "miskonsepsi_substitusi_langsung",
+        "tidak terdefinisi": "miskonsepsi_bentuk_tak_tentu"
+      },
+      "id": "L006",
+      "level": "medium"
+    },
+    {
+      "soal": "Tentukan nilai dari lim x->0 (x^2 + 3x)/(x)",
+      "jawaban_benar": "3",
+      "distraktor": {
+        "0": "miskonsepsi_substitusi_langsung",
+        "tidak terdefinisi": "miskonsepsi_bentuk_tak_tentu",
+        "1": "miskonsepsi_substitusi_langsung"
+      },
+      "id": "L007",
+      "level": "medium"
+    },
+    {
+      "soal": "Tentukan nilai dari lim x->3 (x^3 - 27)/(x - 3)",
+      "jawaban_benar": "27",
+      "distraktor": {
+        "0": "miskonsepsi_substitusi_langsung",
+        "tidak terdefinisi": "miskonsepsi_bentuk_tak_tentu"
+      },
+      "id": "L008",
+      "level": "sulit"
+    },
+    {
+      "soal": "Tentukan nilai dari lim x->2 (x^3 - 3x^2 + 3x - 2)/(x^2 - 4)",
+      "jawaban_benar": "3/4",
+      "distraktor": {
+        "0": "miskonsepsi_substitusi_langsung",
+        "tidak terdefinisi": "miskonsepsi_bentuk_tak_tentu"
+      },
+      "id": "L009",
+      "level": "sulit"
+    }
+  ]
+}
