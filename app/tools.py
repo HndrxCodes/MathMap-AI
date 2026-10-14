@@ -397,6 +397,11 @@ all_tools = [
         "description": "Ambil soal matematika untuk konsep tertentu",
         "parameters": {"type": "object", "properties": {"concept": {"type": "string"}}, "required": ["concept"]}
     }},
+    {"type": "function","function": {
+    "name": "get_baseline_status",
+    "description": "Cek status asesmen awal siswa. Mengembalikan konsep berikutnya yang harus diuji, atau ringkasan hasil jika sudah selesai.",
+    "parameters": {"type": "object", "properties": {"student_id": {"type": "string"}}, "required": ["student_id"]}
+    }},
     {"type": "function", "function": {
         "name": "classify_misconception",
         "description": "Analisis jawaban siswa untuk soal tertentu, deteksi apakah benar atau ada miskonsepsi spesifik",
@@ -451,7 +456,8 @@ all_tools = [
 ]
 
 available_functions = {
-    "get_question": lambda args: get_question(args["concept"]),
+    "get_question": lambda args: json.dumps(get_question(args["concept"], args.get("student_id"))),
+    "get_baseline_status": lambda args: json.dumps(get_baseline_status(args["student_id"])),
     "classify_misconception": lambda args: json.dumps(classify_misconception(args["soal_id"], args["jawaban_siswa"])),
     "update_mastery": lambda args: json.dumps(update_mastery(args["student_id"], args["concept"], args["is_correct"], args.get("misconception_code"))),
     "predict_risk": lambda args: json.dumps(predict_risk(args["student_id"], args["target_concept"])),
