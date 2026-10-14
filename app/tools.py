@@ -3,6 +3,13 @@ from app.database import cursor, conn, get_or_create_student
 from app.clients import nebius_client, CLASSIFIER_MODEL, MICROLESSON_MODEL
 
 # ===================== DATA =====================
+import os, random
+
+with open(os.path.join(os.path.dirname(__file__), "question_bank.json"), encoding="utf-8") as f:
+    question_bank = json.load(f)
+
+LEVELS = ["mudah", "medium", "sulit"]
+_last_served = {}  # (student_id, concept) -> soal_id
 
 concept_graph = {
     "Operasi Bilangan Bulat": {"prasyarat": []},
@@ -13,84 +20,6 @@ concept_graph = {
     "Limit": {"prasyarat": ["Fungsi"]}
 }
 
-question_bank = {
-    "Faktorisasi": [
-        {
-            "id": "F001",
-            "soal": "Faktorkan: x^2 - 5x + 6",
-            "jawaban_benar": "(x - 2)(x - 3)",
-            "distraktor": {
-                "(x + 2)(x + 3)": "miskonsepsi_tanda_negatif",
-                "(x - 6)(x - 1)": "miskonsepsi_pemilihan_faktor",
-                "x(x - 5) + 6": "miskonsepsi_tidak_paham_faktorisasi"
-            }
-        },
-        {
-            "id": "F002",
-            "soal": "Faktorkan: x^2 - 9",
-            "jawaban_benar": "(x - 3)(x + 3)",
-            "distraktor": {
-                "(x - 9)(x + 1)": "miskonsepsi_selisih_kuadrat",
-                "(x - 3)(x - 3)": "miskonsepsi_tanda_negatif"
-            }
-        }
-    ],
-    "Operasi Bilangan Bulat": [
-        {
-            "id": "O001",
-            "soal": "Hitung: -4 x (-3)",
-            "jawaban_benar": "12",
-            "distraktor": {
-                "-12": "miskonsepsi_kali_negatif",
-                "-7": "miskonsepsi_tertukar_operasi"
-            }
-        }
-    ],
-    "Aljabar Dasar": [
-        {
-            "id": "A001",
-            "soal": "Sederhanakan: 3x + 5x - 2",
-            "jawaban_benar": "8x - 2",
-            "distraktor": {
-                "6x - 2": "miskonsepsi_gabung_koefisien",
-                "8x - 2x": "miskonsepsi_gabung_suku_tidak_sejenis"
-            }
-        }
-    ],
-    "Persamaan Kuadrat": [
-        {
-            "id": "P001",
-            "soal": "Selesaikan: x^2 - 5x + 6 = 0",
-            "jawaban_benar": "x = 2 atau x = 3",
-            "distraktor": {
-                "x = -2 atau x = -3": "miskonsepsi_tanda_negatif",
-                "x = 6": "miskonsepsi_tidak_paham_konsep_akar"
-            }
-        }
-    ], 
-    "Fungsi": [                                        # ← tambahan baru
-        {
-            "id": "FN001",
-            "soal": "Jika f(x) = 2x + 3, berapa nilai f(4)?",
-            "jawaban_benar": "11",
-            "distraktor": {
-                "14": "miskonsepsi_substitusi_salah",
-                "8": "miskonsepsi_lupa_konstanta"
-            }
-        }
-    ],
-    "Limit": [                                         # ← tambahan baru
-        {
-            "id": "L001",
-            "soal": "Tentukan nilai dari lim x->2 (x^2 - 4)/(x - 2)",
-            "jawaban_benar": "4",
-            "distraktor": {
-                "0": "miskonsepsi_substitusi_langsung",
-                "tidak terdefinisi": "miskonsepsi_bentuk_tak_tentu"
-            }
-        }
-    ]
-}
 
 misconception_map = {
     "miskonsepsi_tanda_negatif": {
