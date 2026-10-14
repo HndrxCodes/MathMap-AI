@@ -67,7 +67,7 @@ def run_agent_turn(user_message, conversation_history, student_id):
         for tool_call in message.tool_calls:
             func_name = tool_call.function.name
             func_args = json.loads(tool_call.function.arguments)
-            if func_name in ("get_question", "get_baseline_status", "update_mastery"):
+            if func_name in ("get_question", "get_baseline_status", "update_mastery", "predict_risk", "create_learning_plan", "set_goal", "get_goal"):
                 func_args["student_id"] = student_id
             result = available_functions[func_name](func_args)
                                        
