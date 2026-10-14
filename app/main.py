@@ -19,7 +19,7 @@ def health():
 @app.post("/api/agent/chat")
 def chat(req: ChatRequest):
     full_message = f"[student_id: {req.student_id}] {req.message}"
-    reply, updated_history = run_agent_turn(full_message, req.history)
+    reply, updated_history = run_agent_turn(full_message, req.history, req.student_id)
     return {"reply": reply, "history": updated_history}
 
 from app.tools import get_mastery_map, get_goal
