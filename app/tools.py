@@ -153,13 +153,15 @@ def update_mastery(student_id, concept, is_correct, misconception_code=None, is_
         VALUES (?, ?, ?)
         ON CONFLICT(student_id, concept) DO UPDATE SET score = ?, updated_at = CURRENT_TIMESTAMP
     ''', (student_id, concept, new_score, new_score))
-
+    
+    soal_id = _last_served.pop((student_id, concept), None)
     cursor.execute('''
-        INSERT INTO attempt_log (student_id, concept, is_correct, misconception_code, score_before, score_after, is_baseline_test)
-        VALUES (?, ?, ?, ?, ?, ?, ?)
-    ''', (student_id, concept, int(is_correct), misconception_code, current_score, new_score, int(is_baseline_test)))
-
-    conn.commit()
+        INSERT INTO attempt_log (student_id, concept, is_correct, misconception_code, score_before, score_after, is_baseline_test, soal_id)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    ''', (student_id, concept, int(is_correct), misconception_code, current_score, new_score, int(is_baseline_test), soal_id))
+    
+    
+    conn.commit() 
 
     return {
         "student_id": student_id,
