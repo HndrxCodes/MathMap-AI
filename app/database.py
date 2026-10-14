@@ -41,6 +41,10 @@ CREATE TABLE IF NOT EXISTS goals (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )
 ''')
+try:
+    cursor.execute("ALTER TABLE attempt_log ADD COLUMN soal_id TEXT")
+except sqlite3.OperationalError:
+    pass  # kolom sudah ada
 conn.commit()
 
 def get_or_create_student(student_id):
