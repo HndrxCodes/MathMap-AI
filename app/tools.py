@@ -299,7 +299,124 @@ def get_baseline_status(student_id):
 
 
 
-# ===================== TOOLS YANG PAKAI LLM =====================
+
+# ===== PEMERIKSA JAWABAN DETERMINISTIK (tanpa LLM) =====
+import re
+from sympy import Mul, Rational, expand
+from sympy.parsing.sympy_parser import (parse_expr, standard_transformations,
+    implicit_multiplication_application, convert_xor)
+
+_T = standard_transformations + (implicit_multiplication_application, convert_xor)
+_NUM = r"-?\d+(?:\.\d+)?(?:/\d+)?"
+
+
+def _norm(s):
+    s = str(s).strip().lower()
+    for a, b in (("−", "-"), ("–", "-"), ("×", "*"), ("÷", "/"), ("\\times", "*"),
+                 ("\\cdot", "*"), ("\\", ""), ("$", "")):
+        s = s.replace(a, b)
+    return re.sub(r"\s+", " ", s).strip()
+
+
+def _to_num(tok):
+    try:
+        return Rational(tok.replace(",", "."))
+    except Exception:
+        return None
+
+
+def _is_solution_form(key):
+    return re.match(r"^\s*[a-z]\s*=", _norm(key)) is not None
+
+
+def _solutions(s):
+    vals = set()
+    for m in re.finditer(r"(±)?\s*(" + _NUM + ")", _norm(s)):
+        n = _to_num(m.group(2))
+        if n is None:
+            continue
+        vals.add(n)
+        if m.group(1):
+            vals.add(-n)
+    return vals
+
+
+def _parse(s, evaluate=True):
+    s = _norm(s)
+    if "=" in s:
+        s = s.split("=")[-1].strip()
+    try:
+        return parse_expr(s, transformations=_T, evaluate=evaluate)
+    except Exception:
+        return None
+
+
+def _as_number(s):
+    s = _norm(s)
+    if "=" in s:
+        s = s.split("=")[-1]
+    toks = re.findall(_NUM, s)
+    return _to_num(toks[-1]) if toks else None
+
+
+def _is_product(e):
+    return isinstance(e, Mul) and len(e.args) >= 2
+
+
+def _same(student, cand, factor_q):
+    ns, nc = _norm(student), _norm(cand)
+    if ns.replace(" ", "") == nc.replace(" ", ""):
+        return True
+    if _is_solution_form(cand):
+        return bool(_solutions(student)) and _solutions(student) == _solutions(cand)
+    cn = _to_num(nc) if re.fullmatch(_NUM, nc) else None
+    if cn is not None:
+        sn = _as_number(student)
+        return sn is not None and sn == cn
+    es, ec = _parse(student), _parse(cand)
+    if es is None or ec is None:
+        return False
+    try:
+        if expand(es - ec) != 0:
+            return False
+    except Exception:
+        return False
+    if factor_q:
+        return _is_product(_parse(student, False)) == _is_product(_parse(cand, False))
+    return True
+
+
+def cek_jawaban(soal_data, jawaban):
+    """('benar', None) | ('salah', kode) | ('salah', None) | (None, None = tidak terbaca)."""
+    key = soal_data["jawaban_benar"]
+    factor_q = ")(" in key.replace(" ", "")
+    if _same(jawaban, key, factor_q):
+        return "benar", None
+    for d, kode in soal_data["distraktor"].items():
+        if _same(jawaban, d, factor_q):
+            return "salah", kode
+    if factor_q and "miskonsepsi_tidak_paham_faktorisasi" in soal_data["distraktor"].values():
+        es = _parse(jawaban, False)
+        if es is not None and not _is_product(es):
+            return "salah", "miskonsepsi_tidak_paham_faktorisasi"
+    if _is_solution_form(key):
+        terbaca = bool(_solutions(jawaban))
+    elif re.fullmatch(_NUM, _norm(key)):
+        terbaca = _as_number(jawaban) is not None
+    else:
+        terbaca = _parse(jawaban) is not None
+    return ("salah", None) if terbaca else (None, None)
+
+
+def _hasil_salah(kode):
+    detail = misconception_map.get(kode, {})
+    return {
+        "status": "salah",
+        "kode_miskonsepsi": kode,
+        "deskripsi": detail.get("deskripsi", "Tidak diketahui"),
+        "akar_masalah": detail.get("akar_masalah", "Tidak diketahui"),
+    }
+
 
 def classify_misconception(soal_id, jawaban_siswa):
     soal_data = None
@@ -310,46 +427,43 @@ def classify_misconception(soal_id, jawaban_siswa):
                 break
         if soal_data:
             break
-
     if soal_data is None:
         return {"error": "Soal tidak ditemukan"}
 
-    daftar_miskonsepsi = "\n".join([
-        f"- {kode}: {misconception_map[kode]['deskripsi']}"
-        for kode in soal_data["distraktor"].values()
-    ])
+    status, kode = cek_jawaban(soal_data, jawaban_siswa)
+    if status == "benar":
+        return {"status": "benar"}
+    if status == "salah" and kode:
+        return _hasil_salah(kode)
 
-    prompt = f"""Kamu adalah sistem diagnosis kesalahan matematika.
+    # Benar/salah sudah diputuskan kode. LLM hanya memilih KATEGORI miskonsepsi.
+    kodes = list(dict.fromkeys(soal_data["distraktor"].values()))
+    daftar = "\n".join(f"- {k}: {misconception_map[k]['deskripsi']}" for k in kodes)
+    prompt = f"""Jawaban siswa di bawah ini SUDAH dipastikan SALAH.
 
 Soal: {soal_data['soal']}
-Jawaban benar: {soal_data['jawaban_benar']}
 Jawaban siswa: {jawaban_siswa}
 
-Kemungkinan kategori miskonsepsi untuk soal ini:
-{daftar_miskonsepsi}
+Pilih kategori miskonsepsi yang paling cocok:
+{daftar}
 
-Jika jawaban siswa BENAR, balas hanya dengan: BENAR
-Jika SALAH, tentukan kategori miskonsepsi mana yang paling cocok dari daftar di atas.
-Balas HANYA dengan kode miskonsepsi-nya (contoh: miskonsepsi_tanda_negatif), tanpa penjelasan."""
-
-    response = nebius_client.chat.completions.create(
-        model=CLASSIFIER_MODEL,
-        messages=[{"role": "user", "content": prompt}]
-    )
-    hasil = response.choices[0].message.content.strip()
-
-    if hasil == "BENAR":
-        return {"status": "benar"}
-    else:
-        detail = misconception_map.get(hasil, {})
-        return {
-            "status": "salah",
-            "kode_miskonsepsi": hasil,
-            "deskripsi": detail.get("deskripsi", "Tidak diketahui"),
-            "akar_masalah": detail.get("akar_masalah", "Tidak diketahui")
-        }
+Balas HANYA dengan satu kode dari daftar, tanpa penjelasan. Jika tidak ada yang cocok, balas: TIDAK_ADA"""
+    try:
+        response = nebius_client.chat.completions.create(
+            model=CLASSIFIER_MODEL,
+            messages=[{"role": "user", "content": prompt}]
+        )
+        hasil = (response.choices[0].message.content or "").strip()
+    except Exception:
+        hasil = ""
+    hasil = hasil if hasil in kodes else None
+    return _hasil_salah(hasil) if hasil else {
+        "status": "salah", "kode_miskonsepsi": None,
+        "deskripsi": "Tidak diketahui", "akar_masalah": "Tidak diketahui"}
 
 
+
+# ===================== TOOLS YANG PAKAI LLM =====================
 def generate_micro_lesson(concept, student_misconception=None, bahasa_siswa="Indonesia"):
     context = ""
     if student_misconception:
