@@ -90,6 +90,11 @@ def clean(s):
 def latex_ok(s):
     return bool(s) and "$" not in s and "\\\\" not in s and s.count("{") == s.count("}")
 
+def _loads(s):
+    try:
+        return json.loads(s)
+    except json.JSONDecodeError:  # backslash LaTeX yang tidak di-escape (\sqrt, \lim)
+        return json.loads(re.sub(r'\\(?!["\\/bfnrtu])', r'\\\\', s))
 
 def generate(concept, level, n, existing):
     cfg = CONCEPTS[concept]
@@ -111,9 +116,12 @@ Allowed misconceptions:
 """
     tail = '\nReturn ONLY a JSON array: [{"stem": "...", "math": "...", "correct": "...", "distractors": [{"math": "...", "misconception": "...", "reason": "..."}], "solution": "..."}]\n' + JSON_NOTE
     txt = llm(GEN_MODEL, head + tail, 0.8)
-    a, b = txt.find("[{"), txt.rfind("}]")
-    return json.loads(txt[a:b + 2])
-
+    s = re.search(r"\[\s*\{", txt)
+    ends = list(re.finditer(r"\}\s*\]", txt))
+    if not s or not ends:
+        open("last_raw.txt", "w", encoding="utf-8").write(txt)
+        raise ValueError("tidak ada JSON array; awal output: " + txt[:150].replace("\n", " "))
+    return _loads(txt[s.start():ends[-1].end()])
 
 def build(concept, level, raw):
     allowed = CONCEPTS[concept]["codes"]
