@@ -451,6 +451,9 @@ def classify_misconception(soal_id, jawaban_siswa):
         return {"status": "benar"}
     if status == "salah" and kode:
         return _hasil_salah(kode)
+    if status == "format":
+        return {"status": "perlu_klarifikasi",
+                "pesan": "Jawaban tidak memakai kurung lengkap sehingga artinya ambigu. Minta siswa menulis ulang dengan kurung di setiap faktor, misal (x-3)(x+3)."}
 
     # Benar/salah sudah diputuskan kode. LLM hanya memilih KATEGORI miskonsepsi.
     kodes = list(dict.fromkeys(soal_data["distraktor"].values()))
