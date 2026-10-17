@@ -123,6 +123,10 @@ Allowed misconceptions:
         raise ValueError("tidak ada JSON array; awal output: " + txt[:150].replace("\n", " "))
     return _loads(txt[s.start():ends[-1].end()])
 
+def canon(t):  # urutan faktor tidak dianggap beda
+    parts = re.findall(r"\([^()]*\)|[^()]+", re.sub(r"\s+", "", t))
+    return "".join(sorted(parts))
+
 def build(concept, level, raw):
     allowed = CONCEPTS[concept]["codes"]
     try:
@@ -133,7 +137,7 @@ def build(concept, level, raw):
         return None, "struct"
     if len(ds) != 4: return None, "need_4_distractors"
     texts = [correct] + [d[0] for d in ds]
-    if len({re.sub(r"\s+", "", t) for t in texts}) != 5: return None, "duplicate_options"
+    if len({canon(t) for t in texts}) != 5: return None, "duplicate_options"
     if any(d[1] not in allowed for d in ds): return None, "bad_code"
     if not all(latex_ok(t) for t in texts + [math]): return None, "bad_latex"
     flags = []
@@ -157,7 +161,7 @@ def verify(q):
 {q['stem']}
 {q['math']}
 {opts}
-List ALL options that are mathematically correct, and name the topic it belongs to (exactly one of):
+Judge each option against the exact instruction in the question (for example, 'completely' means no common factor may remain). List ALL options that correctly answer it, and name the topic it belongs to (exactly one of):
 {cfg_topics}
 Reply with ONLY this JSON: {{"correct": ["C"], "topic": "Factoring"}}"""
     out = llm(VERIFY_MODEL, prompt, 0)
