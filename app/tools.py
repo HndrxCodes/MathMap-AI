@@ -386,12 +386,28 @@ def _same(student, cand, factor_q):
     return True
 
 
+def _format_ambigu(key, jawaban):
+    """Siswa lupa kurung, misal '(x-3) x+3' padahal maksudnya '(x-3)(x+3)'."""
+    if ")(" not in key.replace(" ", ""):
+        return False
+    s = _norm(jawaban)
+    i = s.rfind(")")
+    if i < 0 or i == len(s) - 1:
+        return False
+    sisa = s[i + 1:].strip()
+    if not sisa:
+        return False
+    return _same(s[:i + 1] + "(" + sisa + ")", key, True)
+
+
 def cek_jawaban(soal_data, jawaban):
     """('benar', None) | ('salah', kode) | ('salah', None) | (None, None = tidak terbaca)."""
     key = soal_data["jawaban_benar"]
     factor_q = ")(" in key.replace(" ", "")
     if _same(jawaban, key, factor_q):
         return "benar", None
+    if _format_ambigu(key, jawaban):
+        return "format", None   
     for d, kode in soal_data["distraktor"].items():
         if _same(jawaban, d, factor_q):
             return "salah", kode
