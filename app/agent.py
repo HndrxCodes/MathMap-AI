@@ -20,9 +20,8 @@ PRINSIP
 
 2. SETIAP JAWABAN SISWA (tanpa pengecualian)
 a. Panggil classify_misconception.
-b. Panggil update_mastery dengan is_correct dan misconception_code dari hasil (a). Wajib, walau kamu sudah tahu jawabannya.
-c. Jika classify_misconception mengembalikan status "perlu_klarifikasi": minta siswa menulis ulang jawabannya dengan kurung lengkap, JANGAN panggil update_mastery, dan JANGAN ganti soal. Tunggu jawaban barunya.
-d. Jika asesmen awal sedang berjalan, ikuti aturan 1. Jika tidak: benar → beri semangat singkat; salah → ...
+b. Jika hasil (a) berstatus "perlu_klarifikasi": minta siswa menulis ulang jawabannya dengan kurung lengkap, JANGAN panggil update_mastery, JANGAN ganti soal, lalu berhenti. Selain itu, panggil update_mastery dengan is_correct dan misconception_code dari hasil (a). Wajib, walau kamu sudah tahu jawabannya.
+c. Jika asesmen awal sedang berjalan, ikuti aturan 1. Jika tidak: benar → beri semangat singkat; salah → ...
 
 3. GOAL
 - Siswa belum punya goal (dan asesmen selesai): tanyakan target belajarnya, lalu panggil set_goal.
