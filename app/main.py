@@ -34,4 +34,6 @@ def mastery(student_id: str):
 
 from fastapi.staticfiles import StaticFiles
 
+from app.baseline import router as baseline_router
+app.include_router(baseline_router)
 app.mount("/", StaticFiles(directory="static", html=True), name="static")
