@@ -183,28 +183,37 @@ def check(q):
         flags.append("verify_failed")
     if flags: q["review"] = flags
     return q
+  
 
-
-def make_concept(concept):
-    pre, out, seen = CONCEPTS[concept]["prefix"], [], set()
+def make_concept(concept, keep=None):
+    pre, out = CONCEPTS[concept]["prefix"], list(keep or [])
+    seen = {re.sub(r"\s+", "", q["math"]) for q in out}
     for level, count in PLAN.items():
+        have = sum(1 for q in out if q["level"] == level)
         got, tries = [], 0
-        while len(got) < count and tries < 3:
+        while have + len(got) < count and tries < 3:
             tries += 1
             try:
-                raws = generate(concept, level, count - len(got), [q["math"] for q in out + got])
+                raws = generate(concept, level, count - have - len(got), [q["math"] for q in out + got])
             except Exception as e:
                 print("  gagal generate:", concept, level, e, flush=True); continue
             for raw in raws:
                 q, err = build(concept, level, raw)
-                if q is None or re.sub(r"\s+", "", q["math"]) in seen or len(got) >= count: continue
-                seen.add(re.sub(r"\s+", "", q["math"]))
-                got.append(check(q))
-            print(f"  {concept} {level}: {len(got)}/{count} (percobaan {tries})", flush=True)
+                if q is None or have + len(got) >= count: continue
+                k = re.sub(r"\s+", "", q["math"])
+                if k in seen: continue
+                q = check(q)
+                if any(f.startswith("verifier:") for f in q.get("review", [])):
+                    print("  dibuang (verifier tidak setuju):", q["math"], flush=True); continue
+                seen.add(k); got.append(q)
+            print(f"  {concept} {level}: {have + len(got)}/{count} (percobaan {tries})", flush=True)
         out += got
-    for i, q in enumerate(out, 1): q["id"] = f"{pre}-{i:03d}"
+    n = max([int(q["id"].split("-")[1]) for q in out if "id" in q], default=0)
+    for q in out:
+        if "id" not in q:
+            n += 1; q["id"] = f"{pre}-{n:03d}"
     return out
-
+  
 
 if __name__ == "__main__":
     path = f"{OUT}/question_bank_v2.json"
