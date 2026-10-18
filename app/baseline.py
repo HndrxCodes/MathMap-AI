@@ -31,8 +31,12 @@ LEVEL_ORDER = {"easy": 0, "medium": 1, "hard": 2}
 def _init():
     cur = conn.cursor()
     cur.execute("""CREATE TABLE IF NOT EXISTS baseline_sessions (
-        session_id TEXT PRIMARY KEY, student_id TEXT, plan TEXT, result TEXT,
+        session_id TEXT PRIMARY KEY, student_id TEXT, plan TEXT, result TEXT,    
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, submitted_at TIMESTAMP)""")
+    try:
+        cur.execute("ALTER TABLE goals ADD COLUMN goal_type TEXT")
+    except Exception:
+        pass  # kolom sudah ada
     conn.commit()
 
 
@@ -175,3 +179,22 @@ def baseline_result(student_id: str):
                 "ORDER BY submitted_at DESC LIMIT 1", (student_id,))
     row = cur.fetchone()
     return json.loads(row[0]) if row else {"result": None}
+
+
+class GoalReq(BaseModel):
+    student_id: str
+    goal_type: str  # test_prep | mastery | find_gaps
+    topics: list = []
+
+
+@router.post("/goal")
+def save_goal(req: GoalReq):
+    cur = conn.cursor()
+    cur.execute("INSERT OR IGNORE INTO students (student_id) VALUES (?)", (req.student_id,))
+    target = req.topics[0] if req.topics else None
+    desc = json.dumps(req.topics)
+    cur.execute("INSERT INTO goals (student_id, target_concept, description, goal_type) VALUES (?,?,?,?) "
+                "ON CONFLICT(student_id) DO UPDATE SET target_concept=?, description=?, goal_type=?",
+                (req.student_id, target, desc, req.goal_type, target, desc, req.goal_type))
+    conn.commit()
+    return {"ok": True}
