@@ -218,8 +218,12 @@ def make_concept(concept, keep=None):
 if __name__ == "__main__":
     path = f"{OUT}/question_bank_v2.json"
     bank = json.load(open(path, encoding="utf-8")) if os.path.exists(path) else {}
-    for c in (sys.argv[1:] or list(CONCEPTS)):
-        bank[c] = make_concept(c)
+    fill = "--fill" in sys.argv
+    for c in ([a for a in sys.argv[1:] if not a.startswith("--")] or list(CONCEPTS)):
+        keep = None
+        if fill:  # pertahankan soal yang tidak ditandai verifier, isi kekurangannya
+            keep = [q for q in bank.get(c, []) if not any(f.startswith(("verifier:", "verify_failed")) for f in q.get("review", []))]
+        bank[c] = make_concept(c, keep)
         json.dump(bank, open(path, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
         print("selesai:", c, len(bank[c]), "soal", flush=True)
     json.dump({k: {"label": v[0], "description": v[1], "root_concept": v[2]} for k, v in MISC.items()},
