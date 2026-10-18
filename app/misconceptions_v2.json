@@ -1,0 +1,117 @@
+{
+  "miskonsepsi_kali_negatif": {
+    "label": "Negative times negative",
+    "description": "Believes a negative times a negative stays negative.",
+    "root_concept": "Operasi Bilangan Bulat"
+  },
+  "miskonsepsi_tertukar_operasi": {
+    "label": "Swapped operation",
+    "description": "Uses the wrong operation, e.g. adds instead of multiplies.",
+    "root_concept": "Operasi Bilangan Bulat"
+  },
+  "miskonsepsi_urutan_operasi": {
+    "label": "Order of operations",
+    "description": "Ignores the order of operations, e.g. adds before multiplying or works strictly left to right.",
+    "root_concept": "Operasi Bilangan Bulat"
+  },
+  "miskonsepsi_tanda_pengurangan": {
+    "label": "Subtracting a negative",
+    "description": "Treats subtracting a negative number as subtracting a positive one, e.g. 5 - (-3) = 2.",
+    "root_concept": "Operasi Bilangan Bulat"
+  },
+  "miskonsepsi_gabung_koefisien": {
+    "label": "Adding coefficients wrongly",
+    "description": "Adds the coefficients of like terms incorrectly.",
+    "root_concept": "Aljabar Dasar"
+  },
+  "miskonsepsi_gabung_suku_tidak_sejenis": {
+    "label": "Combining unlike terms",
+    "description": "Combines terms that are not like terms, e.g. 2x + 3 = 5x.",
+    "root_concept": "Aljabar Dasar"
+  },
+  "miskonsepsi_substitusi_salah": {
+    "label": "Wrong substitution",
+    "description": "Substitutes a value incorrectly or mixes up the order of operations.",
+    "root_concept": "Aljabar Dasar"
+  },
+  "miskonsepsi_distribusi": {
+    "label": "Distribution errors",
+    "description": "Distributes a factor or a minus sign to only the first term inside brackets.",
+    "root_concept": "Aljabar Dasar"
+  },
+  "miskonsepsi_pindah_ruas": {
+    "label": "Moving terms across '='",
+    "description": "Keeps the same sign when moving a term to the other side of an equation.",
+    "root_concept": "Aljabar Dasar"
+  },
+  "miskonsepsi_kuadrat_jumlah": {
+    "label": "Squaring a sum",
+    "description": "Expands (a+b)^2 as a^2+b^2 and drops the middle term.",
+    "root_concept": "Aljabar Dasar"
+  },
+  "miskonsepsi_coret_salah": {
+    "label": "Cancelling terms, not factors",
+    "description": "Cancels individual terms across a fraction instead of common factors.",
+    "root_concept": "Aljabar Dasar"
+  },
+  "miskonsepsi_faktor_persekutuan": {
+    "label": "Common factor",
+    "description": "Misses or mishandles a common factor when factoring.",
+    "root_concept": "Aljabar Dasar"
+  },
+  "miskonsepsi_lupa_ruas_nol": {
+    "label": "Equation not set to zero",
+    "description": "Applies the zero-product rule without first moving everything to one side.",
+    "root_concept": "Aljabar Dasar"
+  },
+  "miskonsepsi_selisih_kuadrat": {
+    "label": "Difference of squares",
+    "description": "Does not recognise a^2 - b^2 = (a-b)(a+b) and tries another method.",
+    "root_concept": "Aljabar Dasar"
+  },
+  "miskonsepsi_pemilihan_faktor": {
+    "label": "Wrong factor pair",
+    "description": "Picks numbers that do not satisfy both the product and the sum conditions.",
+    "root_concept": "Aljabar Dasar"
+  },
+  "miskonsepsi_tanda_negatif": {
+    "label": "Sign errors",
+    "description": "Finds the right numbers but gets the plus/minus signs wrong.",
+    "root_concept": "Operasi Bilangan Bulat"
+  },
+  "miskonsepsi_tidak_paham_faktorisasi": {
+    "label": "Not a product",
+    "description": "Gives an answer that is not a product of factors; does not see factoring as the reverse of multiplying.",
+    "root_concept": "Faktorisasi"
+  },
+  "miskonsepsi_tidak_paham_konsep_akar": {
+    "label": "Only one root",
+    "description": "Does not realise a quadratic can have two roots and gives only one.",
+    "root_concept": "Persamaan Kuadrat"
+  },
+  "miskonsepsi_rumus_abc": {
+    "label": "Quadratic formula slips",
+    "description": "Makes sign or division errors in the quadratic formula.",
+    "root_concept": "Persamaan Kuadrat"
+  },
+  "miskonsepsi_lupa_konstanta": {
+    "label": "Forgotten constant",
+    "description": "Forgets to add or subtract the constant after multiplying.",
+    "root_concept": "Fungsi"
+  },
+  "miskonsepsi_komposisi_fungsi": {
+    "label": "Composition order",
+    "description": "Applies functions in the wrong order or multiplies them instead of composing.",
+    "root_concept": "Fungsi"
+  },
+  "miskonsepsi_substitusi_langsung": {
+    "label": "Direct substitution on 0/0",
+    "description": "Substitutes the limit value directly and does not notice a 0/0 form.",
+    "root_concept": "Fungsi"
+  },
+  "miskonsepsi_bentuk_tak_tentu": {
+    "label": "Indeterminate form",
+    "description": "Does not know how to handle 0/0 and answers 'undefined'.",
+    "root_concept": "Faktorisasi"
+  }
+}

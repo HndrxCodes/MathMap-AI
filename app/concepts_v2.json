@@ -1,0 +1,26 @@
+{
+  "Operasi Bilangan Bulat": {
+    "display": "Integer Operations",
+    "plain": "Adding, subtracting, multiplying and dividing positive and negative numbers"
+  },
+  "Aljabar Dasar": {
+    "display": "Basic Algebra",
+    "plain": "Simplifying expressions and solving simple equations with x"
+  },
+  "Faktorisasi": {
+    "display": "Factoring",
+    "plain": "Rewriting an expression like x^2 + 5x + 6 as a product such as (x+2)(x+3)"
+  },
+  "Persamaan Kuadrat": {
+    "display": "Quadratic Equations",
+    "plain": "Finding x when an equation contains x^2, like x^2 - 5x + 6 = 0"
+  },
+  "Fungsi": {
+    "display": "Functions",
+    "plain": "Plugging numbers into rules like f(x) = 2x + 3 and combining functions"
+  },
+  "Limit": {
+    "display": "Limits",
+    "plain": "What a value gets close to, e.g. what (x^2-9)/(x-3) approaches as x nears 3"
+  }
+}

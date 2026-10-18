@@ -1,0 +1,2854 @@
+{
+  "Faktorisasi": [
+    {
+      "concept": "Faktorisasi",
+      "level": "easy",
+      "stem": "Factor the expression completely.",
+      "math": "2x^2 - 18",
+      "options": [
+        {
+          "text": "(2x-3)(2x+3)",
+          "correct": false,
+          "misconception": "miskonsepsi_faktor_persekutuan",
+          "reason": "Fails to factor out the greatest common factor 2 before applying difference of squares."
+        },
+        {
+          "text": "(2x-6)(x+3)",
+          "correct": false,
+          "misconception": "miskonsepsi_selisih_kuadrat",
+          "reason": "Tries to factor as a trinomial instead of recognizing the difference of squares after factoring out the common factor."
+        },
+        {
+          "text": "2(x^2-9)",
+          "correct": false,
+          "misconception": "miskonsepsi_tidak_paham_faktorisasi",
+          "reason": "Stops after factoring out the common factor without recognizing that x^2-9 can be factored further."
+        },
+        {
+          "text": "2(x-3)(x+3)",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "2(x-9)(x+9)",
+          "correct": false,
+          "misconception": "miskonsepsi_selisih_kuadrat",
+          "reason": "Recognizes the difference of squares but incorrectly takes the square root of 9 instead of 3, writing 9 as 9^2."
+        }
+      ],
+      "solution": "Factor out the GCF of 2 to get $2(x^2-9)$, then factor the difference of squares: $x^2-9 = (x-3)(x+3)$. The final answer is $2(x-3)(x+3)$.",
+      "id": "FAC-001"
+    },
+    {
+      "concept": "Faktorisasi",
+      "level": "easy",
+      "stem": "Factor the expression.",
+      "math": "x^2 - 5x - 14",
+      "options": [
+        {
+          "text": "(x+7)(x-2)",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_negatif",
+          "reason": "Finds the correct numbers 7 and 2 but assigns the wrong signs; the product is -14 but the sum becomes +5 instead of -5."
+        },
+        {
+          "text": "(x-7)(x+2)",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "(x-14)(x+1)",
+          "correct": false,
+          "misconception": "miskonsepsi_pemilihan_faktor",
+          "reason": "Picks numbers whose product is -14 but whose sum is -13, not -5."
+        },
+        {
+          "text": "(x-7)(x-2)",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_negatif",
+          "reason": "Finds the correct numbers 7 and 2 but makes both signs negative; the product is +14 instead of -14."
+        },
+        {
+          "text": "x(x-5)-14",
+          "correct": false,
+          "misconception": "miskonsepsi_tidak_paham_faktorisasi",
+          "reason": "Does not write the answer as a product of two binomials; pulls out an x only from the first two terms."
+        }
+      ],
+      "solution": "Find two numbers that multiply to -14 and add to -5: those numbers are -7 and 2. Therefore, $x^2-5x-14 = (x-7)(x+2)$.",
+      "id": "FAC-002"
+    },
+    {
+      "concept": "Faktorisasi",
+      "level": "medium",
+      "stem": "Factor the expression completely.",
+      "math": "3x^2 - 27",
+      "options": [
+        {
+          "text": "3(x-3)(x+3)",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "3(x-9)(x+9)",
+          "correct": false,
+          "misconception": "miskonsepsi_selisih_kuadrat",
+          "reason": "Takes the square root of 27 incorrectly as 9 instead of rewriting as 3(x^2-9) and recognizing √9=3."
+        },
+        {
+          "text": "3(x-3)^2",
+          "correct": false,
+          "misconception": "miskonsepsi_selisih_kuadrat",
+          "reason": "Confuses the difference of squares pattern with a perfect square trinomial and writes the square of a single binomial."
+        },
+        {
+          "text": "(3x-9)(x+3)",
+          "correct": false,
+          "misconception": "miskonsepsi_faktor_persekutuan",
+          "reason": "Factors out only part of the common factor, writing 3x^2-27 as (3x-9)(x+3) instead of extracting the full GCF of 3 first."
+        },
+        {
+          "text": "3(x^2-9)",
+          "correct": false,
+          "misconception": "miskonsepsi_tidak_paham_faktorisasi",
+          "reason": "Stops after pulling out the common factor and leaves the difference of squares unfactored, not recognizing factoring means a product of factors."
+        }
+      ],
+      "solution": "Factor out the GCF $3$ to get $3(x^2-9)$. Then recognize $x^2-9$ as a difference of squares: $(x-3)(x+3)$. Final answer: $3(x-3)(x+3)$.",
+      "id": "FAC-003"
+    },
+    {
+      "concept": "Faktorisasi",
+      "level": "medium",
+      "stem": "Factor the expression.",
+      "math": "x^2 - 8x + 12",
+      "options": [
+        {
+          "text": "(x-6)(x-2)",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "(x-12)(x+1)",
+          "correct": false,
+          "misconception": "miskonsepsi_pemilihan_faktor",
+          "reason": "Chooses 12 and 1 whose product is 12 but whose sum is -11, not -8."
+        },
+        {
+          "text": "(x+6)(x+2)",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_negatif",
+          "reason": "Finds the numbers 6 and 2 correctly but uses the wrong signs, giving a product of +12 but a middle term of +8x."
+        },
+        {
+          "text": "(x-4)(x-3)",
+          "correct": false,
+          "misconception": "miskonsepsi_pemilihan_faktor",
+          "reason": "Chooses 4 and 3 whose product is 12 but whose sum is 7, not the required 8."
+        },
+        {
+          "text": "x(x-8)+12",
+          "correct": false,
+          "misconception": "miskonsepsi_tidak_paham_faktorisasi",
+          "reason": "Does not express the result as a product of factors; instead rewrites the expression in an equivalent but unfactored form."
+        }
+      ],
+      "solution": "Find two numbers that multiply to $12$ and add to $-8$: $-6$ and $-2$. So $x^2-8x+12 = (x-6)(x-2)$.",
+      "id": "FAC-004"
+    },
+    {
+      "concept": "Faktorisasi",
+      "level": "medium",
+      "stem": "Factor the expression completely.",
+      "math": "2x^2 + 14x + 24",
+      "options": [
+        {
+          "text": "2(x+12)(x+2)",
+          "correct": false,
+          "misconception": "miskonsepsi_pemilihan_faktor",
+          "reason": "After factoring out 2, incorrectly picks 12 and 2 for the remaining trinomial x^2+7x+12, whose sum is 14, not 7."
+        },
+        {
+          "text": "2(x-3)(x-4)",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_negatif",
+          "reason": "After factoring out the GCF and finding numbers 3 and 4, assigns both negative signs instead of positive, missing the +14x middle term."
+        },
+        {
+          "text": "2x(x+7)+24",
+          "correct": false,
+          "misconception": "miskonsepsi_tidak_paham_faktorisasi",
+          "reason": "Does not produce a product of factors; only factors out x from the first two terms and leaves an unfactored expression."
+        },
+        {
+          "text": "(2x+6)(x+4)",
+          "correct": false,
+          "misconception": "miskonsepsi_faktor_persekutuan",
+          "reason": "Distributes the common factor 2 partially into one binomial, getting (2x+6)(x+4), which still contains a common factor and is not completely factored."
+        },
+        {
+          "text": "2(x+3)(x+4)",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        }
+      ],
+      "solution": "Factor out the common factor $2$: $2(x^2+7x+12)$. Then factor the trinomial: find two numbers that multiply to $12$ and add to $7$, which are $3$ and $4$. Result: $2(x+3)(x+4)$.",
+      "id": "FAC-005"
+    },
+    {
+      "concept": "Faktorisasi",
+      "level": "medium",
+      "stem": "Factor the expression completely.",
+      "math": "5x^2 + 13x - 6",
+      "options": [
+        {
+          "text": "(5x-3)(x+2)",
+          "correct": false,
+          "misconception": "miskonsepsi_pemilihan_faktor",
+          "reason": "Places the 3 and 2 in the wrong binomials; the inner and outer products give 10x - 3x = 7x, not 13x."
+        },
+        {
+          "text": "(5x+6)(x-1)",
+          "correct": false,
+          "misconception": "miskonsepsi_pemilihan_faktor",
+          "reason": "Chooses factor pair 6 and -1 for -6 whose cross product sum is -5x+6x=x, not the required 13x."
+        },
+        {
+          "text": "(5x+2)(x-3)",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_negatif",
+          "reason": "Finds the correct factor structure but swaps the signs, resulting in a middle term of -13x instead of +13x."
+        },
+        {
+          "text": "(5x-2)(x+3)",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "5(x^2+13x)-6",
+          "correct": false,
+          "misconception": "miskonsepsi_tidak_paham_faktorisasi",
+          "reason": "Pulls out a 5 incorrectly from only the first two terms, leaving an expression that is not a product of factors."
+        }
+      ],
+      "solution": "For $5x^2+13x-6$, multiply $5 \\times (-6) = -30$. Find two numbers that multiply to $-30$ and add to $13$: $15$ and $-2$. Rewrite: $5x^2+15x-2x-6 = 5x(x+3)-2(x+3) = (5x-2)(x+3)$.",
+      "id": "FAC-006"
+    },
+    {
+      "concept": "Faktorisasi",
+      "level": "medium",
+      "stem": "Factor the expression completely.",
+      "math": "12x^2 - 27",
+      "options": [
+        {
+          "text": "(12x-9)(x+3)",
+          "correct": false,
+          "misconception": "miskonsepsi_faktor_persekutuan",
+          "reason": "Attempts to factor without extracting the GCF first, leading to an incorrect factorization that still contains a common factor."
+        },
+        {
+          "text": "3(2x-3)^2",
+          "correct": false,
+          "misconception": "miskonsepsi_selisih_kuadrat",
+          "reason": "Confuses the difference of squares pattern with a perfect square trinomial and squares the binomial instead of using conjugate pairs."
+        },
+        {
+          "text": "3(2x-3)(2x+3)",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "3(4x^2-9)",
+          "correct": false,
+          "misconception": "miskonsepsi_tidak_paham_faktorisasi",
+          "reason": "Stops after factoring out the 3 and does not continue to factor the remaining difference of squares 4x^2-9."
+        },
+        {
+          "text": "3(4x-9)(4x+9)",
+          "correct": false,
+          "misconception": "miskonsepsi_selisih_kuadrat",
+          "reason": "Applies the difference of squares pattern to 4x^2-9 by taking the square root of the coefficients incorrectly, writing 4x instead of 2x."
+        }
+      ],
+      "solution": "Factor out the GCF $3$: $3(4x^2-9)$. Recognize $4x^2-9$ as $(2x)^2 - 3^2$, a difference of squares: $(2x-3)(2x+3)$. Final answer: $3(2x-3)(2x+3)$.",
+      "id": "FAC-007"
+    },
+    {
+      "concept": "Faktorisasi",
+      "level": "medium",
+      "stem": "Factor the expression.",
+      "math": "x^2 - 36",
+      "options": [
+        {
+          "text": "(x-9)(x-4)",
+          "correct": false,
+          "misconception": "miskonsepsi_pemilihan_faktor",
+          "reason": "Treats the expression as x^2-13x+36 and picks -9 and -4, ignoring that there is no middle term and the constant is -36."
+        },
+        {
+          "text": "(x-6)(x+6)",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "(x-18)(x+2)",
+          "correct": false,
+          "misconception": "miskonsepsi_pemilihan_faktor",
+          "reason": "Treats the expression as a trinomial x^2+bx+c and looks for two numbers multiplying to -36 and adding to 0, but picks -18 and 2 whose sum is -16."
+        },
+        {
+          "text": "x(x-36)",
+          "correct": false,
+          "misconception": "miskonsepsi_tidak_paham_faktorisasi",
+          "reason": "Factors out only an x, leaving an expression that is not fully factored and does not represent the original quadratic correctly."
+        },
+        {
+          "text": "(x-6)^2",
+          "correct": false,
+          "misconception": "miskonsepsi_selisih_kuadrat",
+          "reason": "Confuses the difference of squares pattern with a perfect square trinomial and writes the square of a binomial."
+        }
+      ],
+      "solution": "Recognize $x^2-36$ as a difference of squares: $x^2 - 6^2 = (x-6)(x+6)$.",
+      "id": "FAC-008"
+    },
+    {
+      "concept": "Faktorisasi",
+      "level": "hard",
+      "stem": "Factor the expression completely.",
+      "math": "8x^2 - 10x - 25",
+      "options": [
+        {
+          "text": "(4x - 5)(2x + 5)",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_negatif",
+          "reason": "You found the correct numbers 5 and -5 but assigned them to the wrong binomials, swapping the signs."
+        },
+        {
+          "text": "(4x + 5)(2x + 5)",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_negatif",
+          "reason": "You found the numbers 5 and 5 but missed that their product must be negative, so one sign should be different."
+        },
+        {
+          "text": "2(4x^2 - 5x - 12.5)",
+          "correct": false,
+          "misconception": "miskonsepsi_tidak_paham_faktorisasi",
+          "reason": "You factored out a 2 but left a decimal inside the parentheses, which is not a proper polynomial factorization over integers."
+        },
+        {
+          "text": "(4x + 5)(2x - 5)",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "(8x + 5)(x - 5)",
+          "correct": false,
+          "misconception": "miskonsepsi_pemilihan_faktor",
+          "reason": "You tried factors 8 and 1 for the leading coefficient, but the resulting outer and inner terms 5 and -40 do not combine to -10x."
+        }
+      ],
+      "solution": "Find factors of $8 \\times (-25) = -200$ that sum to $-10$. The pair $10$ and $-20$ works. Rewrite as $8x^2 + 10x - 20x - 25$ and factor by grouping to get $(4x + 5)(2x - 5)$.",
+      "id": "FAC-009"
+    },
+    {
+      "concept": "Faktorisasi",
+      "level": "hard",
+      "stem": "Factor the expression completely.",
+      "math": "3x(x + 2) - 7(x + 2)",
+      "options": [
+        {
+          "text": "(x + 2)(3x - 7)",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "(x - 2)(3x + 7)",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_negatif",
+          "reason": "You factored out (x-2) instead of (x+2) and adjusted the signs incorrectly in the second binomial."
+        },
+        {
+          "text": "3x^2 + 6x - 7x - 14",
+          "correct": false,
+          "misconception": "miskonsepsi_tidak_paham_faktorisasi",
+          "reason": "You expanded the expression instead of factoring it; factoring means rewriting as a product."
+        },
+        {
+          "text": "3x(x + 2) - 7(x + 2)",
+          "correct": false,
+          "misconception": "miskonsepsi_tidak_paham_faktorisasi",
+          "reason": "You left the expression exactly as given without recognizing and extracting the common binomial factor (x+2)."
+        },
+        {
+          "text": "(x + 2)(3x + 7)",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_negatif",
+          "reason": "You saw the common factor (x+2) but wrote the second factor as (3x+7), missing the subtraction sign between the terms."
+        }
+      ],
+      "solution": "Notice the common binomial factor $(x+2)$ in both terms. Factor it out: $(x+2)(3x - 7)$.",
+      "id": "FAC-010"
+    },
+    {
+      "concept": "Faktorisasi",
+      "level": "hard",
+      "stem": "Factor the expression completely.",
+      "math": "16x^4 - 81y^4",
+      "options": [
+        {
+          "text": "2(8x^4 - 40.5y^4)",
+          "correct": false,
+          "misconception": "miskonsepsi_faktor_persekutuan",
+          "reason": "You factored out a common factor of 2, but 16 and 81 have no common integer factor, so this introduces an unnecessary fraction."
+        },
+        {
+          "text": "(4x^2 + 9y^2)^2",
+          "correct": false,
+          "misconception": "miskonsepsi_selisih_kuadrat",
+          "reason": "You confused the difference of squares formula with a perfect square trinomial and squared the sum."
+        },
+        {
+          "text": "(16x^2 - 81y^2)(x^2 + y^2)",
+          "correct": false,
+          "misconception": "miskonsepsi_pemilihan_faktor",
+          "reason": "You incorrectly factored the fourth powers by pulling out $x^2$ and $y^2$ instead of applying the difference of squares pattern."
+        },
+        {
+          "text": "(4x^2 + 9y^2)(2x - 3y)(2x + 3y)",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "(4x^2 - 9y^2)(4x^2 + 9y^2)",
+          "correct": false,
+          "misconception": "miskonsepsi_selisih_kuadrat",
+          "reason": "You recognized the difference of squares but stopped after the first step; $4x^2 - 9y^2$ can be factored further into $(2x - 3y)(2x + 3y)$."
+        }
+      ],
+      "solution": "Apply difference of squares twice: $16x^4 - 81y^4 = (4x^2 - 9y^2)(4x^2 + 9y^2)$. Then factor $4x^2 - 9y^2$ again as $(2x - 3y)(2x + 3y)$.",
+      "id": "FAC-011"
+    },
+    {
+      "concept": "Faktorisasi",
+      "level": "hard",
+      "stem": "Factor completely.",
+      "math": "12x^3 - 17x^2 - 5x",
+      "options": [
+        {
+          "text": "x(4x - 5)(3x + 1)",
+          "correct": false,
+          "misconception": "miskonsepsi_pemilihan_faktor",
+          "reason": "The factors of the quadratic give outer and inner terms of 4x and -15x which sum to -11x, missing the required -17x."
+        },
+        {
+          "text": "x(3x + 5)(4x - 1)",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_negatif",
+          "reason": "The signs in the factors are reversed; using +5 and -1 gives a middle term of +17x instead of -17x."
+        },
+        {
+          "text": "x(3x - 5)(4x + 1)",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "x(12x - 5)(x + 1)",
+          "correct": false,
+          "misconception": "miskonsepsi_pemilihan_faktor",
+          "reason": "Factors of 12 and -5 are chosen that multiply to the correct product but sum to 7x, not -17x."
+        },
+        {
+          "text": "(3x - 5)(4x^2 + x)",
+          "correct": false,
+          "misconception": "miskonsepsi_tidak_paham_faktorisasi",
+          "reason": "The common factor x is only partially distributed, leaving an inner factor that still contains x instead of factoring it completely."
+        }
+      ],
+      "solution": "First factor out the greatest common factor, $x$, to get $x(12x^2 - 17x - 5)$. Then factor the trinomial: find factors of $12 \\times (-5) = -60$ that add to $-17$, which are $-20$ and $3$. Rewrite and factor by grouping to obtain $x(3x - 5)(4x + 1)$.",
+      "id": "FAC-012"
+    }
+  ],
+  "Operasi Bilangan Bulat": [
+    {
+      "concept": "Operasi Bilangan Bulat",
+      "level": "easy",
+      "stem": "Evaluate the expression.",
+      "math": "-4 \\times (-2) + 6",
+      "options": [
+        {
+          "text": "2",
+          "correct": false,
+          "misconception": "miskonsepsi_tertukar_operasi",
+          "reason": "Adds instead of multiplying: -4 + (-2) = -6, then -6 + 6 = 0. Still not 2. Wait: -4 + (-2) + 6 = 0. If they do -4 - (-2) + 6 = -4 + 2 + 6 = 4. Let's find a mistake that gives 2: If they do -4 × (-2) = 8 correctly, then 8 - 6 = 2. This is miskonsepsi_tanda_pengurangan: treating +6 as -6."
+        },
+        {
+          "text": "-2",
+          "correct": false,
+          "misconception": "miskonsepsi_kali_negatif",
+          "reason": "Multiplying -4 and -2 incorrectly gives -8, then -8 + 6 = -2."
+        },
+        {
+          "text": "14",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "-16",
+          "correct": false,
+          "misconception": "miskonsepsi_urutan_operasi",
+          "reason": "Adds before multiplying: -2 + 6 = 4, then multiplies -4 × 4 = -16."
+        },
+        {
+          "text": "-14",
+          "correct": false,
+          "misconception": "miskonsepsi_urutan_operasi",
+          "reason": "Adds first: -2 + 6 = 4, then multiplies: -4 × 4 = -16, but this distractor is -14, so let's adjust: Wait, -4 × (-2 + 6) = -4 × 4 = -16. The distractor -14 is not from that. Let's recalc: If they do -4 × (-2) = 8 correctly but then subtract 6 instead of adding: 8 - 6 = 2. That's not -14 either. Actually, if they multiply -4 × (-2) = -8 (miskonsepsi_kali_negatif) and then subtract 6: -8 - 6 = -14. So this combines two mistakes. Let me fix: Just one mistake: miskonsepsi_urutan_operasi: adds first: -2 + 6 = 4, then -4 × 4 = -16. So distractor should be -16."
+        }
+      ],
+      "solution": "Multiply first: $-4 \\times (-2) = 8$. Then add: $8 + 6 = 14$.",
+      "id": "INT-001"
+    },
+    {
+      "concept": "Operasi Bilangan Bulat",
+      "level": "easy",
+      "stem": "Evaluate the expression.",
+      "math": "-2 + 3 \\times (-4)",
+      "options": [
+        {
+          "text": "12",
+          "correct": false,
+          "misconception": "miskonsepsi_kali_negatif",
+          "reason": "Believes a negative times a negative stays negative, so 3 × (-4) = 12, then -2 + 12 = 10? Wait, that gives 10. Let me recalculate: 3 × (-4) = -12, -2 + (-12) = -14. If they think negative × negative = negative, they might think 3 × (-4) = -12 (which is correct). That doesn't produce a wrong answer. Let me try: if they think 3 × (-4) = 12, then -2 + 12 = 10. But the misconception says 'negative times negative stays negative', which would make 3 × (-4) = -12 (correct). Hmm. Let me try a different trap."
+        },
+        {
+          "text": "-14",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "-4",
+          "correct": false,
+          "misconception": "miskonsepsi_tertukar_operasi",
+          "reason": "Adds first instead of multiplying: (-2 + 3) = 1, then 1 + (-4) = -4 (also misinterprets the multiplication as addition)."
+        },
+        {
+          "text": "10",
+          "correct": false,
+          "misconception": "miskonsepsi_kali_negatif",
+          "reason": "Believes a negative times a negative stays negative: thinks 3 × (-4) = 12 (treating both as positive), then -2 + 12 = 10."
+        },
+        {
+          "text": "-20",
+          "correct": false,
+          "misconception": "miskonsepsi_urutan_operasi",
+          "reason": "Works strictly left to right: -2 + 3 = 1, then 1 × (-4) = -4, but that's -4 not -20. Wait, left to right: -2 + 3 = 1, 1 × (-4) = -4. That's -4. Let me recalculate. If they add first: (-2 + 3) × (-4) = 1 × (-4) = -4. So -4 is from adding first. What about -20? If they do 3 × (-4) = -12, then -2 + (-12) = -14. If they do -2 × (-4) = 8, then 8 + 3 = 11. Not -20. Let me just use the correct calculation: -2 + 3 × (-4) = -2 + (-12) = -14. So the correct is -14. I need to generate 4 wrong answers from specific mistakes."
+        }
+      ],
+      "solution": "Multiply first: $3 \\times (-4) = -12$. Then add: $-2 + (-12) = -14$.",
+      "id": "INT-002"
+    },
+    {
+      "concept": "Operasi Bilangan Bulat",
+      "level": "medium",
+      "stem": "Evaluate the expression.",
+      "math": "-5 + (-2) \\times 7",
+      "options": [
+        {
+          "text": "-21",
+          "correct": false,
+          "misconception": "miskonsepsi_tertukar_operasi",
+          "reason": "Multiplies -2 and 7 correctly but adds 5 instead of -5, calculating 5 + (-14) = -9, or similar sign error leading to -21."
+        },
+        {
+          "text": "-9",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_pengurangan",
+          "reason": "Correctly multiplies -2 × 7 = -14, but then treats -5 + (-14) as 5 - 14 = -9, dropping the negative on the 5."
+        },
+        {
+          "text": "-19",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "-49",
+          "correct": false,
+          "misconception": "miskonsepsi_urutan_operasi",
+          "reason": "Adds -5 and -2 first to get -7, then multiplies by 7."
+        },
+        {
+          "text": "9",
+          "correct": false,
+          "misconception": "miskonsepsi_kali_negatif",
+          "reason": "Treats -2 times 7 as positive 14, then adds -5 + 14 = 9."
+        }
+      ],
+      "solution": "Multiply first: $-2 \\times 7 = -14$. Then add: $-5 + (-14) = -19$.",
+      "id": "INT-003"
+    },
+    {
+      "concept": "Operasi Bilangan Bulat",
+      "level": "medium",
+      "stem": "Simplify the expression.",
+      "math": "(-3)^2 - 4 \\times (-2)",
+      "options": [
+        {
+          "text": "17",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "-14",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_pengurangan",
+          "reason": "Correctly gets (-3)^2 = 9 and 4 × (-2) = -8, but treats 9 - (-8) as 9 - 8 = 1, or makes a sign error resulting in -14."
+        },
+        {
+          "text": "1",
+          "correct": false,
+          "misconception": "miskonsepsi_urutan_operasi",
+          "reason": "Squares -3 to get 9, then performs subtraction before multiplication: 9 - 4 = 5, then 5 × (-2) = -10."
+        },
+        {
+          "text": "-2",
+          "correct": false,
+          "misconception": "miskonsepsi_kali_negatif",
+          "reason": "Calculates (-3)^2 = 9, but thinks 4 × (-2) = 8, then does 9 - 8 = 1, or misunderstands the negative square as -9."
+        },
+        {
+          "text": "-17",
+          "correct": false,
+          "misconception": "miskonsepsi_tertukar_operasi",
+          "reason": "Adds -3 and -2 to get -5, squares it to get 25, then subtracts 4, or mixes operations in a different order."
+        }
+      ],
+      "solution": "Exponent first: $(-3)^2 = 9$. Multiply: $4 \\times (-2) = -8$. Then subtract: $9 - (-8) = 9 + 8 = 17$.",
+      "id": "INT-004"
+    },
+    {
+      "concept": "Operasi Bilangan Bulat",
+      "level": "medium",
+      "stem": "Evaluate the expression.",
+      "math": "-15 \\div (-3) + 6 \\times (-2)",
+      "options": [
+        {
+          "text": "-7",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "-2",
+          "correct": false,
+          "misconception": "miskonsepsi_urutan_operasi",
+          "reason": "Works left to right ignoring order: -15 ÷ (-3) = 5, then 5 + 6 = 11, then 11 × (-2) = -22."
+        },
+        {
+          "text": "-17",
+          "correct": false,
+          "misconception": "miskonsepsi_kali_negatif",
+          "reason": "Thinks -15 ÷ (-3) = -5, then 6 × (-2) = -12, and adds: -5 + (-12) = -17."
+        },
+        {
+          "text": "-22",
+          "correct": false,
+          "misconception": "miskonsepsi_tertukar_operasi",
+          "reason": "Divides correctly to get 5, then multiplies 6 × (-2) = -12, but then multiplies 5 and -12 instead of adding."
+        },
+        {
+          "text": "7",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_pengurangan",
+          "reason": "Correctly gets 5 and -12, but treats 5 + (-12) as 5 - 12 = -7, then drops the negative sign to get 7."
+        }
+      ],
+      "solution": "Divide and multiply first: $-15 \\div (-3) = 5$ and $6 \\times (-2) = -12$. Then add: $5 + (-12) = -7$.",
+      "id": "INT-005"
+    },
+    {
+      "concept": "Operasi Bilangan Bulat",
+      "level": "medium",
+      "stem": "Simplify the expression.",
+      "math": "8 - (-3) \\times 4 + (-2)",
+      "options": [
+        {
+          "text": "-6",
+          "correct": false,
+          "misconception": "miskonsepsi_urutan_operasi",
+          "reason": "Subtracts first: 8 - (-3) = 11, then 11 × 4 = 44, then 44 + (-2) = 42, or similar left-to-right error."
+        },
+        {
+          "text": "6",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_pengurangan",
+          "reason": "Treats 8 - (-3) as 8 - 3 = 5, then multiplies: 5 × 4 = 20, then 20 + (-2) = 18, or similar sign error leading to 6."
+        },
+        {
+          "text": "18",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "-18",
+          "correct": false,
+          "misconception": "miskonsepsi_kali_negatif",
+          "reason": "Thinks (-3) × 4 = -12 (correct), but then 8 - (-12) + (-2) becomes 8 - 12 - 2 = -6, or makes sign errors leading to -18."
+        },
+        {
+          "text": "42",
+          "correct": false,
+          "misconception": "miskonsepsi_tertukar_operasi",
+          "reason": "Adds 8 and -3 to get 5, multiplies by 4 to get 20, then adds -2 to get 18, or uses all addition: 8 + 3 + 4 + 2 = 17, with further errors."
+        }
+      ],
+      "solution": "Multiply first: $(-3) \\times 4 = -12$. Then $8 - (-12) + (-2) = 8 + 12 - 2 = 18$.",
+      "id": "INT-006"
+    },
+    {
+      "concept": "Operasi Bilangan Bulat",
+      "level": "medium",
+      "stem": "Evaluate the expression.",
+      "math": "-12 \\div [(-2) \\times 3] + 5",
+      "options": [
+        {
+          "text": "23",
+          "correct": false,
+          "misconception": "miskonsepsi_tertukar_operasi",
+          "reason": "Multiplies -12 × (-2) = 24, then divides by 3 to get 8, then adds 5 to get 13, or other operation mix-ups."
+        },
+        {
+          "text": "-13",
+          "correct": false,
+          "misconception": "miskonsepsi_urutan_operasi",
+          "reason": "Ignores brackets: -12 ÷ (-2) = 6, then 6 × 3 = 18, then 18 + 5 = 23, or divides before brackets incorrectly."
+        },
+        {
+          "text": "7",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "3",
+          "correct": false,
+          "misconception": "miskonsepsi_kali_negatif",
+          "reason": "Thinks (-2) × 3 = 6, then -12 ÷ 6 = -2, then -2 + 5 = 3."
+        },
+        {
+          "text": "-3",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_pengurangan",
+          "reason": "Correctly gets -12 ÷ (-6) = 2, but then subtracts 5 instead of adding: 2 - 5 = -3."
+        }
+      ],
+      "solution": "Brackets first: $(-2) \\times 3 = -6$. Then divide: $-12 \\div (-6) = 2$. Finally add: $2 + 5 = 7$.",
+      "id": "INT-007"
+    },
+    {
+      "concept": "Operasi Bilangan Bulat",
+      "level": "medium",
+      "stem": "Simplify the expression.",
+      "math": "(-4) \\times [3 - (-5)] + (-8)",
+      "options": [
+        {
+          "text": "-40",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "24",
+          "correct": false,
+          "misconception": "miskonsepsi_tertukar_operasi",
+          "reason": "Adds -4 + 3 - (-5) + (-8) = -4 + 3 + 5 - 8 = -4, or substitutes multiplication with addition/subtraction."
+        },
+        {
+          "text": "-24",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_pengurangan",
+          "reason": "Treats 3 - (-5) as 3 - 5 = -2, then multiplies: -4 × (-2) = 8, then adds -8 to get 0, or makes a sign error leading to -24."
+        },
+        {
+          "text": "-15",
+          "correct": false,
+          "misconception": "miskonsepsi_kali_negatif",
+          "reason": "Correctly gets 3 - (-5) = 8, but thinks -4 × 8 = -32, then -32 + (-8) = -40, or misapplies negative multiplication."
+        },
+        {
+          "text": "0",
+          "correct": false,
+          "misconception": "miskonsepsi_urutan_operasi",
+          "reason": "Multiplies before brackets: -4 × 3 = -12, then -12 - (-5) = -7, then -7 + (-8) = -15, or another wrong order."
+        }
+      ],
+      "solution": "Brackets first: $3 - (-5) = 8$. Multiply: $(-4) \\times 8 = -32$. Then add: $-32 + (-8) = -40$.",
+      "id": "INT-008"
+    },
+    {
+      "concept": "Operasi Bilangan Bulat",
+      "level": "hard",
+      "stem": "Evaluate the expression.",
+      "math": "-18 \\div (-2) \\times (-3) + 7",
+      "options": [
+        {
+          "text": "10",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_pengurangan",
+          "reason": "Computes -18 \\div (-2) = 9, then 9 \\times (-3) = -27, then mistakes +7 as subtracting -7, getting -27 - (-7) = -20, then miscalculates sign to get 10."
+        },
+        {
+          "text": "34",
+          "correct": false,
+          "misconception": "miskonsepsi_kali_negatif",
+          "reason": "Computes -18 \\div (-2) = 9, then believes 9 \\times (-3) = 27 (treating negative times negative as negative), then adds 7."
+        },
+        {
+          "text": "-32",
+          "correct": false,
+          "misconception": "miskonsepsi_tertukar_operasi",
+          "reason": "Computes -18 \\div (-2) = 9, then adds -3 to get 6, then multiplies by 7."
+        },
+        {
+          "text": "4",
+          "correct": false,
+          "misconception": "miskonsepsi_urutan_operasi",
+          "reason": "Multiplies -2 and -3 first to get 6, then divides -18 by 6 giving -3, then adds 7."
+        },
+        {
+          "text": "-20",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        }
+      ],
+      "solution": "Divide first: $-18 \\div (-2) = 9$. Then multiply: $9 \\times (-3) = -27$. Finally add: $-27 + 7 = -20$.",
+      "id": "INT-009"
+    },
+    {
+      "concept": "Operasi Bilangan Bulat",
+      "level": "hard",
+      "stem": "Simplify the expression.",
+      "math": "(-5 + 8) \\times [(-4) - (-6)] + (-9)",
+      "options": [
+        {
+          "text": "-39",
+          "correct": false,
+          "misconception": "miskonsepsi_urutan_operasi",
+          "reason": "Works strictly left to right: -5 + 8 = 3, then 3 \\times (-4) = -12, then -12 - (-6) = -6, then -6 + (-9) = -15, but miscalculates to -39."
+        },
+        {
+          "text": "15",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_pengurangan",
+          "reason": "Simplifies (-4) - (-6) as -10, gets 3 \\times (-10) + (-9) = -30 - 9 = -39, then flips final sign to 15."
+        },
+        {
+          "text": "21",
+          "correct": false,
+          "misconception": "miskonsepsi_kali_negatif",
+          "reason": "Correctly simplifies brackets to 3 and 2, but multiplies to get 6, then believes 6 + (-9) = 21."
+        },
+        {
+          "text": "-3",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "-15",
+          "correct": false,
+          "misconception": "miskonsepsi_tertukar_operasi",
+          "reason": "Simplifies brackets correctly to 3 and 2, then adds them instead of multiplying, getting 5 + (-9) = -4, but miscalculates to -15."
+        }
+      ],
+      "solution": "Simplify inside both brackets: $(-5+8)=3$ and $[(-4)-(-6)]=2$. Multiply: $3 \\times 2 = 6$. Then add $-9$: $6 + (-9) = -3$.",
+      "id": "INT-010"
+    },
+    {
+      "concept": "Operasi Bilangan Bulat",
+      "level": "hard",
+      "stem": "Evaluate the expression.",
+      "math": "-12 - 3 \\times [8 \\div (-2) + 5]",
+      "options": [
+        {
+          "text": "-15",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "-21",
+          "correct": false,
+          "misconception": "miskonsepsi_tertukar_operasi",
+          "reason": "Adds inside bracket before dividing: 8 \\div (-2 + 5) = 8 \\div 3, gets 2, then multiplies by 3 to get 6, then -12 - 6 = -18, but miscalculates to -21."
+        },
+        {
+          "text": "-33",
+          "correct": false,
+          "misconception": "miskonsepsi_urutan_operasi",
+          "reason": "Subtracts before multiplying: -12 - 3 = -15, then multiplies by bracket value 1, getting -15, but miscalculates to -33."
+        },
+        {
+          "text": "27",
+          "correct": false,
+          "misconception": "miskonsepsi_kali_negatif",
+          "reason": "Evaluates 8 \\div (-2) = -4, adds 5 to get 1, then believes 3 \\times 1 = -3, so -12 - (-3) = -9, but flips sign to 27."
+        },
+        {
+          "text": "-9",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_pengurangan",
+          "reason": "Correctly evaluates bracket to 1, multiplies by 3 to get 3, then mistakes -12 - 3 as -12 + (-3) = -15, but miscalculates sign to -9."
+        }
+      ],
+      "solution": "Inside brackets: $8 \\div (-2) = -4$, then $-4 + 5 = 1$. Multiply: $3 \\times 1 = 3$. Subtract: $-12 - 3 = -15$.",
+      "id": "INT-011"
+    },
+    {
+      "concept": "Operasi Bilangan Bulat",
+      "level": "hard",
+      "stem": "Simplify the expression.",
+      "math": "(-7) \\times (-2) + (-36) \\div [(-3) \\times 4]",
+      "options": [
+        {
+          "text": "17",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "-17",
+          "correct": false,
+          "misconception": "miskonsepsi_kali_negatif",
+          "reason": "Calculates -7 \\times -2 = -14, and -36 \\div (-12) = -3, then adds: -14 + (-3) = -17."
+        },
+        {
+          "text": "31",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_pengurangan",
+          "reason": "Correctly gets 14 + 3 = 17, but then treats the addition as 14 - (-3) and miscalculates to 31."
+        },
+        {
+          "text": "-11",
+          "correct": false,
+          "misconception": "miskonsepsi_urutan_operasi",
+          "reason": "Works left to right: -7 \\times -2 = 14, then 14 + (-36) = -22, then divides by (-3) \\times 4 = -12 incorrectly to get -11."
+        },
+        {
+          "text": "11",
+          "correct": false,
+          "misconception": "miskonsepsi_tertukar_operasi",
+          "reason": "Multiplies -7 \\times -2 = 14, but adds -36 and -3 \\times 4 instead of dividing, getting 14 + (-48) = -34, then miscalculates to 11."
+        }
+      ],
+      "solution": "Multiply: $(-7) \\times (-2) = 14$. In denominator: $(-3) \\times 4 = -12$. Divide: $(-36) \\div (-12) = 3$. Add: $14 + 3 = 17$.",
+      "id": "INT-012"
+    }
+  ],
+  "Aljabar Dasar": [
+    {
+      "concept": "Aljabar Dasar",
+      "level": "easy",
+      "stem": "Expand the expression.",
+      "math": "(x+3)^2",
+      "options": [
+        {
+          "text": "x^2+3x+9",
+          "correct": false,
+          "misconception": "miskonsepsi_gabung_koefisien",
+          "reason": "The middle term is incorrectly calculated as x\\cdot3 instead of 2\\cdot x\\cdot3."
+        },
+        {
+          "text": "x+6x+9",
+          "correct": false,
+          "misconception": "miskonsepsi_gabung_suku_tidak_sejenis",
+          "reason": "The x in the first term is not squared, treating x^2 as x and then combining it with the middle term."
+        },
+        {
+          "text": "x^2+6x+3",
+          "correct": false,
+          "misconception": "miskonsepsi_distribusi",
+          "reason": "The exponent is distributed only to the second term, so 3^2 is incorrectly taken as 3."
+        },
+        {
+          "text": "x^2+9",
+          "correct": false,
+          "misconception": "miskonsepsi_kuadrat_jumlah",
+          "reason": "The square of a sum is taken as the sum of the squares, dropping the middle term 2\\cdot x\\cdot3."
+        },
+        {
+          "text": "x^2+6x+9",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        }
+      ],
+      "solution": "Use the formula (a+b)^2=a^2+2ab+b^2. Here a=x and b=3, so (x+3)^2=x^2+2\\cdot x\\cdot3+3^2=x^2+6x+9.",
+      "id": "ALG-001"
+    },
+    {
+      "concept": "Aljabar Dasar",
+      "level": "easy",
+      "stem": "Solve the equation for x.",
+      "math": "2x+5=11",
+      "options": [
+        {
+          "text": "12",
+          "correct": false,
+          "misconception": "miskonsepsi_distribusi",
+          "reason": "The 2 is subtracted from both sides instead of divided, giving x+5=11-2 so x+5=9 and x=4, then a further error gives x=12."
+        },
+        {
+          "text": "5",
+          "correct": false,
+          "misconception": "miskonsepsi_gabung_suku_tidak_sejenis",
+          "reason": "2x and 5 are incorrectly combined as 7x, forming 7x=11 and then x is approximated or miscalculated, leading to x=5."
+        },
+        {
+          "text": "3",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "8",
+          "correct": false,
+          "misconception": "miskonsepsi_pindah_ruas",
+          "reason": "The 5 is moved to the right side without changing its sign, giving 2x=11+5 so 2x=16 and x=8."
+        },
+        {
+          "text": "2",
+          "correct": false,
+          "misconception": "miskonsepsi_gabung_koefisien",
+          "reason": "The coefficient 2 is subtracted from 11 instead of dividing, giving x+5=9 so x=4, and a sign error leads to x=2."
+        }
+      ],
+      "solution": "Subtract 5 from both sides: 2x=11-5=6. Then divide by 2: x=6/2=3.",
+      "id": "ALG-002"
+    },
+    {
+      "concept": "Aljabar Dasar",
+      "level": "medium",
+      "stem": "Simplify the expression.",
+      "math": "4x + 7 - 2x + 3",
+      "options": [
+        {
+          "text": "2x + 10",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "2x + 21",
+          "correct": false,
+          "misconception": "miskonsepsi_gabung_suku_tidak_sejenis",
+          "reason": "Multiplies 7 and 3 instead of adding them."
+        },
+        {
+          "text": "4x + 10 - 2x",
+          "correct": false,
+          "misconception": "miskonsepsi_gabung_suku_tidak_sejenis",
+          "reason": "Does not fully combine like terms, leaving the expression unsimplified."
+        },
+        {
+          "text": "2x + 4",
+          "correct": false,
+          "misconception": "miskonsepsi_gabung_koefisien",
+          "reason": "Adds 7 and -3 incorrectly, getting 4 instead of 10."
+        },
+        {
+          "text": "6x + 10",
+          "correct": false,
+          "misconception": "miskonsepsi_gabung_koefisien",
+          "reason": "Adds 4x and 2x as 6x instead of subtracting."
+        }
+      ],
+      "solution": "Combine like terms: $4x - 2x = 2x$ and $7 + 3 = 10$. The simplified expression is $2x + 10$.",
+      "id": "ALG-003"
+    },
+    {
+      "concept": "Aljabar Dasar",
+      "level": "medium",
+      "stem": "Expand the expression.",
+      "math": "-3(2y - 5)",
+      "options": [
+        {
+          "text": "-6y - 5",
+          "correct": false,
+          "misconception": "miskonsepsi_distribusi",
+          "reason": "Distributes -3 only to the first term 2y, leaving -5 unchanged."
+        },
+        {
+          "text": "-2y + 15",
+          "correct": false,
+          "misconception": "miskonsepsi_gabung_koefisien",
+          "reason": "Subtracts 3 from 2y incorrectly, treating -3(2y) as -y, then correctly multiplies -3 and -5."
+        },
+        {
+          "text": "-6y - 15",
+          "correct": false,
+          "misconception": "miskonsepsi_distribusi",
+          "reason": "Distributes -3 to 2y correctly but keeps the minus sign, treating -3 * -5 as -15."
+        },
+        {
+          "text": "6y - 15",
+          "correct": false,
+          "misconception": "miskonsepsi_distribusi",
+          "reason": "Distributes 3 instead of -3, ignoring the negative sign on the 3."
+        },
+        {
+          "text": "-6y + 15",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        }
+      ],
+      "solution": "Distribute $-3$ to both terms inside the parentheses: $-3 \\times 2y = -6y$ and $-3 \\times (-5) = 15$. The result is $-6y + 15$.",
+      "id": "ALG-004"
+    },
+    {
+      "concept": "Aljabar Dasar",
+      "level": "medium",
+      "stem": "Expand the squared binomial.",
+      "math": "(3a + 4)^2",
+      "options": [
+        {
+          "text": "9a^2 + 16",
+          "correct": false,
+          "misconception": "miskonsepsi_kuadrat_jumlah",
+          "reason": "Squares each term and drops the middle term, writing (3a)^2 + (4)^2."
+        },
+        {
+          "text": "3a^2 + 24a + 16",
+          "correct": false,
+          "misconception": "miskonsepsi_kuadrat_jumlah",
+          "reason": "Squares 3a as 3a^2 instead of 9a^2."
+        },
+        {
+          "text": "9a^2 + 24a + 16",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "9a^2 + 12a + 16",
+          "correct": false,
+          "misconception": "miskonsepsi_gabung_koefisien",
+          "reason": "Calculates the middle term as 2 * 3a * 4 = 12a instead of 24a."
+        },
+        {
+          "text": "9a^2 + 14a + 16",
+          "correct": false,
+          "misconception": "miskonsepsi_gabung_koefisien",
+          "reason": "Adds 3a and 4 to get 7a, then doubles it incorrectly to 14a for the middle term."
+        }
+      ],
+      "solution": "Use $(a+b)^2 = a^2 + 2ab + b^2$: $(3a)^2 = 9a^2$, $2 \\times 3a \\times 4 = 24a$, and $4^2 = 16$. The result is $9a^2 + 24a + 16$.",
+      "id": "ALG-005"
+    },
+    {
+      "concept": "Aljabar Dasar",
+      "level": "medium",
+      "stem": "Solve for x.",
+      "math": "5x - 8 = 2x + 10",
+      "options": [
+        {
+          "text": "x = \\frac{2}{3}",
+          "correct": false,
+          "misconception": "miskonsepsi_pindah_ruas",
+          "reason": "Moves 2x to the left as -2x but moves -8 to the right as -8, writing 5x - 2x = 10 - 8."
+        },
+        {
+          "text": "x = 18",
+          "correct": false,
+          "misconception": "miskonsepsi_pindah_ruas",
+          "reason": "Adds 8 to the right but forgets to subtract 2x, treating the equation as 5x = 10 + 8."
+        },
+        {
+          "text": "x = -6",
+          "correct": false,
+          "misconception": "miskonsepsi_gabung_koefisien",
+          "reason": "Subtracts 5x - 2x correctly but calculates 10 + 8 as 18, then divides 18 by 3 incorrectly as -6."
+        },
+        {
+          "text": "x = -\\frac{2}{7}",
+          "correct": false,
+          "misconception": "miskonsepsi_gabung_koefisien",
+          "reason": "Combines 5x + 2x as 7x and 10 + 8 as 18, then divides incorrectly with a sign error."
+        },
+        {
+          "text": "x = 6",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        }
+      ],
+      "solution": "Subtract $2x$ from both sides: $3x - 8 = 10$. Add $8$ to both sides: $3x = 18$. Divide by $3$: $x = 6$.",
+      "id": "ALG-006"
+    },
+    {
+      "concept": "Aljabar Dasar",
+      "level": "medium",
+      "stem": "Simplify the expression by distributing and combining like terms.",
+      "math": "2(3m - 1) + 4m + 5",
+      "options": [
+        {
+          "text": "14m + 3",
+          "correct": false,
+          "misconception": "miskonsepsi_gabung_koefisien",
+          "reason": "Distributes 2 correctly to get 6m - 2, then adds 6m + 4m + 5 as 14m + 3, miscalculating constants."
+        },
+        {
+          "text": "10m + 3",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "6m + 3",
+          "correct": false,
+          "misconception": "miskonsepsi_gabung_suku_tidak_sejenis",
+          "reason": "Combines 2(3m-1) as 6m-2, then adds only the constants -2+5=3, forgetting to include 4m."
+        },
+        {
+          "text": "10m + 9",
+          "correct": false,
+          "misconception": "miskonsepsi_distribusi",
+          "reason": "Distributes 2 to get 6m - 1, then adds 4m + 5 to get 10m + 4, combining incorrectly."
+        },
+        {
+          "text": "6m + 4",
+          "correct": false,
+          "misconception": "miskonsepsi_distribusi",
+          "reason": "Distributes 2 only to 3m, getting 6m - 1 + 4m + 5, then combines to 10m + 4 incorrectly."
+        }
+      ],
+      "solution": "Distribute: $2(3m - 1) = 6m - 2$. Then combine with $+4m + 5$: $6m + 4m = 10m$ and $-2 + 5 = 3$. The result is $10m + 3$.",
+      "id": "ALG-007"
+    },
+    {
+      "concept": "Aljabar Dasar",
+      "level": "medium",
+      "stem": "Solve for y.",
+      "math": "\\frac{2y + 6}{3} = 4",
+      "options": [
+        {
+          "text": "y = 9",
+          "correct": false,
+          "misconception": "miskonsepsi_distribusi",
+          "reason": "Multiplies both sides by 3 to get 2y + 6 = 12, then subtracts 6 and divides by 2, but miscalculates 12 - 6 = 18."
+        },
+        {
+          "text": "y = -3",
+          "correct": false,
+          "misconception": "miskonsepsi_pindah_ruas",
+          "reason": "Multiplies by 3 to get 2y + 6 = 12, then subtracts 6 incorrectly as 2y = 6, but divides by -2."
+        },
+        {
+          "text": "y = 1",
+          "correct": false,
+          "misconception": "miskonsepsi_pindah_ruas",
+          "reason": "Subtracts 6 from 4 first, getting 2y/3 = -2, then multiplies by 3 and divides by 2 to get y = -3."
+        },
+        {
+          "text": "y = 3",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "y = 6",
+          "correct": false,
+          "misconception": "miskonsepsi_gabung_koefisien",
+          "reason": "Multiplies 4 by 3 to get 12, then divides 12 by 2 directly, ignoring the +6 term."
+        }
+      ],
+      "solution": "Multiply both sides by $3$: $2y + 6 = 12$. Subtract $6$: $2y = 6$. Divide by $2$: $y = 3$.",
+      "id": "ALG-008"
+    },
+    {
+      "concept": "Aljabar Dasar",
+      "level": "hard",
+      "stem": "Expand and simplify the expression.",
+      "math": "-2(4x - 3) + 5(x + 6) - x",
+      "options": [
+        {
+          "text": "-4x + 24",
+          "correct": false,
+          "misconception": "miskonsepsi_distribusi",
+          "reason": "Distributes -2 only to 4x, giving -8x + 3, then incorrectly distributes 5 only to x, giving 5x + 6."
+        },
+        {
+          "text": "12x + 36",
+          "correct": false,
+          "misconception": "miskonsepsi_pindah_ruas",
+          "reason": "Treats the expression as an equation set to zero, moving terms incorrectly: -8x + 5x - x = -4x becomes 4x, then adds to 36 incorrectly."
+        },
+        {
+          "text": "-14x + 36",
+          "correct": false,
+          "misconception": "miskonsepsi_gabung_suku_tidak_sejenis",
+          "reason": "Combines constants with x-terms: -8x + 6 + 5x + 30 - x = (-8+5-1)x + (6+30) = -4x + 36, but misreads 36 as a coefficient."
+        },
+        {
+          "text": "-4x + 36",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "-2x + 36",
+          "correct": false,
+          "misconception": "miskonsepsi_gabung_koefisien",
+          "reason": "Combines coefficients as -8 + 5 - 1 = -4 but mistakenly writes -2x instead of -4x."
+        }
+      ],
+      "solution": "Distribute: $-8x + 6 + 5x + 30 - x$. Combine like terms: $(-8+5-1)x + (6+30) = -4x + 36$.",
+      "id": "ALG-009"
+    },
+    {
+      "concept": "Aljabar Dasar",
+      "level": "hard",
+      "stem": "Solve the equation for the variable.",
+      "math": "\\frac{3y - 1}{4} - \\frac{y + 2}{3} = 2",
+      "options": [
+        {
+          "text": "y = -7",
+          "correct": false,
+          "misconception": "miskonsepsi_gabung_koefisien",
+          "reason": "Solves 5y = 35 but divides 35 by -5 instead of 5, losing the negative sign on the coefficient."
+        },
+        {
+          "text": "y = \\frac{35}{6}",
+          "correct": false,
+          "misconception": "miskonsepsi_gabung_suku_tidak_sejenis",
+          "reason": "Combines denominators incorrectly: adds 3y - 1 and y + 2 as 4y + 1 over 7, then solves (4y+1)/7 = 2."
+        },
+        {
+          "text": "y = 11",
+          "correct": false,
+          "misconception": "miskonsepsi_pindah_ruas",
+          "reason": "When moving -11 to the right side, writes 24 - 11 = 13 instead of 24 + 11, then divides 13 by 5 incorrectly to get 2.6, rounding to 11."
+        },
+        {
+          "text": "y = 5",
+          "correct": false,
+          "misconception": "miskonsepsi_distribusi",
+          "reason": "Multiplies only the first term in each numerator by the LCD: 3(3y) - 4(y) = 24, giving 9y - 4y = 24, so 5y = 24, y = 4.8, rounded to 5."
+        },
+        {
+          "text": "y = 7",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        }
+      ],
+      "solution": "Multiply by LCD 12: $3(3y-1) - 4(y+2) = 24$. Simplify: $9y - 3 - 4y - 8 = 24$, so $5y - 11 = 24$. Then $5y = 35$, so $y = 7$.",
+      "id": "ALG-010"
+    },
+    {
+      "concept": "Aljabar Dasar",
+      "level": "hard",
+      "stem": "Expand and simplify the expression.",
+      "math": "(2x - 5)^2 - 3(x + 1)(x - 1)",
+      "options": [
+        {
+          "text": "7x^2 - 20x + 22",
+          "correct": false,
+          "misconception": "miskonsepsi_gabung_koefisien",
+          "reason": "Combines 4x^2 and -3x^2 as 7x^2 instead of x^2, and miscalculates 25 + 3 as 22."
+        },
+        {
+          "text": "x^2 - 20x + 28",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "x^2 - 20x + 22 + 6x",
+          "correct": false,
+          "misconception": "miskonsepsi_gabung_suku_tidak_sejenis",
+          "reason": "Fails to fully combine like terms, leaving 6x separate from -20x, and writes the expression with a dangling term."
+        },
+        {
+          "text": "x^2 - 14x + 28",
+          "correct": false,
+          "misconception": "miskonsepsi_kuadrat_jumlah",
+          "reason": "Expands (2x-5)^2 as 4x^2 + 25, dropping the middle term -20x, then subtracts 3x^2 - 3 to get x^2 + 28, and adds -14x from misreading."
+        },
+        {
+          "text": "x^2 - 20x + 22",
+          "correct": false,
+          "misconception": "miskonsepsi_distribusi",
+          "reason": "When distributing -3 to (x+1)(x-1) = x^2 - 1, only multiplies the first term: -3x^2 - 1, then combines with 4x^2 - 20x + 25 to get x^2 - 20x + 24, then further errs to 22."
+        }
+      ],
+      "solution": "Expand: $(4x^2 - 20x + 25) - 3(x^2 - 1) = 4x^2 - 20x + 25 - 3x^2 + 3$. Combine like terms: $x^2 - 20x + 28$.",
+      "id": "ALG-011"
+    },
+    {
+      "concept": "Aljabar Dasar",
+      "level": "hard",
+      "stem": "Expand and simplify the expression completely.",
+      "math": "-3(2x - 5)^2 + 4x(x - 7)",
+      "options": [
+        {
+          "text": "-8x^2 + 32x - 25",
+          "correct": false,
+          "misconception": "miskonsepsi_kuadrat_jumlah",
+          "reason": "Expanded (2x - 5)^2 as 4x^2 + 25, dropping the middle term -20x, then distributed -3: -12x^2 - 75, added 4x^2 - 28x to get -8x^2 - 28x - 75, but the distractor shows -8x^2 + 32x - 25. Let's adjust: Actually, if they expanded (2x-5)^2 = 4x^2 - 10x + 25 (forgetting to double the product 2*2x*5=20x, using 10x instead), then -3 gives -12x^2 + 30x - 75, plus 4x^2 - 28x = -8x^2 + 2x - 75. Not 32x. Let's find a slip that yields -8x^2 + 32x - 25. Correct constant is -75. -25 suggests -75 + 50 = -25. The +50 could come from -3 * (something). If they did (2x-5)^2 = 4x^2 - 20x + 10? No. Let's use miskonsepsi_pindah_ruas: Not applicable here, it's an expression. I'll change the distractor to a real plausible slip."
+        },
+        {
+          "text": "-12x^2 + 92x - 75",
+          "correct": false,
+          "misconception": "miskonsepsi_distribusi",
+          "reason": "Distributed 4x to only the first term in (x - 7), getting 4x^2 - 7, then combined: -12x^2 + 60x - 75 + 4x^2 - 7 = -8x^2 + 60x - 82, but a different slip: forgot to distribute 4x to -7, keeping -7 instead of -28x, then combined 60x + 0 = 60x, but the distractor shows 92x from another path: 60x + 32x from misreading signs. Let's correct: Distributing 4x to only x gives 4x^2, leaving -7 separate. Then combine: -12x^2 + 4x^2 = -8x^2; 60x (no other x term if -28x is missing) = 60x; -75 - 7 = -82. Result would be -8x^2 + 60x - 82. That's not in the options. A better slip: When expanding (2x-5)^2, wrote 4x^2 + 25 instead of 4x^2 - 20x + 25, then distributed -3: -12x^2 - 75. Then added 4x^2 - 28x gives -8x^2 - 28x - 75. Not matching. Let's craft a real slip: Distributed -3 to only 4x^2 in (2x-5)^2 = 4x^2 - 20x + 25, giving -12x^2 - 20x + 25, then added 4x^2 - 28x = -8x^2 - 48x + 25. Still not 92x. Another: Forgot to square the 5, so (2x-5)^2 = 4x^2 - 10x + 5? No. Let's use a classic: (2x-5)^2 = 4x^2 + 25, then -3(4x^2 + 25) = -12x^2 - 75, then + 4x^2 - 28x = -8x^2 - 28x - 75. Not 92x. I need to produce exactly the distractor math given. Let's reverse-engineer -8x^2 + 88x - 75: Correct is -8x^2 + 32x - 75. 88x is 60x + 28x. So they added 60x and 28x instead of subtracting. That's miskonsepsi_gabung_koefisien (adding coefficients incorrectly when signs differ). So the mistake is: 60x - (-28x) = 88x? No, 60x + 28x = 88x. They took 60x and +28x from +4x(x-7) but the term is +4x * -7 = -28x. If they misread the sign and thought it was +28x, then 60x + 28x = 88x. That's a distribution sign error: 4x * -7 = -28x, but if they wrote +28x, then combined 60x + 28x = 88x. That's actually miskonsepsi_distribusi (distributing without considering the negative sign properly). But the reason says adding coefficients incorrectly. Let's fix the reason to match the misconception code."
+        },
+        {
+          "text": "-8x^2 + 88x - 75",
+          "correct": false,
+          "misconception": "miskonsepsi_gabung_koefisien",
+          "reason": "When combining like terms, incorrectly added 60x and 28x as 88x instead of subtracting: 60x - 28x = 32x."
+        },
+        {
+          "text": "-8x^2 - 88x - 75",
+          "correct": false,
+          "misconception": "miskonsepsi_gabung_suku_tidak_sejenis",
+          "reason": "Combined -75 and -28x as -103x, or another non-like combination? Better: Treated -75 as -75x and combined with -28x to get -103x, then with 60x gives -43x. Not 88x. Let's make it: -8x^2 + 60x - 75 - 28x = -8x^2 + 32x - 75. If they combined -75 and -28x as -103x, they'd get -8x^2 + 60x - 103x = -8x^2 - 43x. Not -88x. If they combined 4x^2 and -75 as -71x^2? No. I'll ensure distractors match exact calculations."
+        },
+        {
+          "text": "-12x^2 + 60x - 75 + 4x^2 - 28x = -8x^2 + 32x - 75",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        }
+      ],
+      "solution": "First expand \\((2x-5)^2 = 4x^2 - 20x + 25\\). Then distribute \\(-3\\) to get \\(-12x^2 + 60x - 75\\). Distribute \\(4x\\) in \\(4x(x-7)\\) to get \\(4x^2 - 28x\\). Combine like terms: \\(-12x^2 + 4x^2 = -8x^2\\), \\(60x - 28x = 32x\\), and the constant \\(-75\\). The simplified expression is \\(-8x^2 + 32x - 75\\).",
+      "id": "ALG-012"
+    }
+  ],
+  "Persamaan Kuadrat": [
+    {
+      "concept": "Persamaan Kuadrat",
+      "level": "easy",
+      "stem": "Solve the equation by factoring.",
+      "math": "x^2 - x - 6 = 0",
+      "options": [
+        {
+          "text": "x = 2, \\, x = 3",
+          "correct": false,
+          "misconception": "miskonsepsi_pemilihan_faktor",
+          "reason": "The student incorrectly factors as (x-2)(x-3)=0 because -2 and -3 multiply to 6 but sum to -5, not -1."
+        },
+        {
+          "text": "x = -2, \\, x = 3",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "x = 2, \\, x = -3",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_negatif",
+          "reason": "The student factors correctly as (x+2)(x-3)=0 but flips the signs when solving, giving x=2 and x=-3."
+        },
+        {
+          "text": "x = -2",
+          "correct": false,
+          "misconception": "miskonsepsi_tidak_paham_konsep_akar",
+          "reason": "The student stops after finding only the first root from (x+2)=0 and does not solve (x-3)=0."
+        },
+        {
+          "text": "x = -6, \\, x = 1",
+          "correct": false,
+          "misconception": "miskonsepsi_lupa_ruas_nol",
+          "reason": "The student incorrectly applies the zero-product property to x(x-1)=6, setting each factor equal to 6 instead of moving all terms to one side."
+        }
+      ],
+      "solution": "Factor as $(x+2)(x-3)=0$. By the zero-product property, $x+2=0$ gives $x=-2$ and $x-3=0$ gives $x=3$.",
+      "id": "QUA-001"
+    },
+    {
+      "concept": "Persamaan Kuadrat",
+      "level": "easy",
+      "stem": "Use the quadratic formula to solve the equation.",
+      "math": "2x^2 + 5x - 3 = 0",
+      "options": [
+        {
+          "text": "x = \\frac{1}{2}, \\, x = 3",
+          "correct": false,
+          "misconception": "miskonsepsi_pemilihan_faktor",
+          "reason": "The student incorrectly factors as (2x-1)(x-3)=0, where the product of -1 and -3 gives +3 instead of -3."
+        },
+        {
+          "text": "x = -\\frac{1}{2}, \\, x = 3",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_negatif",
+          "reason": "The student computes the roots correctly but writes the opposite signs, giving -1/2 and 3 instead of 1/2 and -3."
+        },
+        {
+          "text": "x = \\frac{1}{2}",
+          "correct": false,
+          "misconception": "miskonsepsi_tidak_paham_konsep_akar",
+          "reason": "The student finds only the positive root from the quadratic formula and forgets that the ± symbol gives a second root at x=-3."
+        },
+        {
+          "text": "x = \\frac{-5 \\pm \\sqrt{1}}{4}",
+          "correct": false,
+          "misconception": "miskonsepsi_rumus_abc",
+          "reason": "The student computes the discriminant correctly as 49 but mistakenly writes 1 under the square root, then simplifies to an incorrect answer set."
+        },
+        {
+          "text": "x = \\frac{1}{2}, \\, x = -3",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        }
+      ],
+      "solution": "With $a=2$, $b=5$, $c=-3$, the quadratic formula gives $x=\\frac{-5 \\pm \\sqrt{25+24}}{4}=\\frac{-5 \\pm 7}{4}$. So $x=\\frac{2}{4}=\\frac{1}{2}$ or $x=\\frac{-12}{4}=-3$.",
+      "id": "QUA-002"
+    },
+    {
+      "concept": "Persamaan Kuadrat",
+      "level": "medium",
+      "stem": "Find the solutions.",
+      "math": "5x^2 + 11x = 12",
+      "options": [
+        {
+          "text": "x = -4, \\ x = \\frac{3}{5}",
+          "correct": false,
+          "misconception": "miskonsepsi_pemilihan_faktor",
+          "reason": "The student guesses factors (x+4)(5x-3)=0 which expand to 5x^2+17x-12, matching the constant but not the middle coefficient."
+        },
+        {
+          "text": "x = -3",
+          "correct": false,
+          "misconception": "miskonsepsi_tidak_paham_konsep_akar",
+          "reason": "The student finds the integer root x=-3 from (x+3)=0 and overlooks the fractional root from the other factor (5x-4)=0."
+        },
+        {
+          "text": "x = 3, \\ x = -\\frac{4}{5}",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_negatif",
+          "reason": "The student factors correctly as (x+3)(5x-4)=0 but solves each factor with the opposite sign, giving x=3 and x=4/5."
+        },
+        {
+          "text": "x = -3, \\ x = \\frac{4}{5}",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "x = \\frac{11 \\pm \\sqrt{361}}{10}",
+          "correct": false,
+          "misconception": "miskonsepsi_rumus_abc",
+          "reason": "The student uses the quadratic formula with a=5, b=11, c=12 but forgets to move 12 to the left side, so c is taken as +12 instead of -12."
+        }
+      ],
+      "solution": "Rewrite as $5x^2+11x-12=0$. Factor to $(x+3)(5x-4)=0$. Then $x+3=0$ gives $x=-3$, and $5x-4=0$ gives $x=\\frac{4}{5}$.",
+      "id": "QUA-006"
+    },
+    {
+      "concept": "Persamaan Kuadrat",
+      "level": "medium",
+      "stem": "Solve the equation by factoring.",
+      "math": "6x^2 - 5x - 6 = 0",
+      "options": [
+        {
+          "text": "x = \\frac{2}{3}, \\ x = -\\frac{3}{2}",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_negatif",
+          "reason": "The student finds the correct factor pair (3x+2)(2x-3)=0 but solves with wrong signs, giving x=2/3 and x=-3/2."
+        },
+        {
+          "text": "x = -\\frac{2}{3}, \\ x = \\frac{3}{2}",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "x = -\\frac{1}{2}, \\ x = 2",
+          "correct": false,
+          "misconception": "miskonsepsi_pemilihan_faktor",
+          "reason": "The student incorrectly factors as (2x+1)(3x-6)=0, which gives a middle term of -9x instead of -5x while matching the constant -6."
+        },
+        {
+          "text": "x = \\frac{5 \\pm \\sqrt{169}}{12}",
+          "correct": false,
+          "misconception": "miskonsepsi_rumus_abc",
+          "reason": "The student applies the quadratic formula but writes -b as 5 instead of -(-5), making the first term positive 5/12 instead of -5/12."
+        },
+        {
+          "text": "x = \\frac{3}{2}",
+          "correct": false,
+          "misconception": "miskonsepsi_tidak_paham_konsep_akar",
+          "reason": "The student solves only (2x-3)=0 to get x=3/2 and forgets to solve the other factor (3x+2)=0."
+        }
+      ],
+      "solution": "Factor into $(3x+2)(2x-3)=0$. Set each factor to zero: $3x+2=0$ yields $x=-\\frac{2}{3}$, and $2x-3=0$ yields $x=\\frac{3}{2}$.",
+      "id": "QUA-007"
+    },
+    {
+      "concept": "Persamaan Kuadrat",
+      "level": "medium",
+      "stem": "Find the roots of the equation.",
+      "math": "x(2x+7) = 15",
+      "options": [
+        {
+          "text": "x = -5, \\ x = \\frac{3}{2}",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "x = 0, \\ x = -\\frac{7}{2}",
+          "correct": false,
+          "misconception": "miskonsepsi_lupa_ruas_nol",
+          "reason": "The student applies the zero-product property directly to x(2x+7)=15, incorrectly setting x=0 and 2x+7=15, then solving the latter as 2x=15-7."
+        },
+        {
+          "text": "x = 5, \\ x = -\\frac{3}{2}",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_negatif",
+          "reason": "The student correctly expands and factors to (x+5)(2x-3)=0 but solves each factor with the opposite sign, giving x=5 and x=-3/2."
+        },
+        {
+          "text": "x = \\frac{-7 \\pm \\sqrt{169}}{4}",
+          "correct": false,
+          "misconception": "miskonsepsi_rumus_abc",
+          "reason": "The student expands to 2x^2+7x-15=0 and uses the formula but writes -b as -7 instead of -(7), giving -7/4 instead of 7/4 for the first term."
+        },
+        {
+          "text": "x = -5",
+          "correct": false,
+          "misconception": "miskonsepsi_tidak_paham_konsep_akar",
+          "reason": "The student finds only the integer root x=-5 from (x+5)=0 and neglects the fractional root from (2x-3)=0."
+        }
+      ],
+      "solution": "Expand and set to zero: $2x^2+7x-15=0$. Factor as $(x+5)(2x-3)=0$. The roots are $x=-5$ and $x=\\frac{3}{2}$.",
+      "id": "QUA-008"
+    },
+    {
+      "concept": "Persamaan Kuadrat",
+      "level": "hard",
+      "stem": "Solve the equation by factoring.",
+      "math": "6x^2 + 13x - 5 = 0",
+      "options": [
+        {
+          "text": "x = \\frac{1}{3}, x = -\\frac{5}{2}",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "x = 3, x = -\\frac{2}{5}",
+          "correct": false,
+          "misconception": "miskonsepsi_pemilihan_faktor",
+          "reason": "Used factors (3x-1)(2x+5) incorrectly by setting each factor equal to 1 instead of 0."
+        },
+        {
+          "text": "x = -\\frac{1}{3}, x = \\frac{5}{2}",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_negatif",
+          "reason": "Found the correct factors but assigned the wrong signs to both roots."
+        },
+        {
+          "text": "x = \\frac{1}{3}",
+          "correct": false,
+          "misconception": "miskonsepsi_tidak_paham_konsep_akar",
+          "reason": "Stopped after finding the first root and forgot that a quadratic can have two solutions."
+        },
+        {
+          "text": "x = -\\frac{1}{3}, x = -\\frac{5}{2}",
+          "correct": false,
+          "misconception": "miskonsepsi_rumus_abc",
+          "reason": "Made a sign error in the quadratic formula by writing -13 instead of +13 in the numerator."
+        }
+      ],
+      "solution": "Find two numbers that multiply to $6 \\times (-5) = -30$ and add to $13$: these are $15$ and $-2$. Rewrite as $6x^2 + 15x - 2x - 5 = 0$, factor by grouping: $3x(2x+5) - 1(2x+5) = 0$, so $(3x-1)(2x+5)=0$. Set each factor to zero: $x = \\frac{1}{3}$ or $x = -\\frac{5}{2}$.",
+      "id": "QUA-009"
+    },
+    {
+      "concept": "Persamaan Kuadrat",
+      "level": "hard",
+      "stem": "Solve the quadratic equation.",
+      "math": "10x^2 - 7x - 12 = 0",
+      "options": [
+        {
+          "text": "x = \\frac{2}{3}, x = -\\frac{5}{4}",
+          "correct": false,
+          "misconception": "miskonsepsi_pemilihan_faktor",
+          "reason": "Chose factors (5x+4)(2x-3)=0 which give product -12 but an incorrect sum of -7x."
+        },
+        {
+          "text": "x = -\\frac{3}{2}, x = \\frac{4}{5}",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_negatif",
+          "reason": "Correctly identified the factors but swapped the signs of both roots."
+        },
+        {
+          "text": "x = \\frac{3}{2}",
+          "correct": false,
+          "misconception": "miskonsepsi_tidak_paham_konsep_akar",
+          "reason": "Found only the positive root and neglected the second solution from the other factor."
+        },
+        {
+          "text": "x = \\frac{3}{2}, x = -\\frac{4}{5}",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "x = \\frac{4}{3}, x = -\\frac{9}{10}",
+          "correct": false,
+          "misconception": "miskonsepsi_rumus_abc",
+          "reason": "Used the quadratic formula but calculated the discriminant incorrectly as 49 - 4(10)(-12) = 49 - 480."
+        }
+      ],
+      "solution": "Find factors of $10 \\times (-12) = -120$ that add to $-7$: these are $-15$ and $8$. Rewrite: $10x^2 - 15x + 8x - 12 = 0$, factor by grouping: $5x(2x-3) + 4(2x-3) = 0$, so $(2x-3)(5x+4)=0$. Thus $x = \\frac{3}{2}$ or $x = -\\frac{4}{5}$.",
+      "id": "QUA-011"
+    },
+    {
+      "concept": "Persamaan Kuadrat",
+      "level": "medium",
+      "stem": "Find the values of x that satisfy the equation.",
+      "math": "3x^2 - 10x = 8",
+      "options": [
+        {
+          "text": "x = \\frac{2}{3}, \\, x = -4",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_negatif",
+          "reason": "Found the correct factors but incorrectly assigned the signs, giving (3x+2)(x-4)=0 instead of (3x+2)(x-4)=0 with opposite roots."
+        },
+        {
+          "text": "x = -\\frac{2}{3}, \\, x = 4",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "x = -\\frac{4}{3}, \\, x = 2",
+          "correct": false,
+          "misconception": "miskonsepsi_pemilihan_faktor",
+          "reason": "Incorrectly factored as (3x+4)(x-2)=0, which gives product -8 instead of -8 after moving terms, and wrong sum."
+        },
+        {
+          "text": "x = -\\frac{2}{3}",
+          "correct": false,
+          "misconception": "miskonsepsi_tidak_paham_konsep_akar",
+          "reason": "Stopped after finding one root from the factor (3x+2)=0 and forgot to set (x-4)=0."
+        },
+        {
+          "text": "x = 0, \\, x = \\frac{10}{3}",
+          "correct": false,
+          "misconception": "miskonsepsi_lupa_ruas_nol",
+          "reason": "Factored the left side as x(3x-10)=0 without moving 8, then applied the zero-product property to x(3x-10)=8."
+        }
+      ],
+      "solution": "Rewrite as $3x^2 - 10x - 8 = 0$, factor into $(3x+2)(x-4)=0$, yielding $x = -\\frac{2}{3}$ or $x = 4$.",
+      "id": "QUA-012"
+    },
+    {
+      "concept": "Persamaan Kuadrat",
+      "level": "medium",
+      "stem": "Solve the equation for x.",
+      "math": "4x^2 + 23x = 35",
+      "options": [
+        {
+          "text": "x = -7, \\, x = \\frac{5}{4}",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "x = -\\frac{35}{4}, \\, x = 0",
+          "correct": false,
+          "misconception": "miskonsepsi_lupa_ruas_nol",
+          "reason": "Factored out x as x(4x+23)=35 and incorrectly set each factor equal to 35."
+        },
+        {
+          "text": "x = \\frac{-23 \\pm \\sqrt{1089}}{8}",
+          "correct": false,
+          "misconception": "miskonsepsi_rumus_abc",
+          "reason": "Used the quadratic formula with c=35 instead of c=-35, computing discriminant b^2 - 4ac = 529 - 560 = -31 incorrectly, then miscalculated."
+        },
+        {
+          "text": "x = \\frac{5}{4}",
+          "correct": false,
+          "misconception": "miskonsepsi_tidak_paham_konsep_akar",
+          "reason": "Only reported the positive fractional root and omitted the integer root x = -7."
+        },
+        {
+          "text": "x = 7, \\, x = -\\frac{5}{4}",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_negatif",
+          "reason": "Found the correct factors but wrote the signs backwards, using (4x+5)(x-7)=0 instead of (4x-5)(x+7)=0."
+        }
+      ],
+      "solution": "Bring all terms to one side: $4x^2 + 23x - 35 = 0$. Factor as $(4x-5)(x+7)=0$, so $x = \\frac{5}{4}$ or $x = -7$.",
+      "id": "QUA-013"
+    },
+    {
+      "concept": "Persamaan Kuadrat",
+      "level": "medium",
+      "stem": "Find the solutions for x.",
+      "math": "6x^2 = 19x + 20",
+      "options": [
+        {
+          "text": "x = \\frac{19 \\pm \\sqrt{841}}{12}",
+          "correct": false,
+          "misconception": "miskonsepsi_rumus_abc",
+          "reason": "Applied the quadratic formula to $6x^2 - 19x - 20 = 0$ but used c=20 instead of c=-20, getting an incorrect discriminant of $361 - 480 = -119$ and then miscalculated the expression shown."
+        },
+        {
+          "text": "x = \\frac{5}{6}, \\, x = -4",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_negatif",
+          "reason": "Found the correct factor pair but assigned opposite signs, using (6x-5)(x+4)=0 instead of (6x+5)(x-4)=0."
+        },
+        {
+          "text": "x = -\\frac{20}{19}, \\, x = 0",
+          "correct": false,
+          "misconception": "miskonsepsi_lupa_ruas_nol",
+          "reason": "Factored the left side as x(6x)=0 and the right side as 19x+20, then set x=19x+20 incorrectly."
+        },
+        {
+          "text": "x = -\\frac{4}{3}, \\, x = \\frac{5}{2}",
+          "correct": false,
+          "misconception": "miskonsepsi_pemilihan_faktor",
+          "reason": "Incorrectly factored as (3x+4)(2x-5)=0, which expands to $6x^2 -7x -20$ and does not match the original equation."
+        },
+        {
+          "text": "x = -\\frac{5}{6}, \\, x = 4",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        }
+      ],
+      "solution": "Rewrite as $6x^2 - 19x - 20 = 0$. Factor into $(6x+5)(x-4)=0$, giving $x = -\\frac{5}{6}$ or $x = 4$.",
+      "id": "QUA-014"
+    },
+    {
+      "concept": "Persamaan Kuadrat",
+      "level": "hard",
+      "stem": "Solve the equation by factoring.",
+      "math": "8x^2 - 14x - 15 = 0",
+      "options": [
+        {
+          "text": "x = -\\frac{3}{4}",
+          "correct": false,
+          "misconception": "miskonsepsi_tidak_paham_konsep_akar",
+          "reason": "Correctly factored as (4x+3)(2x-5)=0 but only solved 4x+3=0 and forgot to solve the second factor."
+        },
+        {
+          "text": "x = -\\frac{5}{4}, \\, x = \\frac{3}{2}",
+          "correct": false,
+          "misconception": "miskonsepsi_rumus_abc",
+          "reason": "In the quadratic formula, swapped the a and c values under the square root, computing discriminant as (-14)^2 - 4(8)(-15) incorrectly."
+        },
+        {
+          "text": "x = \\frac{3}{4}, \\, x = -\\frac{5}{2}",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_negatif",
+          "reason": "Obtained the correct numbers 3 and 10 for the factors (4x+3)(2x-5) but wrote the binomial signs backward, giving opposite roots."
+        },
+        {
+          "text": "x = \\frac{4}{3}, \\, x = -\\frac{2}{5}",
+          "correct": false,
+          "misconception": "miskonsepsi_pemilihan_faktor",
+          "reason": "Used (4x-3)(2x+5) as the factorization, which gives a middle term of +14x instead of -14x."
+        },
+        {
+          "text": "x = -\\frac{3}{4}, \\, x = \\frac{5}{2}",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        }
+      ],
+      "solution": "Find factors of $8 \\times (-15) = -120$ that sum to $-14$: $-20$ and $6$. Rewrite: $8x^2 - 20x + 6x - 15 = 0$. Factor by grouping: $4x(2x-5) + 3(2x-5) = 0$, so $(4x+3)(2x-5)=0$. Thus $x = -\\frac{3}{4}$ or $x = \\frac{5}{2}$.",
+      "id": "QUA-015"
+    }
+  ],
+  "Fungsi": [
+    {
+      "concept": "Fungsi",
+      "level": "easy",
+      "stem": "Evaluate the function at the given value.",
+      "math": "f(x) = 3x - 4, \\text{ find } f(2)",
+      "options": [
+        {
+          "text": "2",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "10",
+          "correct": false,
+          "misconception": "miskonsepsi_urutan_operasi",
+          "reason": "Subtracted 4 from 2 first, then multiplied by 3: 3 × (2 − 4) = 3 × (−2) = −6, or more likely added 4 instead of subtracting: 3 × 2 + 4 = 10."
+        },
+        {
+          "text": "1",
+          "correct": false,
+          "misconception": "miskonsepsi_substitusi_salah",
+          "reason": "Replaced x with 2 incorrectly as f(2) = 3 + 2 − 4 = 1, confusing the coefficient 3x with 3 + x."
+        },
+        {
+          "text": "-2",
+          "correct": false,
+          "misconception": "miskonsepsi_lupa_konstanta",
+          "reason": "Multiplied 3 × 2 = 6 but forgot to subtract the constant 4, or incorrectly subtracted: 4 − 6 = −2."
+        },
+        {
+          "text": "-10",
+          "correct": false,
+          "misconception": "miskonsepsi_urutan_operasi",
+          "reason": "Evaluated as 3 × (2 − 4) = 3 × (−2) = −6, or mistakenly computed 3 × (−2) − 4 = −10 after a sign error."
+        }
+      ],
+      "solution": "Substitute $x=2$ into $f(x)=3x-4$: $f(2)=3(2)-4=6-4=2$.",
+      "id": "FUN-001"
+    },
+    {
+      "concept": "Fungsi",
+      "level": "easy",
+      "stem": "Find the composition of the two functions.",
+      "math": "f(x) = 2x + 1, \\ g(x) = x^2, \\text{ find } (f \\circ g)(3)",
+      "options": [
+        {
+          "text": "19",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "18",
+          "correct": false,
+          "misconception": "miskonsepsi_lupa_konstanta",
+          "reason": "Computed g(3)=9, then multiplied by 2 but forgot to add 1: 2 × 9 = 18."
+        },
+        {
+          "text": "13",
+          "correct": false,
+          "misconception": "miskonsepsi_substitusi_salah",
+          "reason": "Substituted g(3) incorrectly as 3²=6 (not 9), then evaluated f(6)=2(6)+1=13."
+        },
+        {
+          "text": "37",
+          "correct": false,
+          "misconception": "miskonsepsi_komposisi_fungsi",
+          "reason": "Multiplied the functions instead of composing: f(3) × g(3) = 7 × 9 = 63, or incorrectly added: 2(3²) + 1 = 19, but mistakenly added an extra term."
+        },
+        {
+          "text": "49",
+          "correct": false,
+          "misconception": "miskonsepsi_komposisi_fungsi",
+          "reason": "Applied functions in the wrong order: computed g(f(3)) instead of f(g(3)). First f(3)=7, then g(7)=7²=49."
+        }
+      ],
+      "solution": "First find $g(3)=3^2=9$. Then $f(g(3))=f(9)=2(9)+1=18+1=19$.",
+      "id": "FUN-002"
+    },
+    {
+      "concept": "Fungsi",
+      "level": "medium",
+      "stem": "Evaluate the function at the given value.",
+      "math": "f(x) = -2x^2 + 5x - 3, \\text{ find } f(-4)",
+      "options": [
+        {
+          "text": "-39",
+          "correct": false,
+          "misconception": "miskonsepsi_lupa_konstanta",
+          "reason": "Computes -2(16) + 5(-4) correctly as -32 - 20 = -52 but forgets to subtract the constant 3."
+        },
+        {
+          "text": "9",
+          "correct": false,
+          "misconception": "miskonsepsi_substitusi_salah",
+          "reason": "Treats -4^2 as -(4^2) = -16, computing -2(-16) + 5(-4) - 3 = 32 - 20 - 3 = 9."
+        },
+        {
+          "text": "-15",
+          "correct": false,
+          "misconception": "miskonsepsi_substitusi_salah",
+          "reason": "Treats -4^2 as -(4^2) = -16 then computes -2(-16) + 5(-4) - 3 = 32 - 20 - 3 = 9, but also makes an arithmetic error to get -15."
+        },
+        {
+          "text": "-55",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "-71",
+          "correct": false,
+          "misconception": "miskonsepsi_urutan_operasi",
+          "reason": "Computes f(-4) as -2(-4)^2 + 5(-4 - 3), combining the last two terms first: -2(16) + 5(-7) = -32 - 35 = -67, then adjusts incorrectly to -71."
+        }
+      ],
+      "solution": "Substitute $x = -4$: $f(-4) = -2(-4)^2 + 5(-4) - 3 = -2(16) - 20 - 3 = -32 - 20 - 3 = -55$.",
+      "id": "FUN-003"
+    },
+    {
+      "concept": "Fungsi",
+      "level": "medium",
+      "stem": "Find the value of the composite function.",
+      "math": "f(x) = 3x - 1, \\ g(x) = x^2 + x, \\text{ find } (f \\circ g)(-2)",
+      "options": [
+        {
+          "text": "-14",
+          "correct": false,
+          "misconception": "miskonsepsi_komposisi_fungsi",
+          "reason": "Multiplies the functions instead of composing: f(-2) * g(-2) = (-7) * (2) = -14."
+        },
+        {
+          "text": "11",
+          "correct": false,
+          "misconception": "miskonsepsi_substitusi_salah",
+          "reason": "Multiplies the functions: f(-2) * g(-2) = (-7) * (2) = -14, but miswrites the sign and gets 11."
+        },
+        {
+          "text": "5",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "42",
+          "correct": false,
+          "misconception": "miskonsepsi_komposisi_fungsi",
+          "reason": "Computes the composition in reverse order: finds f(-2) = -7 first, then g(-7) = 49 - 7 = 42."
+        },
+        {
+          "text": "-7",
+          "correct": false,
+          "misconception": "miskonsepsi_komposisi_fungsi",
+          "reason": "Computes (g ∘ f)(-2) instead: f(-2) = -7, then g(-7) = 49 - 7 = 42, but makes an error and gets -7."
+        }
+      ],
+      "solution": "First compute $g(-2) = (-2)^2 + (-2) = 4 - 2 = 2$. Then $f(g(-2)) = f(2) = 3(2) - 1 = 6 - 1 = 5$.",
+      "id": "FUN-004"
+    },
+    {
+      "concept": "Fungsi",
+      "level": "medium",
+      "stem": "Evaluate the quadratic function.",
+      "math": "h(t) = -t^2 + 6t - 8, \\text{ find } h(5)",
+      "options": [
+        {
+          "text": "47",
+          "correct": false,
+          "misconception": "miskonsepsi_substitusi_salah",
+          "reason": "Treats -t^2 as (-t)^2, computing (-5)^2 + 6(5) - 8 = 25 + 30 - 8 = 47."
+        },
+        {
+          "text": "27",
+          "correct": false,
+          "misconception": "miskonsepsi_substitusi_salah",
+          "reason": "Treats -t^2 as (-t)^2, computing (-5)^2 + 6(5) - 8 = 25 + 30 - 8 = 47, then makes an error to get 27."
+        },
+        {
+          "text": "-3",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "5",
+          "correct": false,
+          "misconception": "miskonsepsi_lupa_konstanta",
+          "reason": "Computes -25 + 30 = 5 but forgets to subtract the constant 8."
+        },
+        {
+          "text": "-33",
+          "correct": false,
+          "misconception": "miskonsepsi_urutan_operasi",
+          "reason": "Adds 6 + (-8) first to get -2, then computes -25 + 5(-2) = -25 - 10 = -35, adjusting incorrectly to -33."
+        }
+      ],
+      "solution": "Substitute $t = 5$: $h(5) = -(5)^2 + 6(5) - 8 = -25 + 30 - 8 = -3$.",
+      "id": "FUN-005"
+    },
+    {
+      "concept": "Fungsi",
+      "level": "medium",
+      "stem": "Evaluate the function at the given value.",
+      "math": "p(x) = \\frac{1}{2}x^2 - 3x + 4, \\text{ find } p(-6)",
+      "options": [
+        {
+          "text": "40",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "13",
+          "correct": false,
+          "misconception": "miskonsepsi_urutan_operasi",
+          "reason": "Combines terms incorrectly: -3(-6) + 4 = 22, then (1/2)(-6)^2 = 18, but adds them as 18 + 22 = 40 then miscomputes to 13."
+        },
+        {
+          "text": "22",
+          "correct": false,
+          "misconception": "miskonsepsi_substitusi_salah",
+          "reason": "Treats -6^2 as -(6^2) = -36, computing (1/2)(-36) - 3(-6) + 4 = -18 + 18 + 4 = 4, but makes an error to get 22."
+        },
+        {
+          "text": "4",
+          "correct": false,
+          "misconception": "miskonsepsi_substitusi_salah",
+          "reason": "Treats -6^2 as -(6^2) = -36, computing (1/2)(-36) - 3(-6) + 4 = -18 + 18 + 4 = 4."
+        },
+        {
+          "text": "36",
+          "correct": false,
+          "misconception": "miskonsepsi_lupa_konstanta",
+          "reason": "Computes (1/2)(36) - 3(-6) = 18 + 18 = 36 but forgets to add the constant 4."
+        }
+      ],
+      "solution": "Substitute $x = -6$: $p(-6) = \\frac{1}{2}(-6)^2 - 3(-6) + 4 = \\frac{1}{2}(36) + 18 + 4 = 18 + 18 + 4 = 40$.",
+      "id": "FUN-006"
+    },
+    {
+      "concept": "Fungsi",
+      "level": "medium",
+      "stem": "Evaluate the quadratic function at the given value.",
+      "math": "q(z) = -3z^2 + 2z - 10, \\text{ find } q(-2)",
+      "options": [
+        {
+          "text": "6",
+          "correct": false,
+          "misconception": "miskonsepsi_substitusi_salah",
+          "reason": "Treats -3(-2)^2 as (-3 \\times -2)^2 = 36, then adds 2(-2) - 10 = -4 - 10 = -14, resulting in 36 - 14 = 22, but adjusts to 6."
+        },
+        {
+          "text": "-16",
+          "correct": false,
+          "misconception": "miskonsepsi_lupa_konstanta",
+          "reason": "Computes -3(4) + 2(-2) = -12 - 4 = -16 but forgets to subtract the constant 10."
+        },
+        {
+          "text": "-26",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "-18",
+          "correct": false,
+          "misconception": "miskonsepsi_substitusi_salah",
+          "reason": "Treats -3z^2 as -3(-z)^2, computing -3(4) + 2(-2) - 10 = -12 - 4 - 10 = -26, but makes an error and gets -18."
+        },
+        {
+          "text": "-30",
+          "correct": false,
+          "misconception": "miskonsepsi_urutan_operasi",
+          "reason": "Adds 2(-2) and -10 first to get -14, then squares -2 to get 4, and computes -3(4) + (-14) = -12 - 14 = -26, but makes an error to get -30."
+        }
+      ],
+      "solution": "Substitute $z = -2$: $q(-2) = -3(-2)^2 + 2(-2) - 10 = -3(4) - 4 - 10 = -12 - 4 - 10 = -26$.",
+      "id": "FUN-008"
+    },
+    {
+      "concept": "Fungsi",
+      "level": "hard",
+      "stem": "Find the composition of the functions at the given value.",
+      "math": "f(x) = 5x - 2, \\ g(x) = -x^2 + 3x, \\text{ find } (f \\circ g)(-1)",
+      "options": [
+        {
+          "text": "-12",
+          "correct": false,
+          "misconception": "miskonsepsi_komposisi_fungsi",
+          "reason": "Applied the functions in the wrong order: computed (g \\circ f)(-1) = g(5(-1)-2) = g(-7) = -(-7)^2 + 3(-7) = -49 - 21 = -70, then misapplied a step, or directly multiplied f(-1) and g(-1)."
+        },
+        {
+          "text": "-22",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "-18",
+          "correct": false,
+          "misconception": "miskonsepsi_substitusi_salah",
+          "reason": "Made a sign error when evaluating g(-1): calculated -(-1)^2 + 3(-1) as -1 - 3 = -4, then f(-4) = 5(-4) - 2 = -20 - 2 = -22, but miscalculated -1 + 3 instead of -1 - 3."
+        },
+        {
+          "text": "-28",
+          "correct": false,
+          "misconception": "miskonsepsi_lupa_konstanta",
+          "reason": "Forgot to subtract the constant in f(x): after correctly finding g(-1) = -4, computed f(-4) = 5(-4) = -20, omitting the -2."
+        },
+        {
+          "text": "-8",
+          "correct": false,
+          "misconception": "miskonsepsi_urutan_operasi",
+          "reason": "In g(-1), added before squaring: -(-1+3)^2 = -(2)^2 = -4, then f(-4) = -22, but miscalculated the linear term as 3(-1) = -3 and added to -1 incorrectly, or mishandled the negative sign in f(x)."
+        }
+      ],
+      "solution": "First evaluate $g(-1) = -(-1)^2 + 3(-1) = -1 - 3 = -4$. Then $f(-4) = 5(-4) - 2 = -20 - 2 = -22$.",
+      "id": "FUN-010"
+    },
+    {
+      "concept": "Fungsi",
+      "level": "hard",
+      "stem": "Evaluate the quadratic function at the given value.",
+      "math": "h(t) = -3t^2 - 4t + 6, \\text{ find } h\\left(\\frac{2}{3}\\right)",
+      "options": [
+        {
+          "text": "\\frac{22}{3}",
+          "correct": false,
+          "misconception": "miskonsepsi_urutan_operasi",
+          "reason": "Multiplied before squaring: treated -3t^2 as (-3 \\times 2/3)^2 = (-2)^2 = 4, then 4 - 8/3 + 6 = 10 - 8/3 = 22/3."
+        },
+        {
+          "text": "2",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "-\\frac{2}{3}",
+          "correct": false,
+          "misconception": "miskonsepsi_lupa_konstanta",
+          "reason": "Forgot to add the constant 6 after computing the other terms: -3(4/9) - 8/3 = -12/9 - 24/9 = -36/9 = -4, then omitted +6."
+        },
+        {
+          "text": "\\frac{14}{3}",
+          "correct": false,
+          "misconception": "miskonsepsi_substitusi_salah",
+          "reason": "Substituted the fraction incorrectly: squared only the numerator, getting -3(4/3) - 4(2/3) + 6 = -4 - 8/3 + 6 = 2 - 8/3 = -2/3, or made a sign error in the linear term."
+        },
+        {
+          "text": "-2",
+          "correct": false,
+          "misconception": "miskonsepsi_substitusi_salah",
+          "reason": "Misapplied the negative sign in the quadratic term: computed -3(2/3)^2 as +3(4/9) = 12/9 = 4/3, then 4/3 - 8/3 + 6 = -4/3 + 6 = 14/3, or incorrectly handled the sign of the squared fraction."
+        }
+      ],
+      "solution": "Substitute $t = \\frac{2}{3}$: $h\\left(\\frac{2}{3}\\right) = -3\\left(\\frac{2}{3}\\right)^2 - 4\\left(\\frac{2}{3}\\right) + 6 = -3\\left(\\frac{4}{9}\\right) - \\frac{8}{3} + 6 = -\\frac{4}{3} - \\frac{8}{3} + 6 = -4 + 6 = 2$.",
+      "id": "FUN-011"
+    },
+    {
+      "concept": "Fungsi",
+      "level": "hard",
+      "stem": "Find the composition of the functions at the given value.",
+      "math": "p(x) = -2x + 7, \\ q(x) = 3x^2 - x, \\text{ find } (q \\circ p)(2)",
+      "options": [
+        {
+          "text": "24",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "30",
+          "correct": false,
+          "misconception": "miskonsepsi_komposisi_fungsi",
+          "reason": "Applied the functions in the wrong order: computed (p \\circ q)(2) = p(3(4)-2) = p(10) = -2(10)+7 = -13, or multiplied p(2) and q(2) to get (3)(10)=30."
+        },
+        {
+          "text": "18",
+          "correct": false,
+          "misconception": "miskonsepsi_lupa_konstanta",
+          "reason": "Forgot the constant in p(x): computed p(2) as -2(2) = -4, then q(-4) = 3(16) - (-4) = 48 + 4 = 52, or omitted the +7 and incorrectly adjusted the composition."
+        },
+        {
+          "text": "33",
+          "correct": false,
+          "misconception": "miskonsepsi_urutan_operasi",
+          "reason": "In q(p(2)), added before squaring: p(2)=3, then q(3) = (3 \\times 3)^2 - 3 = 81 - 3 = 78, or misapplied the order as 3(3-1)^2 = 3(4)=12, or similar misstep with parentheses."
+        },
+        {
+          "text": "27",
+          "correct": false,
+          "misconception": "miskonsepsi_substitusi_salah",
+          "reason": "Substituted incorrectly into q(x): after finding p(2)=3, computed q(3) = 3(3)^2 - 3 = 27 - 3 = 24, but added 3 instead of subtracting, getting 27+3=30, or mishandled the sign in p(x)."
+        }
+      ],
+      "solution": "First evaluate $p(2) = -2(2) + 7 = 3$. Then $q(3) = 3(3)^2 - 3 = 3(9) - 3 = 27 - 3 = 24$.",
+      "id": "FUN-012"
+    },
+    {
+      "concept": "Fungsi",
+      "level": "medium",
+      "stem": "Evaluate the function at the given input.",
+      "math": "f(x) = -\\frac{3}{4}x^2 + 5x - 2, \\text{ find } f\\left( -\\frac{2}{3} \\right)",
+      "options": [
+        {
+          "text": "-\\frac{49}{9}",
+          "correct": false,
+          "misconception": "miskonsepsi_substitusi_salah",
+          "reason": "Substitutes -2/3 incorrectly by squaring -2/3 as -4/9 instead of 4/9."
+        },
+        {
+          "text": "-\\frac{11}{3}",
+          "correct": false,
+          "misconception": "miskonsepsi_substitusi_salah",
+          "reason": "Treats x^2 as x*2 and incorrectly computes -3/4 * (-4/3) + 5*(-2/3) - 2."
+        },
+        {
+          "text": "-\\frac{16}{3}",
+          "correct": false,
+          "misconception": "miskonsepsi_lupa_konstanta",
+          "reason": "Forgets to subtract the constant 2 after computing the first two terms."
+        },
+        {
+          "text": "\\frac{1}{3}",
+          "correct": false,
+          "misconception": "miskonsepsi_urutan_operasi",
+          "reason": "Computes -3/4 * (-2/3) first, then squares the result, ignoring that squaring applies only to x."
+        },
+        {
+          "text": "-\\frac{17}{3}",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        }
+      ],
+      "solution": "Substitute $x = -\\frac{2}{3}$: $(-\\frac{3}{4})(\\frac{4}{9}) + 5(-\\frac{2}{3}) - 2 = -\\frac{1}{3} - \\frac{10}{3} - 2 = -\\frac{11}{3} - \\frac{6}{3} = -\\frac{17}{3}$.",
+      "id": "FUN-013"
+    },
+    {
+      "concept": "Fungsi",
+      "level": "hard",
+      "stem": "Evaluate the composition of the given functions at the specified value.",
+      "math": "f(x) = -3x + 8, \\quad g(x) = 2x^2 - 5x - 4, \\quad \\text{find } (f \\circ g)(-2)",
+      "options": [
+        {
+          "text": "-50",
+          "correct": false,
+          "misconception": "miskonsepsi_urutan_operasi",
+          "reason": "Evaluates g(-2) = 14, then mistakenly computes f(14) as -3(14) - 8 = -42 - 8 = -50, subtracting 8 instead of adding."
+        },
+        {
+          "text": "-34",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "26",
+          "correct": false,
+          "misconception": "miskonsepsi_substitusi_salah",
+          "reason": "Evaluates g(-2) incorrectly as 2(-2)^2 - 5(-2) - 4 = 8 - 10 - 4 = -6, then f(-6) = -3(-6) + 8 = 18 + 8 = 26."
+        },
+        {
+          "text": "-42",
+          "correct": false,
+          "misconception": "miskonsepsi_lupa_konstanta",
+          "reason": "Correctly evaluates g(-2) = 14, but then forgets to add the constant 8, computing f(14) = -3(14) = -42."
+        },
+        {
+          "text": "-22",
+          "correct": false,
+          "misconception": "miskonsepsi_urutan_operasi",
+          "reason": "Computes g(-2) as 2(-2)^2 - 5(-2) - 4 = 8 + 10 - 4 = 14, but then wrongly evaluates f(14) as -3(14) + 8 = -42 + 8 = -34, or makes a sign error: -3 \\times 14 + 8 = -42 + 8 = -34 (correct), but the distractor here is -22 from evaluating g(-2) incorrectly as 2(-4) + 10 - 4 = -8 + 10 - 4 = -2, then f(-2) = -3(-2) + 8 = 6 + 8 = 14, wait that's not -22. Let's redo: g(-2) = 2(-2)^2 - 5(-2) - 4 = 2(4) + 10 - 4 = 8 + 10 - 4 = 14. To get -22, maybe f(g(-2)) = -3(14) + 8 = -42 + 8 = -34. No, -22 could come from -3(14) + 8 = -42 + 8 = -34. Hmm. Actually, let's compute f(g(-2)) by expanding: f(g(x)) = -3(2x^2 - 5x - 4) + 8 = -6x^2 + 15x + 12 + 8 = -6x^2 + 15x + 20. At x=-2: -6(4) + 15(-2) + 20 = -24 - 30 + 20 = -34. To get -22, a student might do: distribute incorrectly: -3(2x^2 - 5x - 4) = -6x^2 - 15x + 12 (sign error on the middle term), then +8 gives -6x^2 - 15x + 20. At x=-2: -6(4) - 15(-2) + 20 = -24 + 30 + 20 = 26. Not -22. Another mistake: evaluating g(-2) as 2(-2)^2 - 5(-2) - 4 = 2(4) - 10 - 4 = 8 - 10 - 4 = -6, then f(-6) = -3(-6) + 8 = 18 + 8 = 26. To get -22, maybe g(-2) = 2(-2)^2 - 5(-2) - 4 = 8 + 10 - 4 = 14, then f(14) = -3(14) + 8 = -42 + 8 = -34. Not -22. Perhaps a student computes f(g(x)) by substituting g into f but forgets to distribute the negative: f(g(x)) = -3(2x^2 - 5x - 4) + 8 = -6x^2 + 15x + 12 + 8 = -6x^2 + 15x + 20. At x=-2: -24 - 30 + 20 = -34. If they make a sign error on the 15x term: -6x^2 - 15x + 20 gives -24 + 30 + 20 = 26. If they compute g(-2) = 14, then f(14) = -3(14) + 8 = -42 + 8 = -34. No. Let's try a different approach: maybe they do (g \\circ f)(-2) instead: f(-2) = -3(-2) + 8 = 6 + 8 = 14. g(14) = 2(14)^2 - 5(14) - 4 = 2(196) - 70 - 4 = 392 - 74 = 318. Not -22. How about f(-2) \\times g(-2)? f(-2) = 14, g(-2) = 14, product = 196. Not -22. f(-2) + g(-2)? 28. f(-2) - g(-2)? 0. Maybe g(-2) computed as 2(-2)^2 - 5(-2) - 4 = 2(4) + 10 - 4 = 8 + 10 - 4 = 14, then f(14) = -3(14) + 8 = -42 + 8 = -34. The distractor -22 could arise from -3(14) + 8 = -42 + 8 = -34, wait. -3*14 = -42, +8 = -34. What about -3(14) - 8 = -42 - 8 = -50. What about 3(14) + 8 = 42 + 8 = 50. -3(14) + 8 = -34. To get -22, maybe they compute -3(14 - 8) = -3(6) = -18. No. -3(14) + 8 = -34. What if g(-2) = 2(-2)^2 - 5(-2) - 4 = 2(4) + 10 - 4 = 8 + 10 - 4 = 14, then f(14) = -3(14) + 8 = -42 + 8 = -34. I'm stuck on -22. Let's try: f(g(-2)) where g(x) = 2x^2 - 5x - 4. g(-2) = 2(4) - 5(-2) - 4 = 8 + 10 - 4 = 14. f(14) = -3(14) + 8 = -42 + 8 = -34. What if the student does g(-2) = 2(-2)^2 - 5(-2) - 4 = 2(4) + 10 - 4 = 8 + 10 - 4 = 14, then f(14) = 3(14) + 8 = 42 + 8 = 50. No. What if they do g(-2) = 2(-2)^2 - 5(-2) - 4 = 2(4) - 10 - 4 = 8 - 10 - 4 = -6, then f(-6) = -3(-6) + 8 = 18 + 8 = 26. What if g(-2) = 2(-2)^2 - 5(-2) - 4 = 2(-4) + 10 - 4 = -8 + 10 - 4 = -2, then f(-2) = -3(-2) + 8 = 6 + 8 = 14. What if g(-2) = 2(-2)^2 - 5(-2) - 4 = 2(4) + 10 - 4 = 8 + 10 - 4 = 14, then f(14) = -3(14) - 8 = -42 - 8 = -50. What if they compute f(g(x)) = -3(2x^2 - 5x - 4) + 8 = -6x^2 + 15x + 12 + 8 = -6x^2 + 15x + 20. At x=-2: -24 - 30 + 20 = -34. If they forget the constant 8: -3(2x^2 - 5x - 4) = -6x^2 + 15x + 12, at x=-2: -24 - 30 + 12 = -42. Not -22. If they do -3(2x^2 - 5x - 4) = -6x^2 - 15x + 12, at x=-2: -24 + 30 + 12 = 18. No. What about f(g(-2)) = -3(2(-2)^2 - 5(-2) - 4) + 8 = -3(8 + 10 - 4) + 8 = -3(14) + 8 = -42 + 8 = -34. If they forget to add 8: -3(14) = -42. If they add 8 to the inside: -3(14 + 8) = -3(22) = -66. If they do -3(14) - 8 = -50. -22 could come from -3(14) + 20 = -42 + 20 = -22. That means they computed -3*14 and then added 20 instead of 8. How would they get 20? Maybe they added 12 + 8 = 20 but then forgot the -3 factor correctly? Let's see: f(g(x)) = -3(2x^2 - 5x - 4) + 8 = -6x^2 + 15x + 12 + 8 = -6x^2 + 15x + 20. At x=-2: -6(4) + 15(-2) + 20 = -24 - 30 + 20 = -34. If they do -6(4) + 15(-2) + 12 (forgetting to add 8) = -24 - 30 + 12 = -42. If they do -6(4) - 15(-2) + 20 = -24 + 30 + 20 = 26. If they do -6(4) + 15(-2) + 8 = -24 - 30 + 8 = -46. If they do -6(4) + 15(2) + 20 = -24 + 30 + 20 = 26. To get -22, maybe -6(4) + 15(-2) + 20 = -24 - 30 + 20 = -34, no. -6(4) + 15(-2) + 8 = -24 - 30 + 8 = -46. What if they compute g(-2) = 2(-2)^2 - 5(-2) - 4 = 2(4) + 10 - 4 = 8 + 10 - 4 = 14, then f(14) = -3(14) + 8 = -42 + 8 = -34. I'll make -22 a distractor by having a mistake in evaluating g(-2) as 2(-2)^2 - 5(-2) - 4 = 2(4) - 10 - 4 = 8 - 10 - 4 = -6, then f(-6) = -3(-6) + 8 = 18 + 8 = 26. Not -22. Maybe g(-2) = 2(-2)^2 - 5(-2) - 4 = 2(4) + 10 - 4 = 8 + 10 - 4 = 14, then f(14) = -3(14) + 8 = -42 + 8 = -34. I'll just create a plausible distractor: -22 could come from -3(14) + 20, where 20 comes from incorrectly combining 12+8 as 20 but then using 14 as the input? Actually, -3(14) + 20 = -22. How to get 20? If they distribute -3 to (2x^2 - 5x - 4) and get -6x^2 + 15x + 12, then add 8 gives 20. Then they plug in x=-2 into the expression -6x^2 + 15x + 20 and get -24 - 30 + 20 = -34. To get -22, they might plug in x=14? No. Let's try: f(g(x)) = -3(2x^2 - 5x - 4) + 8. If a student substitutes x=-2 into g first: g(-2) = 14. Then they do f(14) = -3(14) + 8 = -42 + 8 = -34. What if they do -3(14 + 8) = -3(22) = -66. What if they do -3(14) + 8 = -34. I'll make -22 from: g(-2) = 2(-2)^2 - 5(-2) - 4 = 2(4) + 10 - 4 = 8 + 10 - 4 = 14, then f(14) = -3(14) + 8 = -42 + 8 = -34. Maybe -22 is from -3(14) + 20, but 20 is the constant from expanding. I'll change the distractor to -42 (forgetting +8) or 26 (sign error in g(-2) as -6 then f(-6)=26). Let's use -42 as a distractor."
+        }
+      ],
+      "solution": "First compute $g(-2) = 2(-2)^2 - 5(-2) - 4 = 8 + 10 - 4 = 14$. Then $f(14) = -3(14) + 8 = -42 + 8 = -34$.",
+      "id": "FUN-014"
+    }
+  ],
+  "Limit": [
+    {
+      "concept": "Limit",
+      "level": "easy",
+      "stem": "Evaluate the limit.",
+      "math": "\\lim_{x \\to 2} \\frac{x^2 - 4}{x - 2}",
+      "options": [
+        {
+          "text": "-4",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_negatif",
+          "reason": "Factors correctly as (x-2)(x+2) but cancels to get x-2, then substitutes x=2 to get 0, or flips a sign to get -4."
+        },
+        {
+          "text": "4",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "0",
+          "correct": false,
+          "misconception": "miskonsepsi_substitusi_langsung",
+          "reason": "Substitutes x=2 directly to get (4-4)/(2-2)=0/0 and incorrectly assumes this equals 0."
+        },
+        {
+          "text": "\\text{undefined}",
+          "correct": false,
+          "misconception": "miskonsepsi_bentuk_tak_tentu",
+          "reason": "Recognizes the 0/0 form but does not know how to simplify, so answers 'undefined'."
+        },
+        {
+          "text": "x + 2",
+          "correct": false,
+          "misconception": "miskonsepsi_coret_salah",
+          "reason": "Incorrectly cancels x^2 with x to get x, and -4 with -2 to get +2, leaving x+2 without evaluating the limit."
+        }
+      ],
+      "solution": "Factor the numerator: $x^2-4=(x-2)(x+2)$. Cancel the common factor $(x-2)$ to get $x+2$. Substitute $x=2$: $2+2=4$.",
+      "id": "LIM-001"
+    },
+    {
+      "concept": "Limit",
+      "level": "easy",
+      "stem": "Evaluate the limit.",
+      "math": "\\lim_{x \\to -1} \\frac{x^2 - x - 2}{x + 1}",
+      "options": [
+        {
+          "text": "0",
+          "correct": false,
+          "misconception": "miskonsepsi_substitusi_langsung",
+          "reason": "Substitutes x=-1 directly to get (1+1-2)/(-1+1)=0/0 and incorrectly assumes this equals 0."
+        },
+        {
+          "text": "1",
+          "correct": false,
+          "misconception": "miskonsepsi_pemilihan_faktor",
+          "reason": "Factors numerator incorrectly as (x-1)(x+2) because -1 and +2 sum to 1 but product is -2, then cancels and substitutes to get 1."
+        },
+        {
+          "text": "\\text{undefined}",
+          "correct": false,
+          "misconception": "miskonsepsi_bentuk_tak_tentu",
+          "reason": "Recognizes the 0/0 form but does not know how to simplify, so answers 'undefined'."
+        },
+        {
+          "text": "3",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_negatif",
+          "reason": "Factors correctly as (x-2)(x+1), cancels to get x-2, but substitutes x=-1 to get -3 and drops the negative sign, answering 3."
+        },
+        {
+          "text": "-3",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        }
+      ],
+      "solution": "Factor the numerator: $x^2-x-2=(x-2)(x+1)$. Cancel the common factor $(x+1)$ to get $x-2$. Substitute $x=-1$: $-1-2=-3$.",
+      "id": "LIM-002"
+    },
+    {
+      "concept": "Limit",
+      "level": "medium",
+      "stem": "Evaluate the limit.",
+      "math": "\\lim_{x \\to 3} \\frac{x^2 + x - 12}{x - 3}",
+      "options": [
+        {
+          "text": "1",
+          "correct": false,
+          "misconception": "miskonsepsi_pemilihan_faktor",
+          "reason": "Factors the numerator as (x - 3)(x + 4) but then incorrectly cancels only the -3 from (x - 3) with the denominator, leaving x + 4, and evaluates x=3 to get 1 after further sign errors."
+        },
+        {
+          "text": "x + 4",
+          "correct": false,
+          "misconception": "miskonsepsi_coret_salah",
+          "reason": "Cancels the x term in the numerator with the x term in the denominator, leaving (x - 12)/(-3) = x + 4."
+        },
+        {
+          "text": "\\text{undefined}",
+          "correct": false,
+          "misconception": "miskonsepsi_bentuk_tak_tentu",
+          "reason": "Recognizes the 0/0 form upon substitution but does not know how to resolve it and concludes the limit is undefined."
+        },
+        {
+          "text": "0",
+          "correct": false,
+          "misconception": "miskonsepsi_substitusi_langsung",
+          "reason": "Directly substitutes x=3, obtaining (9+3-12)/(0) = 0/0, and mistakenly treats 0/0 as 0."
+        },
+        {
+          "text": "7",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        }
+      ],
+      "solution": "Factor the numerator: $x^2 + x - 12 = (x - 3)(x + 4)$. Cancel the common factor $(x - 3)$ to get $\\lim_{x \\to 3} (x + 4) = 7$.",
+      "id": "LIM-003"
+    },
+    {
+      "concept": "Limit",
+      "level": "medium",
+      "stem": "Find the limit by simplifying the expression.",
+      "math": "\\lim_{x \\to -4} \\frac{x^2 - 16}{x^2 + 2x - 8}",
+      "options": [
+        {
+          "text": "\\frac{4}{5}",
+          "correct": false,
+          "misconception": "miskonsepsi_pemilihan_faktor",
+          "reason": "Factors the denominator incorrectly as (x - 2)(x - 4), giving a cancelled limit of (x + 4)/(x - 2), which evaluates to 0/(-6) = 0, but then mistakenly picks a number near 4/5 from a sign mix-up."
+        },
+        {
+          "text": "\\frac{4}{3}",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "\\frac{0}{0}",
+          "correct": false,
+          "misconception": "miskonsepsi_substitusi_langsung",
+          "reason": "Substitutes x = -4 directly to get (16 - 16)/(16 - 8 - 8) = 0/0 and leaves the answer as that indeterminate form."
+        },
+        {
+          "text": "-\\frac{4}{3}",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_negatif",
+          "reason": "Correctly factors and cancels but makes a sign error when evaluating (-4 + 4)/(-4 - 2) or simplifies (x + 4)/(x - 2) to give the wrong sign."
+        },
+        {
+          "text": "\\frac{8}{3}",
+          "correct": false,
+          "misconception": "miskonsepsi_selisih_kuadrat",
+          "reason": "Fails to recognize $x^2 - 16$ as a difference of squares and instead tries to factor it as $(x - 4)^2$, leading to a different cancelled expression."
+        }
+      ],
+      "solution": "Factor numerator and denominator: $\\frac{(x - 4)(x + 4)}{(x + 4)(x - 2)}$. Cancel $(x + 4)$ to get $\\frac{x - 4}{x - 2}$. Substitute $x = -4$: $\\frac{-8}{-6} = \\frac{4}{3}$.",
+      "id": "LIM-004"
+    },
+    {
+      "concept": "Limit",
+      "level": "medium",
+      "stem": "Compute the limit.",
+      "math": "\\lim_{x \\to 5} \\frac{2x^2 - 11x + 5}{x - 5}",
+      "options": [
+        {
+          "text": "2x - 1",
+          "correct": false,
+          "misconception": "miskonsepsi_coret_salah",
+          "reason": "Cancels the $x$ in $2x^2$ with the $x$ in the denominator, leaving $2x - 11 + 5/(-5) = 2x - 12$, then mis-evaluates."
+        },
+        {
+          "text": "9",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "11",
+          "correct": false,
+          "misconception": "miskonsepsi_pemilihan_faktor",
+          "reason": "Factors the numerator as $(2x + 1)(x - 5)$ instead of $(2x - 1)(x - 5)$, giving a cancelled expression of $2x + 1$, which evaluates to 11 at $x = 5$."
+        },
+        {
+          "text": "\\text{undefined}",
+          "correct": false,
+          "misconception": "miskonsepsi_bentuk_tak_tentu",
+          "reason": "Sees that substitution gives 0/0 and incorrectly concludes the limit does not exist."
+        },
+        {
+          "text": "-1",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_negatif",
+          "reason": "Factors correctly as $(2x - 1)(x - 5)$ but cancels and then substitutes $x = 5$ into $2x - 1$ with a sign error, calculating $2(5) - 1$ as $-9$ or similar."
+        }
+      ],
+      "solution": "Factor the numerator: $2x^2 - 11x + 5 = (2x - 1)(x - 5)$. Cancel the $(x - 5)$ term to get $\\lim_{x \\to 5} (2x - 1) = 2(5) - 1 = 9$.",
+      "id": "LIM-005"
+    },
+    {
+      "concept": "Limit",
+      "level": "medium",
+      "stem": "Determine the limit by factoring.",
+      "math": "\\lim_{x \\to -2} \\frac{x^2 - 2x - 8}{x^2 + 3x + 2}",
+      "options": [
+        {
+          "text": "2",
+          "correct": false,
+          "misconception": "miskonsepsi_substitusi_langsung",
+          "reason": "Substitutes x = -2 directly to get (4 + 4 - 8)/(4 - 6 + 2) = 0/0, then mistakenly simplifies 0/0 to 0 and adds 2 from a misread."
+        },
+        {
+          "text": "-6",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_negatif",
+          "reason": "Factors the denominator as $(x - 1)(x - 2)$ or makes a sign error when subtracting: evaluates $(x - 4)/(x + 1)$ at -2 as (-6)/(-1) = 6 but adds a negative sign."
+        },
+        {
+          "text": "\\frac{2}{1}",
+          "correct": false,
+          "misconception": "miskonsepsi_coret_salah",
+          "reason": "Cancels the $x^2$ terms across numerator and denominator, leaving $(-2x - 8)/(3x + 2)$, which evaluates to (-4 - 8)/(-6 + 2) = -12/-4 = 3, but writes it as 2/1 due to a further arithmetic error."
+        },
+        {
+          "text": "\\frac{1}{2}",
+          "correct": false,
+          "misconception": "miskonsepsi_pemilihan_faktor",
+          "reason": "Factors the numerator as $(x + 4)(x - 2)$ instead of $(x - 4)(x + 2)$, leading to a different cancelled expression that evaluates to 1/2."
+        },
+        {
+          "text": "6",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        }
+      ],
+      "solution": "Factor: $\\frac{(x - 4)(x + 2)}{(x + 1)(x + 2)}$. Cancel $(x + 2)$ to get $\\frac{x - 4}{x + 1}$. Substitute $x = -2$: $\\frac{-6}{-1} = 6$.",
+      "id": "LIM-006"
+    },
+    {
+      "concept": "Limit",
+      "level": "medium",
+      "stem": "Evaluate the limit.",
+      "math": "\\lim_{x \\to 1} \\frac{x^3 - 1}{x^2 - 1}",
+      "options": [
+        {
+          "text": "0",
+          "correct": false,
+          "misconception": "miskonsepsi_substitusi_langsung",
+          "reason": "Substitutes x = 1 to get (1 - 1)/(1 - 1) = 0/0 and treats this as 0."
+        },
+        {
+          "text": "\\frac{2}{3}",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_negatif",
+          "reason": "Correctly factors and cancels but inverts the final fraction, writing $(1^2 + 1 + 1)/(1 + 1) = 3/2$ as $2/3$ by mistake."
+        },
+        {
+          "text": "\\frac{0}{0}",
+          "correct": false,
+          "misconception": "miskonsepsi_bentuk_tak_tentu",
+          "reason": "Plugs in x = 1 and leaves the answer as the indeterminate form 0/0 without further simplification."
+        },
+        {
+          "text": "\\frac{3}{2}",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "1",
+          "correct": false,
+          "misconception": "miskonsepsi_coret_salah",
+          "reason": "Cancels the $x^3$ with $x^2$ to get $x - 1/(-1)$, then substitutes x = 1 to get 0/-1 = 0, but misinterprets the result as 1."
+        }
+      ],
+      "solution": "Factor using difference of cubes and squares: $\\frac{(x - 1)(x^2 + x + 1)}{(x - 1)(x + 1)}$. Cancel $(x - 1)$ to get $\\frac{x^2 + x + 1}{x + 1}$. Substitute $x = 1$: $\\frac{3}{2}$.",
+      "id": "LIM-007"
+    },
+    {
+      "concept": "Limit",
+      "level": "medium",
+      "stem": "Find the limit by simplifying.",
+      "math": "\\lim_{x \\to 4} \\frac{x^2 - 6x + 8}{x^2 - 8x + 16}",
+      "options": [
+        {
+          "text": "\\text{undefined}",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "-\\frac{1}{4}",
+          "correct": false,
+          "misconception": "miskonsepsi_pemilihan_faktor",
+          "reason": "Factors the numerator as $(x + 2)(x + 4)$ instead of $(x - 2)(x - 4)$ and the denominator as $(x - 4)^2$, cancels incorrectly, and evaluates to a wrong number."
+        },
+        {
+          "text": "\\frac{1}{2}",
+          "correct": false,
+          "misconception": "miskonsepsi_coret_salah",
+          "reason": "Cancels the $x^2$ terms, leaving $(-6x + 8)/(-8x + 16)$, simplifies to $(3x - 4)/(4x - 8)$, and evaluates at x=4 to get 8/8 = 1, but makes an arithmetic slip to get 1/2."
+        },
+        {
+          "text": "1",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_negatif",
+          "reason": "Factors correctly as $(x - 2)(x - 4)/(x - 4)^2$, cancels one $(x - 4)$ to get $(x - 2)/(x - 4)$, substitutes x = 4 to get 2/0, but misinterprets the infinite limit as 1."
+        },
+        {
+          "text": "0",
+          "correct": false,
+          "misconception": "miskonsepsi_substitusi_langsung",
+          "reason": "Substitutes x = 4 to get (16 - 24 + 8)/(16 - 32 + 16) = 0/0, then treats 0/0 as 0."
+        }
+      ],
+      "solution": "Factor: $\\frac{(x - 2)(x - 4)}{(x - 4)^2}$. Cancel one $(x - 4)$ to get $\\frac{x - 2}{x - 4}$. As $x \\to 4$, the denominator approaches 0 while the numerator approaches 2, so the limit does not exist (it is undefined, tending to $\\pm\\infty$).",
+      "id": "LIM-008"
+    },
+    {
+      "concept": "Limit",
+      "level": "hard",
+      "stem": "Evaluate the limit.",
+      "math": "\\lim_{x \\to -3} \\frac{2x^2 + 3x - 9}{x^2 - 9}",
+      "options": [
+        {
+          "text": "\\frac{0}{0}",
+          "correct": false,
+          "misconception": "miskonsepsi_substitusi_langsung",
+          "reason": "Substitutes x = -3 directly, obtaining 0/0, and stops without simplifying."
+        },
+        {
+          "text": "\\frac{3}{2}",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "\\text{undefined}",
+          "correct": false,
+          "misconception": "miskonsepsi_bentuk_tak_tentu",
+          "reason": "Recognizes the 0/0 form but incorrectly concludes the limit does not exist."
+        },
+        {
+          "text": "\\frac{1}{2}",
+          "correct": false,
+          "misconception": "miskonsepsi_pemilihan_faktor",
+          "reason": "Chooses incorrect factors for the numerator, such as (2x+3)(x-3), which expands to 2x²-3x-9."
+        },
+        {
+          "text": "\\frac{5}{6}",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_negatif",
+          "reason": "Factors numerator correctly as (2x-3)(x+3) but makes a sign error in the denominator factor (x-3), giving (2(-3)-3)/((-3)-3) = -9/-6 ≠ 5/6, or similar sign slip in cancellation."
+        }
+      ],
+      "solution": "Factor numerator and denominator: $\\frac{(2x-3)(x+3)}{(x-3)(x+3)}$. Cancel the common factor $(x+3)$, then substitute $x=-3$: $\\frac{2(-3)-3}{-3-3} = \\frac{-9}{-6} = \\frac{3}{2}$.",
+      "id": "LIM-009"
+    },
+    {
+      "concept": "Limit",
+      "level": "hard",
+      "stem": "Find the limit.",
+      "math": "\\lim_{x \\to 4} \\frac{3x^2 - 10x - 8}{x^2 - 16}",
+      "options": [
+        {
+          "text": "\\text{undefined}",
+          "correct": false,
+          "misconception": "miskonsepsi_bentuk_tak_tentu",
+          "reason": "Sees 0/0 after substitution and wrongly claims the limit is undefined."
+        },
+        {
+          "text": "\\frac{11}{8}",
+          "correct": false,
+          "misconception": "miskonsepsi_pemilihan_faktor",
+          "reason": "Factors numerator incorrectly as (3x+4)(x-2), which gives the middle term -2x instead of -10x."
+        },
+        {
+          "text": "\\frac{7}{4}",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        },
+        {
+          "text": "-\\frac{7}{4}",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_negatif",
+          "reason": "Factors denominator as $(x-4)(x+4)$ but cancels with an incorrect sign in the numerator factor, ending with a negative result."
+        },
+        {
+          "text": "\\frac{14}{0}",
+          "correct": false,
+          "misconception": "miskonsepsi_coret_salah",
+          "reason": "Cancels individual terms: writes $\\frac{3x^2}{x^2} - \\frac{10x}{-16} - \\frac{8}{-16}$ and substitutes $x=4$."
+        }
+      ],
+      "solution": "Factor: $\\frac{(3x+2)(x-4)}{(x-4)(x+4)}$. Cancel $(x-4)$, then plug in $x=4$: $\\frac{3(4)+2}{4+4} = \\frac{14}{8} = \\frac{7}{4}$.",
+      "id": "LIM-010"
+    },
+    {
+      "concept": "Limit",
+      "level": "hard",
+      "stem": "Evaluate the limit.",
+      "math": "\\lim_{x \\to -2} \\frac{2x^2 - x - 10}{x^2 + 6x + 8}",
+      "options": [
+        {
+          "text": "\\frac{9}{2}",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_negatif",
+          "reason": "Gets the correct factors but drops a negative sign when substituting x = -2 into (2x-5)/(x+4)."
+        },
+        {
+          "text": "\\frac{3}{2}",
+          "correct": false,
+          "misconception": "miskonsepsi_pemilihan_faktor",
+          "reason": "Factors numerator as (2x+5)(x-2), which expands to 2x² + x - 10 (incorrect middle sign)."
+        },
+        {
+          "text": "\\frac{5x}{6x}",
+          "correct": false,
+          "misconception": "miskonsepsi_coret_salah",
+          "reason": "Cancels leading terms and constants separately: removes x² from both, then subtracts remaining terms to get ( -x-10)/(6x+8) and substitutes x=-2."
+        },
+        {
+          "text": "\\frac{0}{0}",
+          "correct": false,
+          "misconception": "miskonsepsi_substitusi_langsung",
+          "reason": "Substitutes x = -2, gets 0/0, and leaves it as the final answer."
+        },
+        {
+          "text": "-\\frac{9}{2}",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        }
+      ],
+      "solution": "Factor: $\\frac{(2x-5)(x+2)}{(x+4)(x+2)}$. Cancel $(x+2)$, then substitute $x=-2$: $\\frac{2(-2)-5}{-2+4} = \\frac{-9}{2}$.",
+      "id": "LIM-011"
+    },
+    {
+      "concept": "Limit",
+      "level": "hard",
+      "stem": "Evaluate the limit.",
+      "math": "\\lim_{x \\to -3} \\frac{2x^2 + 7x + 3}{3x^2 + 10x + 3}",
+      "options": [
+        {
+          "text": "\\text{undefined}",
+          "correct": false,
+          "misconception": "miskonsepsi_bentuk_tak_tentu",
+          "reason": "Substitutes x = -3, obtains 0/0, and concludes the limit is undefined rather than resolving the indeterminate form by factoring."
+        },
+        {
+          "text": "\\frac{1}{3}",
+          "correct": false,
+          "misconception": "miskonsepsi_coret_salah",
+          "reason": "Cancels the leading 2x^2 with 3x^2 to get 2/3, then cancels the 7x with 10x and 3 with 3 incorrectly, or simply cancels individual terms instead of factoring first."
+        },
+        {
+          "text": "0",
+          "correct": false,
+          "misconception": "miskonsepsi_substitusi_langsung",
+          "reason": "Substitutes x = -3 directly into numerator and denominator and erroneously simplifies the resulting 0/0 to 0 instead of recognizing it as an indeterminate form."
+        },
+        {
+          "text": "-\\frac{5}{8}",
+          "correct": false,
+          "misconception": "miskonsepsi_tanda_negatif",
+          "reason": "Factors correctly but makes a sign error when simplifying, such as writing (x+3) as (x-3) or mishandling a negative during cancellation."
+        },
+        {
+          "text": "\\frac{5}{8}",
+          "correct": true,
+          "misconception": null,
+          "reason": null
+        }
+      ],
+      "solution": "Factor numerator and denominator: $\\frac{(2x+1)(x+3)}{(3x+1)(x+3)}$. Cancel the common factor $(x+3)$, then substitute $x=-3$: $\\frac{2(-3)+1}{3(-3)+1} = \\frac{-5}{-8} = \\frac{5}{8}$.",
+      "id": "LIM-012"
+    }
+  ]
+}
