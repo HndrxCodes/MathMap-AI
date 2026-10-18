@@ -69,12 +69,11 @@ LEVEL_GUIDE = {
 JSON_NOTE = r'In JSON strings write every LaTeX backslash doubled, e.g. "\\frac{1}{2}" and "\\times".'
 LETTERS = "ABCDE"
 
-
-def llm(model, prompt, temperature):
+def llm(model, prompt, temperature, max_tokens=None):
+    kw = {"max_tokens": max_tokens} if max_tokens else {}
     r = client.chat.completions.create(model=model, temperature=temperature,
-        messages=[{"role": "user", "content": prompt}])
+        messages=[{"role": "user", "content": prompt}], **kw)
     return r.choices[0].message.content or ""
-
 
 def fix(s):  # karakter kontrol akibat \t \f \b \r \n yang tidak di-escape
     s = str(s)
@@ -93,8 +92,10 @@ def latex_ok(s):
 def _loads(s):
     try:
         return json.loads(s)
-    except json.JSONDecodeError:  # backslash LaTeX yang tidak di-escape (\sqrt, \lim)
-        return json.loads(re.sub(r'\\(?!["\\/bfnrtu])', r'\\\\', s))
+    except json.JSONDecodeError:
+        fixed = re.sub(r'(\\["\\/bfnrt]|\\u[0-9a-fA-F]{4})|\\',
+                       lambda m: m.group(1) or "\\\\", s)
+        return json.loads(fixed)
 
 def generate(concept, level, n, existing):
     cfg = CONCEPTS[concept]
