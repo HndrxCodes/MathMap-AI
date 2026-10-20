@@ -2,9 +2,13 @@
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>MathMap AI · Diagnostic check</title>
+<script>
+window.onerror=function(m,u,l){var d=document.createElement('pre');d.style.cssText='color:#f87171;white-space:pre-wrap;padding:12px';d.textContent='JS error: '+m+' (line '+l+')';document.body.prepend(d)};
+setTimeout(function(){var a=document.getElementById('app');if(a&&!a.innerHTML.trim()){var d=document.createElement('pre');d.style.cssText='color:#fbbf24;white-space:pre-wrap;padding:12px';d.textContent='Page loaded (build 4) but nothing rendered yet.';document.body.prepend(d)}},3000);
+</script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js" onload="window.flush&&flush()"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js" onload="window.flush&&flush()"></script>
 <style>
 :root{--bg:#0e1120;--card:#171b2e;--line:#2a3050;--tx:#e8ebf7;--mut:#8b93b5;--ac:#6c8cff;--ok:#34d399;--mid:#fbbf24;--bad:#f87171}
 *{box-sizing:border-box}
@@ -44,7 +48,9 @@ const LBL={strong:'Strong',developing:'Developing',needs_work:'Needs work'};
 const app=document.getElementById('app');
 const $=s=>document.querySelector(s);
 const esc=s=>String(s==null?'':s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
-const tex=(el,s,d)=>{if(!el)return;try{katex.render(s,el,{displayMode:!!d,throwOnError:false})}catch(e){el.textContent=s}};
+const pend=[];
+const tex=(el,s,d)=>{if(!el)return;if(window.katex){try{katex.render(s,el,{displayMode:!!d,throwOnError:false})}catch(e){el.textContent=s}}else{el.textContent=s;pend.push([el,s,d])}};
+window.flush=()=>{while(pend.length){const p=pend.shift();tex(p[0],p[1],p[2])}rich(app)};
 const rich=el=>window.renderMathInElement&&renderMathInElement(el,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false});
 const show=h=>{app.innerHTML=h;scrollTo(0,0)};
 async function api(p,b){const r=await fetch('/api'+p,b?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)}:{});if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}
@@ -59,7 +65,7 @@ function goalScreen(){
     h+=`<h2>${S.goal==='test_prep'?'Which topics are on the test?':'Which topic?'}</h2><p class="mut">${S.goal==='test_prep'?'Select all that apply.':'Select one.'}</p>`+
       Object.entries(S.concepts).map(([k,v])=>`<button class="card pick ${S.topics.includes(k)?'on':''}" data-t="${esc(k)}"><b>${esc(v.display)}</b><div class="mut">${esc(v.plain.replace(/\^2/g,'²'))}</div></button>`).join('');
   }
-  show(h+`<div class="bar"><button class="btn" id="go" ${ok?'':'disabled'}>Start the 10-question check</button></div>`);
+  show(h+`<p class="mut" style="text-align:center;font-size:.7rem">build 4</p><div class="bar"><button class="btn" id="go" ${ok?'':'disabled'}>Start the 10-question check</button></div>`);
 }
 
 async function startTest(){
@@ -79,7 +85,7 @@ function testScreen(){
 }
 function reviewScreen(){
   const un=S.qs.filter(q=>S.ans[q.id]===undefined).length;
-  show(`<h1>Ready to submit?</h1><p class="mut">${un?un+' unanswered. They count as “I don't know”.':'All questions answered.'}</p>
+  show(`<h1>Ready to submit?</h1><p class="mut">${un?`${un} unanswered. They count as “I don't know”.`:'All questions answered.'}</p>
   <div class="dots">`+S.qs.map((q,i)=>`<button class="btn ghost" data-j="${i}" style="${S.ans[q.id]===undefined?'':'border-color:var(--ac)'}">${i+1}</button>`).join('')+
   `</div><div class="bar"><button class="btn ghost" id="prev">Back</button><button class="btn" id="submit">Submit</button></div>`);
 }
@@ -123,15 +129,15 @@ app.onclick=async e=>{
     if(t.id==='submit'){t.disabled=true;const a={};S.qs.forEach(q=>a[q.id]=S.ans[q.id]===undefined?null:S.ans[q.id]);
       S.res=await api('/baseline/submit',{session_id:S.sess,answers:a});localStorage.removeItem('mm_ans_'+S.sess);return resultScreen()}
     if(t.id==='retake'){S.goal=null;S.topics=[];return goalScreen()}
-    if(t.id==='tutor')location.href='/';
+    if(t.id==='tutor')location.href='/tutor.html';
   }catch(err){alert('Something went wrong ('+err.message+'). Please try again.');t.disabled=false}
 };
 
-addEventListener('load',async()=>{
-  try{S.concepts=await api('/concepts');
-    const r=await api('/baseline/result/'+SID);if(r&&r.total){S.res=r;return resultScreen()}
-  }catch(e){}
+(async()=>{
+  try{S.concepts=await api('/concepts')}catch(e){return show(`<h1>Cannot load the app data</h1><p class="mut">${esc(e.message)}. The server may be restarting, or the /api routes are not connected.</p>`)}
+  try{const r=await api('/baseline/result/'+SID);if(r&&r.total){S.res=r;return resultScreen()}}catch(e){}
   goalScreen();
-});
+})();
 </script></body></html>
+
 
