@@ -222,7 +222,7 @@ class TutorReq(BaseModel):
 
 @router.get("/concepts")
 def concepts():
-    return CONCEPTS
+    return {k: {**v, "ready": bool(TOPIC.get(k))} for k, v in CONCEPTS.items()}
 
 
 @router.get("/exams")
