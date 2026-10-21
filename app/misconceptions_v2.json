@@ -113,5 +113,25 @@
     "label": "Indeterminate form",
     "description": "Does not know how to handle 0/0 and answers 'undefined'.",
     "root_concept": "Faktorisasi"
+  },
+  "miskonsepsi_sin_nol": {
+    "label": "Sine limit at zero",
+    "description": "Treats sin(x)/x as 0 or 'undefined' at x -> 0 instead of using the standard limit sin(x)/x = 1.",
+    "root_concept": "Limit"
+  },
+  "miskonsepsi_koef_trig": {
+    "label": "Coefficient in trig limit",
+    "description": "Gets the constant wrong in lim sin(ax)/(bx), e.g. answers a*b or b/a instead of a/b.",
+    "root_concept": "Limit"
+  },
+  "miskonsepsi_cos_limit": {
+    "label": "Cosine limit",
+    "description": "Misapplies (1 - cos x)/x^2 as x -> 0, e.g. answers 1 or 0 instead of 1/2.",
+    "root_concept": "Limit"
+  },
+  "miskonsepsi_identitas_trig": {
+    "label": "Trig identity slip",
+    "description": "Uses a trigonometric identity incorrectly, e.g. sin 2x = 2 sin x or cos^2 x = 1 - sin x.",
+    "root_concept": "Fungsi"
   }
 }

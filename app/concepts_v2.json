@@ -21,6 +21,6 @@
   },
   "Limit": {
     "display": "Limits",
-    "plain": "What a value gets close to, e.g. what (x^2-9)/(x-3) approaches as x nears 3"
+    "plain": "What a value gets close to: algebraic limits like (x^2-9)/(x-3) as x nears 3, and trig limits like sin x / x as x nears 0"
   }
 }
