@@ -1,6 +1,7 @@
 import json, sys
-d = json.load(open("app/question_bank_v2.json", encoding="utf-8"))
-args = [a.lower() for a in sys.argv[1:]]
+path = "app/topic_bank_v2.json" if "topic" in sys.argv[1:] else "app/question_bank_v2.json"
+d = json.load(open(path, encoding="utf-8"))
+args = [a.lower() for a in sys.argv[1:] if a.lower() != "topic"]
 reason = "reason" in args
 filt = [a for a in args if a != "reason"]
 for c, l in d.items():
