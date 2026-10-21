@@ -1,4 +1,5 @@
 import json, os, random, uuid
+from datetime import date
 from collections import Counter
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
@@ -17,6 +18,11 @@ BANK = _load("question_bank_v2.json")
 MISC = _load("misconceptions_v2.json")
 CONCEPTS = _load("concepts_v2.json")
 QBY = {q["id"]: q for qs in BANK.values() for q in qs}
+try:  # bank soal per topik, terpisah dari bank baseline
+    TOPIC = _load("topic_bank_v2.json")
+except Exception:
+    TOPIC = {}
+QBY.update({q["id"]: q for qs in TOPIC.values() for q in qs})
 
 ORDER = ["Operasi Bilangan Bulat", "Aljabar Dasar", "Faktorisasi", "Fungsi", "Persamaan Kuadrat", "Limit"]
 PREREQ = {
@@ -55,7 +61,7 @@ def _init():
     cur.execute("""CREATE TABLE IF NOT EXISTS baseline_sessions (
         session_id TEXT PRIMARY KEY, student_id TEXT, plan TEXT, result TEXT,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, submitted_at TIMESTAMP)""")
-    for col in ("goal_type TEXT", "study_minutes INTEGER", "exam TEXT"):
+    for col in ("goal_type TEXT", "study_minutes INTEGER", "exam TEXT", "study_days INTEGER", "plan_start TEXT"):
         try:
             cur.execute("ALTER TABLE goals ADD COLUMN " + col)
         except Exception:
@@ -84,18 +90,49 @@ def _plan(mode, topics):
     return GAPS_PLAN
 
 
-def _pick(plan):
+def _seen(student_id):
+    cur = conn.cursor()
+    cur.execute("SELECT DISTINCT soal_id FROM attempt_log WHERE student_id=? AND soal_id IS NOT NULL", (student_id,))
+    return {r[0] for r in cur.fetchall()}
+
+
+def _pick(plan, seen):
     chosen, used = [], set()
     for concept, levels in plan.items():
         for lv in levels:
-            pool = [q for q in BANK.get(concept, []) if q["level"] == lv and q["id"] not in used] or \
-                   [q for q in BANK.get(concept, []) if q["id"] not in used]
+            pool = [q for q in BANK.get(concept, []) if q["id"] not in used]
+            pool = [q for q in pool if q["level"] == lv] or pool
+            pool = [q for q in pool if q["id"] not in seen] or pool  # soal baru didahulukan
             if pool:
                 q = random.choice(pool)
                 used.add(q["id"])
                 chosen.append(q)
-    chosen.sort(key=lambda q: (LEVEL_ORDER[q["level"]], random.random()))
+    chosen.sort(key=lambda q: (ORDER.index(q["concept"]), LEVEL_ORDER[q["level"]]))
     return chosen
+
+
+def _draw(pool, k, seen):
+    want = {"easy": round(k * 0.2), "hard": round(k * 0.33)}
+    want["medium"] = k - want["easy"] - want["hard"]
+    left = list(pool)
+    random.shuffle(left)
+    left.sort(key=lambda q: q["id"] in seen)  # belum pernah dilihat lebih dulu
+    out = []
+    for lv, n in want.items():
+        take = [q for q in left if q["level"] == lv][:n]
+        out += take
+        left = [q for q in left if q not in take]
+    return out + left[:k - len(out)]
+
+
+def _pick_topic(topics, seen, n=15):
+    topics = sorted(topics, key=ORDER.index)
+    per, extra = divmod(n, len(topics))
+    out = []
+    for i, t in enumerate(topics):
+        part = _draw(TOPIC.get(t, []), per + (1 if i < extra else 0), seen)
+        out += sorted(part, key=lambda q: LEVEL_ORDER[q["level"]])
+    return out
 
 
 def _public(items):
@@ -114,12 +151,26 @@ def _label(score):
 
 def _goal(student_id):
     cur = conn.cursor()
-    cur.execute("SELECT goal_type, study_minutes, exam FROM goals WHERE student_id=?", (student_id,))
+    cur.execute("SELECT goal_type, study_minutes, exam, study_days, plan_start FROM goals WHERE student_id=?", (student_id,))
     r = cur.fetchone()
-    return {"goal_type": r[0], "study_minutes": r[1], "exam": r[2]} if r else {}
+    if not r:
+        return {}
+    day = None
+    if r[4]:
+        try:
+            day = max(1, (date.today() - date.fromisoformat(r[4])).days + 1)
+        except Exception:
+            day = 1
+    return {"goal_type": r[0], "study_minutes": r[1], "exam": r[2], "study_days": r[3], "day": day}
 
 
-def _path(targets, cmap):
+def _known(student_id):
+    cur = conn.cursor()
+    cur.execute("SELECT concept, score FROM mastery_records WHERE student_id=?", (student_id,))
+    return {c: _label(sc) for c, sc in cur.fetchall()}
+
+
+def _path(targets, cmap, known):
     need, stack = set(targets) if targets else set(ORDER), list(targets)
     while stack:
         for p in PREREQ.get(stack.pop(), []):
@@ -131,15 +182,15 @@ def _path(targets, cmap):
         if c in need:
             s = cmap.get(c)
             nodes.append({"concept": c, "display": CONCEPTS.get(c, {}).get("display", c),
-                          "status": s["level"] if s else "untested",
+                          "status": s["level"] if s else known.get(c, "untested"),
                           "correct": s["correct"] if s else None, "total": s["total"] if s else None,
                           "goal": c in targets})
     start = None
-    for status in ("needs_work", "developing", "untested"):
+    for status in ("needs_work", "developing"):
         start = next((n["concept"] for n in nodes if n["status"] == status), None)
         if start:
             break
-    return nodes, start
+    return nodes, start, [n["display"] for n in nodes if n["status"] == "untested"]
 
 
 class StartReq(BaseModel):
@@ -158,7 +209,15 @@ class GoalReq(BaseModel):
     goal_type: str  # test_prep | mastery | find_gaps
     topics: list = []
     study_minutes: int = 20
+    study_days: int = 14
     exam: str = ""
+
+
+class TutorReq(BaseModel):
+    kind: str = "question"  # question | summary
+    message: str
+    data: dict = {}
+    history: list = []
 
 
 @router.get("/concepts")
@@ -171,17 +230,28 @@ def exams():
     return EXAMS
 
 
+@router.get("/topics/ready")
+def topics_ready():  # topik yang sudah punya bank soal sendiri
+    return [c for c, qs in TOPIC.items() if len(qs) >= 10]
+
+
+@router.get("/goal/{student_id}")
+def get_goal_info(student_id: str):
+    return _goal(student_id)
+
+
 @router.post("/goal")
 def save_goal(req: GoalReq):
     cur = conn.cursor()
     cur.execute("INSERT OR IGNORE INTO students (student_id) VALUES (?)", (req.student_id,))
     target = req.topics[0] if req.topics else None
-    desc = json.dumps(req.topics)
-    cur.execute("INSERT INTO goals (student_id, target_concept, description, goal_type, study_minutes, exam) "
-                "VALUES (?,?,?,?,?,?) ON CONFLICT(student_id) DO UPDATE SET target_concept=?, description=?, "
-                "goal_type=?, study_minutes=?, exam=?",
-                (req.student_id, target, desc, req.goal_type, req.study_minutes, req.exam,
-                 target, desc, req.goal_type, req.study_minutes, req.exam))
+    desc, today = json.dumps(req.topics), date.today().isoformat()
+    cur.execute("INSERT INTO goals (student_id, target_concept, description, goal_type, study_minutes, exam, "
+                "study_days, plan_start) VALUES (?,?,?,?,?,?,?,?) ON CONFLICT(student_id) DO UPDATE SET "
+                "target_concept=?, description=?, goal_type=?, study_minutes=?, exam=?, study_days=?, "
+                "plan_start=COALESCE(plan_start, ?)",
+                (req.student_id, target, desc, req.goal_type, req.study_minutes, req.exam, req.study_days, today,
+                 target, desc, req.goal_type, req.study_minutes, req.exam, req.study_days, today))
     conn.commit()
     return {"ok": True}
 
@@ -198,8 +268,13 @@ def baseline_start(req: StartReq):
         p = _unpack(row[1])
         if p["mode"] == mode and p["topics"] == topics:
             return {"session_id": row[0], "questions": _public(p["items"])}
+    seen = _seen(req.student_id)
+    if mode in ("topic", "exam") and all(TOPIC.get(t) for t in topics):
+        picked = _pick_topic(topics, seen)  # bank topik terpisah, urut per topik lalu tingkat kesulitan
+    else:
+        picked = _pick(_plan(mode, topics), seen)
     items = []
-    for q in _pick(_plan(mode, topics)):
+    for q in picked:
         order = list(range(len(q["options"])))
         random.shuffle(order)
         items.append({"id": q["id"], "order": order})
@@ -272,10 +347,10 @@ def baseline_submit(req: SubmitReq):
                         "root_concept": root, "root_display": CONCEPTS.get(root, {}).get("display", root),
                         "count": n})
     targets = sess["topics"] if sess["mode"] in ("topic", "exam") else []
-    path, start = _path(targets, cmap)
+    path, start, unchecked = _path(targets, cmap, _known(student_id))
     result = {"mode": sess["mode"], "topics": sess["topics"], "total": len(sess["items"]),
               "correct": sum(p["correct"] for p in per.values()), "unsure": unsure,
-              "concepts": concepts_out, "path": path, "start_concept": start,
+              "concepts": concepts_out, "path": path, "start_concept": start, "unchecked": unchecked,
               "misconceptions": mis_out, "review": review}
     cur.execute("UPDATE baseline_sessions SET result=?, submitted_at=CURRENT_TIMESTAMP WHERE session_id=?",
                 (json.dumps(result), req.session_id))
@@ -295,3 +370,40 @@ def baseline_result(student_id: str):
     res = json.loads(row[0])
     res["goal"] = _goal(student_id)
     return res
+
+
+TUTOR_SYS = ("You are MathMap's math tutor for a high-school student. Reply in English, warm and concise "
+             "(under 140 words unless asked for more). Write ALL math in LaTeX inside $...$. Treat the CONTEXT as "
+             "authoritative: the marked correct answer and the stated mistake behind the student's choice are ground "
+             "truth, so never recompute a different answer. Explain the specific mistake the chosen option represents, "
+             "then show the correct idea step by step. If asked for a hint, give a hint, not the full answer. "
+             "Never invent facts about tests.")
+
+
+def _ctx(kind, d):
+    if kind == "question":
+        L, opts = "ABCDE", d.get("options", [])
+        ch = d.get("chosen")
+        chosen = "I don't know" if ch is None else f"{L[ch]}. ${opts[ch]}$"
+        return (f"QUESTION: {d.get('stem', '')} ${d.get('math', '')}$\nOPTIONS:\n"
+                + "\n".join(f"{L[i]}. ${o}$" for i, o in enumerate(opts))
+                + f"\nSTUDENT CHOSE: {chosen}\nCORRECT: {L[d.get('correct_index', 0)]}"
+                + f"\nMISTAKE BEHIND THE CHOSEN OPTION: {d.get('reason') or 'n/a'}"
+                + f"\nOFFICIAL SOLUTION: {d.get('solution', '')}")
+    return "STUDENT RESULT SUMMARY (json): " + json.dumps(d)[:2500]
+
+
+@router.post("/tutor")
+def tutor(req: TutorReq):
+    try:
+        from app import clients  # impor lazy: server tetap menyala kalau nama konstanta berbeda
+        model = getattr(clients, "MICROLESSON_MODEL", None) or clients.ORCHESTRATOR_MODEL
+        msgs = [{"role": "system", "content": TUTOR_SYS + "\n\nCONTEXT\n" + _ctx(req.kind, req.data)}]
+        msgs += [{"role": m.get("role"), "content": str(m.get("content"))[:1500]}
+                 for m in req.history[-6:] if m.get("role") in ("user", "assistant")]
+        msgs.append({"role": "user", "content": req.message[:800]})
+        r = clients.nebius_client.chat.completions.create(model=model, messages=msgs)
+        return {"reply": r.choices[0].message.content or ""}
+    except Exception as e:
+        return {"reply": "Sorry, the tutor is unavailable right now.", "error": str(e)[:200]}
+
