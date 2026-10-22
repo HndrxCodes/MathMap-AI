@@ -61,16 +61,11 @@ const rich=el=>window.renderMathInElement&&renderMathInElement(el,{delimiters:[{
 window.flush=()=>{while(pend.length){const p=pend.shift();tex(p[0],p[1],p[2])}rich(app)};
 const show=h=>{app.innerHTML=h;scrollTo(0,0)};
 async function api(p,b){const r=await fetch('/api'+p,b?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)}:{});if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}
-let S={goal:null,exam:null,topics:[],minutes:20,concepts:{},exams:{},review:false,ready:[]};
+let S={goal:null,exam:null,topics:[],minutes:20,concepts:{},exams:{},review:false};
 
 const ready=()=>!!S.goal&&(S.goal==='find_gaps'||(S.goal==='mastery'&&S.topics.length===1)||(S.goal==='test_prep'&&S.exam&&(S.exam!=='school'||S.topics.length>0)));
-const topicList=()=>{
-  let list=Object.entries(S.concepts);
-  const only=S.goal==='mastery'&&S.ready.length;
-  if(only)list=list.filter(([k])=>S.ready.includes(k));
-  return list.map(([k,v])=>`<button class="card pick ${S.topics.includes(k)?'on':''}" data-t="${esc(k)}"><b>${esc(v.display)}</b><div class="mut">${esc(v.plain.replace(/\^2/g,'²'))}</div></button>`).join('')+(only?'<p class="mut">More topics are coming soon.</p>':'');
-};
-  
+const topicList=()=>Object.entries(S.concepts).map(([k,v])=>`<button class="card pick ${S.topics.includes(k)?'on':''}" data-t="${esc(k)}"><b>${esc(v.display)}</b><div class="mut">${esc(v.plain.replace(/\^2/g,'²'))}</div></button>`).join('');
+
 function goalScreen(){
   const G=[['test_prep','🎯','Prepare for a test','Practice for SAT, CSCA or your own exam'],['mastery','📘','Master a topic','Go deep on one topic and check the skills it builds on'],['find_gaps','🔍','Find my gaps','A broad scan of the basics to see where to start']];
   let h='<h1>What brings you here?</h1><p class="mut">Pick one. You do not need to know topic names.</p>'+
@@ -159,7 +154,7 @@ app.onclick=async e=>{
 };
 
 (async()=>{
-  try{S.concepts=await api('/concepts');S.exams=await api('/exams');S.ready=await api('/topics/ready').catch(()=>[])}catch(e){return show(`<h1>Cannot load the app data</h1><p class="mut">${esc(e.message)}. The server may be restarting, or the /api routes are not connected.</p>`)}
+  try{S.concepts=await api('/concepts');S.exams=await api('/exams')}catch(e){return show(`<h1>Cannot load the app data</h1><p class="mut">${esc(e.message)}. The server may be restarting, or the /api routes are not connected.</p>`)}
   try{const r=await api('/baseline/result/'+SID);if(r&&r.total){S.res=r;return resultScreen()}}catch(e){}
   goalScreen();
 })();
