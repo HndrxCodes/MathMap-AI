@@ -222,7 +222,7 @@ class TutorReq(BaseModel):
 
 @router.get("/concepts")
 def concepts():
-    return {k: {**v, "ready": bool(TOPIC.get(k))} for k, v in CONCEPTS.items()}
+    return CONCEPTS
 
 
 @router.get("/exams")
@@ -406,4 +406,3 @@ def tutor(req: TutorReq):
         return {"reply": r.choices[0].message.content or ""}
     except Exception as e:
         return {"reply": "Sorry, the tutor is unavailable right now.", "error": str(e)[:200]}
-
