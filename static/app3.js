@@ -41,7 +41,7 @@ function practiceScreen(){
     ${q.reason&&!q.is_correct?`<p>${esc(q.reason)}</p>`:''}<p class="mut">${esc(q.solution)}</p><button class="btn ghost" data-pask="${i}">Ask the tutor about this</button></details>`).join('');
   show(`<h1>Practice: ${esc(r.display)}</h1>
   <div class="card hero">${donut(r.correct,wrong,r.unsure,r.total)}<div class="leg"><div><i style="background:#60a5fa"></i>${r.correct} correct</div><div><i style="background:#f87171"></i>${wrong} not quite</div><div><i style="background:#6b7394"></i>${r.unsure} unsure</div></div></div>
-  <div class="card"><div class="mut">Mastery</div><div style="margin-top:6px"><span style="color:${cl(r.before)}">${lvl(r.before)}</span> → <b style="color:${cl(r.after)}">${lvl(r.after)}</b></div><div class="mut" style="margin-top:6px">Based on all your answers in this topic so far (${r.cum.correct} of ${r.cum.total} correct).</div></div>
+  <div class="card"><div class="mut">Mastery</div><div style="margin-top:6px"><span style="color:${cl(r.before)}">${lvl(r.before)}</span> → <b style="color:${cl(r.after)}">${lvl(r.after)}</b></div><div class="mut" style="margin-top:6px">This session: ${r.correct} of ${r.total}. Across your diagnostic and all practice in this topic: ${r.cum.correct} of ${r.cum.total}. Mastery uses the combined total.</div></div>
   ${nxt}<h2>Where mistakes come from</h2>${mis}<h2>Review your answers</h2>${rev}
   <div class="bar"><button class="btn ghost" id="menu">${S.fromHist?'Back to History':'Back to Menu'}</button><button class="btn" data-pr="${esc(r.concept)}">Practice again</button></div>`);
   r.review.forEach((q,i)=>{texLines($('#pm'+i),q.math);if(q.chosen!=null)tex($('#pa'+i),q.options[q.chosen]);tex($('#pc'+i),q.options[q.correct_index])});
@@ -100,4 +100,28 @@ ov.addEventListener('input',e=>{
   const h=document.getElementById(m?'cmh':'cdh');if(h)h.classList.toggle('bad',bad);
   const ok=document.getElementById('pok');if(ok)ok.disabled=!!(T.mbad||T.dbad);
 });
+(()=>{const s=document.createElement('style');s.textContent=`
+body,button,input,summary,textarea{font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',sans-serif}
+h1{font-weight:800;letter-spacing:-.5px}
+.card.pick[data-g]{display:flex;align-items:flex-start;gap:14px;text-align:left;padding:16px;border-radius:16px;background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.08);transition:all .2s ease}
+.card .gi{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.05);border:0;color:#60a5fa}
+.gcc{display:block;min-width:0}
+.gtt{display:block;font-size:16px;font-weight:700;color:#cbd5e1;letter-spacing:-.2px}
+.gd{display:block;font-size:13px;font-weight:400;color:#94a3b8;line-height:1.45;margin-top:6px}
+.card.pick[data-g].on .gtt{color:#fff}
+.card.pick[data-g].on .gd{color:#e2e8f0}
+.card.pick[data-g].on,.card.pick[data-t].on,.card.pick[data-e].on{background:rgba(14,165,233,.08);border:1.5px solid #0284c7;box-shadow:0 0 20px rgba(2,132,199,.22)}
+.card.pick.on .gi{background:rgba(34,211,238,.15);color:#22d3ee}
+.card.pick[data-t]>b,.card.pick[data-e]>b{font-weight:700;letter-spacing:-.2px}
+.card.pick[data-t] .mut,.card.pick[data-e] .mut{color:#94a3b8;line-height:1.45}
+.agent{display:flex;align-items:center;gap:10px;margin-top:22px;padding:11px 14px;border-radius:14px;background:rgba(34,211,238,.06);border:1px solid rgba(34,211,238,.2);font-size:12.5px;line-height:1.4;color:#cbd5e1}
+.agent b{color:#fff}
+.adot{width:8px;height:8px;border-radius:50%;background:#22d3ee;flex:none;box-shadow:0 0 8px #22d3ee;animation:adp 2s ease-in-out infinite}
+@keyframes adp{50%{opacity:.35;box-shadow:0 0 2px #22d3ee}}
+@media (prefers-reduced-motion:reduce){.adot{animation:none}}
+.steps{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:14px;flex-wrap:wrap}
+.stp{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:#94a3b8}
+.sn{width:20px;height:20px;border-radius:50%;background:rgba(96,165,250,.14);color:#93c5fd;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800}
+.sar{color:#475569;font-style:normal}
+`;document.head.appendChild(s)})();
 /* END app3.js */
