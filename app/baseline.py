@@ -372,6 +372,170 @@ def baseline_result(student_id: str):
     return res
 
 
+_PS = "~p"  # sesi latihan disimpan dengan student_id + "~p" agar tidak bercampur dengan sesi tes
+
+
+class PracticeReq(BaseModel):
+    student_id: str
+    concept: str
+
+
+def _ts(v):
+    return (str(v).replace(" ", "T") + "Z") if v else None
+
+
+def _practice_pick(student_id, concept, n=5):
+    seen = _seen(student_id)
+    cur = conn.cursor()
+    cur.execute("SELECT misconception_code, COUNT(*) FROM attempt_log WHERE student_id=? AND concept=? "
+                "AND misconception_code IS NOT NULL GROUP BY misconception_code", (student_id, concept))
+    mis = {c: k for c, k in cur.fetchall()}
+    pool = list(BANK.get(concept, [])) + list(TOPIC.get(concept, []))
+    random.shuffle(pool)
+
+    def weight(q):
+        return sum(mis.get(o.get("misconception"), 0) for o in q["options"] if not o.get("correct"))
+
+    pool.sort(key=lambda q: (q["id"] in seen, -weight(q)))  # soal baru dulu, lalu yang menguji kesalahanmu
+    picked = sorted(pool[:n], key=lambda q: LEVEL_ORDER[q["level"]])
+    codes = {o.get("misconception") for q in picked for o in q["options"] if not o.get("correct")} & set(mis)
+    focus = [MISC.get(c, {}).get("label", c) for c in sorted(codes, key=lambda c: -mis[c])][:3]
+    return picked, focus
+
+
+@router.post("/practice/start")
+def practice_start(req: PracticeReq):
+    concept = req.concept
+    if concept not in PREREQ:
+        return {"error": "Unknown topic"}
+    owner = req.student_id + _PS
+    cur = conn.cursor()
+    cur.execute("SELECT session_id, plan FROM baseline_sessions WHERE student_id=? AND submitted_at IS NULL "
+                "ORDER BY created_at DESC, rowid DESC LIMIT 1", (owner,))
+    row = cur.fetchone()
+    if row:
+        p = _unpack(row[1])
+        if p["topics"] == [concept]:
+            return {"session_id": row[0], "questions": _public(p["items"]), "focus": p.get("focus", [])}
+    picked, focus = _practice_pick(req.student_id, concept)
+    if not picked:
+        return {"error": "No practice questions for this topic yet"}
+    items = []
+    for q in picked:
+        order = list(range(len(q["options"])))
+        random.shuffle(order)
+        items.append({"id": q["id"], "order": order})
+    sid = uuid.uuid4().hex
+    cur.execute("INSERT INTO baseline_sessions (session_id, student_id, plan) VALUES (?,?,?)",
+                (sid, owner, json.dumps({"mode": "practice", "topics": [concept], "items": items, "focus": focus})))
+    conn.commit()
+    return {"session_id": sid, "questions": _public(items), "focus": focus}
+
+
+@router.post("/practice/submit")
+def practice_submit(req: SubmitReq):
+    cur = conn.cursor()
+    cur.execute("SELECT student_id, plan, result FROM baseline_sessions WHERE session_id=?", (req.session_id,))
+    row = cur.fetchone()
+    if not row or not str(row[0]).endswith(_PS):
+        raise HTTPException(404, "Session not found")
+    owner, sess, stored = row[0], _unpack(row[1]), row[2]
+    if stored:
+        return json.loads(stored)
+    sid, concept = owner[:-len(_PS)], sess["topics"][0]
+    mis, review, rows, unsure, correct = Counter(), [], [], 0, 0
+    for item in sess["items"]:
+        q = QBY[item["id"]]
+        order, ans = item["order"], req.answers.get(item["id"])
+        ok, code, reason, chosen = False, None, None, None
+        if isinstance(ans, int) and 0 <= ans < len(order):
+            chosen = ans
+            opt = q["options"][order[ans]]
+            ok, code, reason = opt["correct"], opt["misconception"], opt.get("reason")
+        else:
+            unsure += 1
+        correct += int(ok)
+        if code:
+            mis[code] += 1
+        rows.append((int(ok), code, q["id"]))
+        review.append({
+            "id": q["id"], "stem": q["stem"], "math": q["math"],
+            "options": [q["options"][i]["text"] for i in order], "chosen": chosen,
+            "correct_index": next(k for k, i in enumerate(order) if q["options"][i]["correct"]),
+            "is_correct": ok, "reason": reason, "solution": q.get("solution", "")})
+    cur.execute("SELECT score FROM mastery_records WHERE student_id=? AND concept=?", (sid, concept))
+    b = cur.fetchone()
+    before = {"score": b[0], "level": _label(b[0])} if b else None
+    cur.execute("SELECT COALESCE(SUM(is_correct),0), COUNT(*) FROM attempt_log "
+                "WHERE student_id=? AND concept=? AND soal_id IS NOT NULL", (sid, concept))
+    pc, pt = cur.fetchone()
+    cum_c, cum_t = pc + correct, pt + len(rows)
+    score = round((cum_c + 1) / (cum_t + 2), 3)  # kumulatif, rule of succession
+    after = {"score": score, "level": _label(score)}
+    cur.execute("INSERT OR IGNORE INTO students (student_id) VALUES (?)", (sid,))
+    cur.execute("INSERT INTO mastery_records (student_id, concept, score) VALUES (?,?,?) "
+                "ON CONFLICT(student_id, concept) DO UPDATE SET score=?, updated_at=CURRENT_TIMESTAMP",
+                (sid, concept, score, score))
+    for ok, code, qid in rows:
+        cur.execute("INSERT INTO attempt_log (student_id, concept, is_correct, misconception_code, "
+                    "score_before, score_after, is_baseline_test, soal_id) VALUES (?,?,?,?,?,?,0,?)",
+                    (sid, concept, ok, code, before["score"] if before else 0.5, score, qid))
+    mis_out = []
+    for code, n in mis.most_common():
+        m = MISC.get(code, {})
+        root = m.get("root_concept", "")
+        mis_out.append({"code": code, "label": m.get("label", code), "description": m.get("description", ""),
+                        "root_concept": root, "root_display": CONCEPTS.get(root, {}).get("display", root),
+                        "count": n})
+    _, nxt, _u = _path([], {}, _known(sid))
+    result = {"kind": "practice", "concept": concept, "display": CONCEPTS.get(concept, {}).get("display", concept),
+              "total": len(rows), "correct": correct, "unsure": unsure, "before": before, "after": after,
+              "cum": {"correct": cum_c, "total": cum_t}, "misconceptions": mis_out, "review": review,
+              "next_concept": nxt, "next_display": CONCEPTS.get(nxt, {}).get("display", nxt) if nxt else None}
+    cur.execute("UPDATE baseline_sessions SET result=?, submitted_at=CURRENT_TIMESTAMP WHERE session_id=?",
+                (json.dumps(result), req.session_id))
+    conn.commit()
+    return result
+
+
+@router.get("/history/session/{session_id}")
+def history_session(session_id: str):
+    cur = conn.cursor()
+    cur.execute("SELECT student_id, result FROM baseline_sessions WHERE session_id=? AND result IS NOT NULL",
+                (session_id,))
+    row = cur.fetchone()
+    if not row:
+        raise HTTPException(404, "Session not found")
+    res = json.loads(row[1])
+    owner = str(row[0])
+    res["goal"] = _goal(owner[:-len(_PS)] if owner.endswith(_PS) else owner)
+    return res
+
+
+@router.get("/history/{student_id}")
+def history(student_id: str):
+    cur = conn.cursor()
+    cur.execute("SELECT session_id, student_id, plan, result, created_at, submitted_at FROM baseline_sessions "
+                "WHERE student_id IN (?,?) ORDER BY COALESCE(submitted_at, created_at) DESC, rowid DESC LIMIT 60",
+                (student_id, student_id + _PS))
+    out, open_seen = [], set()
+    for sid, owner, plan, result, created, submitted in cur.fetchall():
+        p = _unpack(plan)
+        item = {"session_id": sid, "kind": p["mode"], "topics": p["topics"], "total": len(p["items"]),
+                "done": bool(result), "when": _ts(submitted or created)}
+        if result:
+            r = json.loads(result)
+            item.update(correct=r.get("correct"), unsure=r.get("unsure"))
+            if p["mode"] == "practice":
+                item.update(before=r.get("before"), after=r.get("after"))
+        else:
+            if owner in open_seen:  # hanya satu sesi "in progress" per jenis (tes / latihan)
+                continue
+            open_seen.add(owner)
+        out.append(item)
+    return out
+
+
 TUTOR_SYS = ("You are MathMap's math tutor for a high-school student. Reply in English, warm and concise "
              "(under 140 words unless asked for more). Write ALL math in LaTeX inside $...$. Treat the CONTEXT as "
              "authoritative: the marked correct answer and the stated mistake behind the student's choice are ground "

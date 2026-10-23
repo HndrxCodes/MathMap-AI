@@ -30,13 +30,13 @@ function goalScreen(anim){
     if(S.exam==='school')h+='<h2>Which topics are on it?</h2><p class="mut">Select all that apply.</p>'+topicList();
   }
   if(S.goal==='mastery')h+='<h2>Which topic?</h2>'+topicList();
-  show(h+(S.res&&S.res.total?`<h2>History</h2><button class="card pick" id="hist"><b>Last diagnostic: ${S.res.correct}/${S.res.total}</b><div class="mut">Tap to see your results and learning path</div></button>`:'')+`<p class="mut" style="text-align:center;font-size:.7rem;margin-top:24px">build 8</p><div class="bar"><button class="btn" id="go" ${ready()?'':'disabled'}>Start the test</button></div>`);
+  show('<button class="x" id="histbtn" aria-label="History" style="position:absolute;top:20px;left:14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/><path d="M12 7v5l3 2"/></svg></button>'+h+`<p class="mut" style="text-align:center;font-size:.7rem;margin-top:24px">build 9</p><div class="bar"><button class="btn" id="go" ${ready()?'':'disabled'}>Start the test</button></div>`);
   if(anim)requestAnimationFrame(()=>requestAnimationFrame(()=>{const e=document.getElementById('slot');if(e)e.classList.add('on')}));
 }
 
 async function startTest(){
   const s=await api('/baseline/start',{student_id:SID,mode:S.start.mode,topics:S.start.topics});
-  S.sess=s.session_id;S.qs=s.questions;S.i=0;S.review=false;
+  S.practice=null;S.fromHist=false;S.sess=s.session_id;S.qs=s.questions;S.i=0;S.review=false;
   S.ans=JSON.parse(localStorage['mm_ans_'+S.sess]||'{}');
   testScreen();
 }
@@ -80,7 +80,7 @@ function resultScreen(){
   <p class="mut">A short check is a starting point. Practice sharpens the picture.</p>
   <h2>${title}</h2><p>${next}</p><p class="mut">Tap a topic to open a short lesson.</p><div class="card">${path}</div>${scan}
   <h2>Where mistakes come from</h2>${mis}<h2>Review your answers</h2>${rev}
-  <div class="bar"><button class="btn ghost" id="menu">Back to Menu</button>${r.start_concept?`<button class="btn" id="learn" data-l="${esc(r.start_concept)}">Start learning</button>`:''}</div>`);
+  <div class="bar"><button class="btn ghost" id="menu">${S.fromHist?'Back to History':'Back to Menu'}</button>${r.start_concept?`<button class="btn" id="learn" data-pr="${esc(r.start_concept)}">Start practice</button>`:''}</div>`);
   r.review.forEach((q,i)=>{texLines($('#rm'+i),q.math);if(q.chosen!=null)tex($('#ra'+i),q.options[q.chosen]);tex($('#rc'+i),q.options[q.correct_index])});
   rich(app);
 }

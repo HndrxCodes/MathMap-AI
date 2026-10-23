@@ -31,6 +31,7 @@ ov.onclick=async e=>{
     if(t.id==='pok'){t.disabled=true;const first=!S.plan;S.plan={minutes:S.tmp.m,days:S.tmp.d,day:first?1:S.plan.day};
       await api('/goal',{student_id:SID,goal_type:S.goal||'find_gaps',topics:S.topics,study_minutes:S.tmp.m,study_days:S.tmp.d,exam:S.exam||''});
       closeOv();return goalScreen(first)}
+    if(d.pr){closeOv();return startPractice(d.pr)}
     if(d.chk){closeOv();S.start={mode:'topic',topics:[d.chk]};return startTest()}
     if(d.chip)return ask(d.chip);
     if(t.id==='tsend'){const i=document.getElementById('tin'),v=i.value.trim();if(v){i.value='';ask(v)}}
@@ -60,9 +61,19 @@ app.onclick=async e=>{
     if(t.id==='prev'){if(S.review){S.review=false;S.i=S.qs.length-1}else S.i--;return testScreen()}
     if(t.id==='next'){if(S.i===S.qs.length-1){S.review=true;return reviewScreen()}S.i++;return testScreen()}
     if(t.id==='submit'){t.disabled=true;const a={};S.qs.forEach(q=>a[q.id]=S.ans[q.id]===undefined?null:S.ans[q.id]);
+      if(S.practice){S.pres=await api('/practice/submit',{session_id:S.sess,answers:a});localStorage.removeItem('mm_ans_'+S.sess);return practiceScreen()}
       S.res=await api('/baseline/submit',{session_id:S.sess,answers:a});localStorage.removeItem('mm_ans_'+S.sess);return resultScreen()}
-    if(t.id==='menu'){S.goal=null;S.exam=null;S.topics=[];return goalScreen()}
-    if(t.id==='hist')return resultScreen();
+    if(t.id==='menu'){if(S.fromHist){S.fromHist=false;return historyScreen()}S.goal=null;S.exam=null;S.topics=[];return goalScreen()}
+    if(t.id==='histbtn')return historyScreen();
+    if(t.id==='hback')return goalScreen();
+    if(t.id==='pgo')return testScreen();
+    if(d.pr)return startPractice(d.pr);
+    if(d.pask!==undefined)return tutorSheet('question',S.pres.review[+d.pask]);
+    if(d.h!==undefined){const h=S.hist[+d.h];
+      if(!h.done){if(h.kind==='practice')return startPractice(h.topics[0]);S.start={mode:h.kind,topics:h.topics};return startTest()}
+      S.fromHist=true;const r=await api('/history/session/'+h.session_id);
+      if(r.kind==='practice'){S.pres=r;return practiceScreen()}
+      S.res=r;return resultScreen()}
   }catch(err){alert('Something went wrong ('+err.message+'). Please try again.');t.disabled=false}
 };
 
@@ -85,6 +96,6 @@ async function lessonSheet(k){
   b.innerHTML=(r.lesson?md(r.lesson):'<div class="mut">Sorry, this lesson could not be loaded. Please try again.</div>')+mistakesHtml(k);
   rich(b);
   const f=document.getElementById('lfoot');
-  if(f&&r.lesson&&S.ready.includes(k))f.innerHTML=`<button class="btn" style="width:100%;margin-top:10px" data-chk="${esc(k)}">Check yourself</button>`;
+  if(f&&r.lesson)f.innerHTML=`<button class="btn" style="width:100%;margin-top:10px" data-pr="${esc(k)}">Practice this topic</button>`;
 }
 /* END app2.js */
