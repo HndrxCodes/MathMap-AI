@@ -2,6 +2,10 @@ const ov=document.getElementById('ov');
 const texLines=(el,s)=>{const p=s.split(/,\s*(?=\\text\{)/);if(p.length<2||!window.katex)return tex(el,s,true);el.innerHTML='';p.forEach(x=>{const d=document.createElement('div');el.appendChild(d);tex(d,x,true)})};
 const md=s=>esc(s).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>');
 const closeOv=()=>{ov.innerHTML=''};
+const fixMath=s=>String(s)
+ .replace(/\\\[([\s\S]+?)\\\]/g,(m,x)=>'$$'+x.replace(/\s*\n\s*/g,' ').trim()+'$$')
+ .replace(/\\\(([\s\S]+?)\\\)/g,(m,x)=>'$'+x.replace(/\s*\n\s*/g,' ').trim()+'$')
+ .replace(/\$\$([\s\S]+?)\$\$/g,(m,x)=>'$$'+x.replace(/\s*\n\s*/g,' ').trim()+'$$');
 function quitModal(){ov.innerHTML='<div class="ov"><div class="sheet"><h2 style="margin-top:0">Quit the test?</h2><p class="mut">Your answers are saved. You can pick up where you left off.</p><div class="row" style="gap:10px"><button class="btn ghost" style="flex:1" id="qno">No</button><button class="btn" style="flex:1" id="qyes">Yes, quit</button></div></div></div>'}
 function renderPlan(){
   ov.innerHTML=`<div class="ov"><div class="sheet"><h2 style="margin-top:0">Set your study plan</h2><div class="mut">Minutes per day</div><div class="pills">${[10,20,30,45].map(m=>`<button class="pill ${S.tmp.m===m?'on':''}" data-pm="${m}">${m} min</button>`).join('')}</div><div class="mut" style="margin-top:14px">For how many days?</div><div class="pills">${[7,14,30].map(d=>`<button class="pill ${S.tmp.d===d?'on':''}" data-pd="${d}">${d} days</button>`).join('')}</div><button class="btn" style="width:100%;margin-top:18px" id="pok">${S.plan?'Save plan':'Start day 1'}</button></div></div>`}
@@ -16,9 +20,9 @@ function tutorSheet(kind,item){
 async function ask(text){
   const box=document.getElementById('msgs');if(!box||S.t.busy)return;S.t.busy=true;
   box.insertAdjacentHTML('beforeend',`<div class="msg me">${esc(text)}</div><div class="msg bot" id="wait">…</div>`);box.scrollTop=box.scrollHeight;
-  let reply;try{const r=await api('/tutor',{kind:S.t.kind,message:text,data:S.t.data,history:S.t.hist});reply=r.reply}catch(e){reply='Sorry, I could not reach the tutor.'}
+  let reply;try{const r=await api('/tutor',{kind:S.t.kind,message:text,data:S.t.data,history:S.t.hist,student_id:SID});reply=r.reply}catch(e){reply='Sorry, I could not reach the tutor.'}
   S.t.hist.push({role:'user',content:text},{role:'assistant',content:reply});
-  const w=document.getElementById('wait');w.id='';w.innerHTML=md(reply);rich(w);box.scrollTop=box.scrollHeight;S.t.busy=false;
+  const w=document.getElementById('wait');w.id='';w.innerHTML=md(fixMath(reply));rich(w);box.scrollTop=box.scrollHeight;S.t.busy=false;
 }
 ov.onclick=async e=>{
   const t=e.target.closest('button');if(!t){if(e.target.classList.contains('ov')||e.target.id==='pbk')closeOv();return}
@@ -64,6 +68,7 @@ app.onclick=async e=>{
       if(S.practice){S.pres=await api('/practice/submit',{session_id:S.sess,answers:a});localStorage.removeItem('mm_ans_'+S.sess);return practiceScreen()}
       S.res=await api('/baseline/submit',{session_id:S.sess,answers:a});localStorage.removeItem('mm_ans_'+S.sess);return resultScreen()}
     if(t.id==='menu'){if(S.fromHist){S.fromHist=false;return historyScreen()}S.goal=null;S.exam=null;S.topics=[];return goalScreen()}
+    if(t.id==='pbtn')return profileSheet(false);
     if(t.id==='histbtn')return historyScreen();
     if(t.id==='hback')return goalScreen();
     if(t.id==='pgo')return testScreen();
@@ -81,6 +86,8 @@ app.onclick=async e=>{
   try{S.concepts=await api('/concepts');S.exams=await api('/exams');S.ready=await api('/topics/ready').catch(()=>[])}catch(e){return show(`<h1>Cannot load the app data</h1><p class="mut">${esc(e.message)}. The server may be restarting, or the /api routes are not connected.</p>`)}
   try{const g=await api('/goal/'+SID);if(g.study_minutes)S.plan={minutes:g.study_minutes,days:g.study_days||14,day:g.day||1}}catch(e){}
   try{const r=await api('/baseline/result/'+SID);if(r&&r.total){S.res=r}}catch(e){}
+  try{S.prof=await api('/profile/'+SID)}catch(e){S.prof={}}
+  setTimeout(()=>{try{if(S.prof&&!S.prof.name&&!localStorage.mm_asked&&typeof profileSheet==='function'){localStorage.mm_asked='1';profileSheet(true)}}catch(e){}},500);
   goalScreen();
 })();
 const cdisp=k=>(S.concepts[k]||{display:k}).display;
@@ -93,7 +100,7 @@ async function lessonSheet(k){
   ov.innerHTML=`<div class="ov"><div class="sheet tall"><div class="row"><b>${esc(cdisp(k))}</b><button class="x" id="tclose">✕</button></div><div id="lbody" class="msgs"><div class="mut">Preparing your lesson…</div></div><div id="lfoot"></div></div></div>`;
   let r;try{r=await api('/lesson/'+encodeURIComponent(k))}catch(e){r={}}
   const b=document.getElementById('lbody');if(!b)return;
-  b.innerHTML=(r.lesson?md(r.lesson):'<div class="mut">Sorry, this lesson could not be loaded. Please try again.</div>')+mistakesHtml(k);
+  b.innerHTML=(r.lesson?md(fixMath(r.lesson)):'<div class="mut">Sorry, this lesson could not be loaded. Please try again.</div>')+mistakesHtml(k);
   rich(b);
   const f=document.getElementById('lfoot');
   if(f&&r.lesson)f.innerHTML=`<button class="btn" style="width:100%;margin-top:10px" data-pr="${esc(k)}">Practice this topic</button>`;

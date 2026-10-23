@@ -218,3 +218,6 @@ __marimo__/
 .streamlit/secrets.toml
 mathmap.db
 qb_backup.json
+gen*.log
+*.bak
+nohup.out

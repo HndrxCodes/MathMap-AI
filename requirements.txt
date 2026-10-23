@@ -1,5 +1,7 @@
-fastapi
-uvicorn
-openai
-python-dotenv
-sympy
+fastapi==0.142.2
+starlette==1.7.0
+pydantic==2.13.5
+uvicorn==0.54.0
+openai==3.24.0
+python-dotenv==1.2.4
+sympy==1.13.3

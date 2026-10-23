@@ -4,6 +4,34 @@ from app.agent import run_agent_turn
 
 app = FastAPI(title="MathMap AI")
 
+import time
+from collections import defaultdict, deque
+from fastapi import Request
+from fastapi.responses import JSONResponse
+
+_RL_PATHS = ("/api/tutor", "/api/agent/chat")  # endpoint yang memanggil LLM
+_RL_PER_IP, _RL_TOTAL = 40, 800  # permintaan per jam
+_hits, _all = defaultdict(deque), deque()
+
+
+@app.middleware("http")
+async def _limit(request: Request, call_next):
+    if request.url.path.startswith(_RL_PATHS):
+        now = time.time()
+        ip = request.headers.get("x-forwarded-for", "").split(",")[0].strip() or (request.client.host if request.client else "?")
+        q = _hits[ip]
+        while q and now - q[0] > 3600:
+            q.popleft()
+        while _all and now - _all[0] > 3600:
+            _all.popleft()
+        if len(q) >= _RL_PER_IP or len(_all) >= _RL_TOTAL:
+            return JSONResponse({"reply": "The tutor has reached its hourly limit. Please try again a little later.",
+                                 "lesson": "", "error": "rate_limited"})
+        q.append(now)
+        _all.append(now)
+    return await call_next(request)
+
+
 
 class ChatRequest(BaseModel):
     student_id: str

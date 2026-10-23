@@ -124,4 +124,48 @@ h1{font-weight:800;letter-spacing:-.5px}
 .sn{width:20px;height:20px;border-radius:50%;background:rgba(96,165,250,.14);color:#93c5fd;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800}
 .sar{color:#475569;font-style:normal}
 `;document.head.appendChild(s)})();
+(()=>{const s=document.createElement('style');s.textContent=`
+.hbtn.av{background:linear-gradient(135deg,#a855f7,#06b6d4);border:0;color:#fff;font-weight:800;font-size:15px;padding:0}
+`;document.head.appendChild(s)})();
+const LVS=[['middle','Middle school'],['high','High school'],['university','University']];
+function profileSheet(first,keep){
+  if(!keep){const P=S.prof||{};S.pf={name:P.name||'',level:P.level||'',first:!!first,arm:false}}
+  first=S.pf.first;
+  const pills=LVS.map(l=>`<button class="pill ${S.pf.level===l[0]?'on':''}" data-pl="${l[0]}">${l[1]}</button>`).join('');
+  ov.innerHTML=`<div class="pov" id="pbk"><div class="pcard"><div class="row"><b style="font-size:1.1rem">${first?'Welcome to MathMap':'Your profile'}</b><button class="x" id="tclose">✕</button></div>
+  <div class="mut" style="margin-top:12px">${first?'What should we call you? A nickname is fine.':'Nickname'}</div>
+  <div class="cust"><input id="pfn" type="text" maxlength="24" placeholder="Nickname" value="${esc(S.pf.name)}" style="width:100%;text-align:left;padding:0 14px"></div>
+  <div class="mut" style="margin-top:14px">Your level (optional)</div><div class="pills">${pills}</div>
+  <button class="btn" style="width:100%;margin-top:18px" id="pfsave">${first?'Continue':'Save'}</button>
+  ${first?'<button class="btn ghost" style="width:100%;margin-top:8px" id="pfskip">Skip for now</button>':`<div class="mut" style="margin-top:16px;font-size:.78rem">Your progress is tied to a private ID stored in this browser. There is no password, so clearing browser data starts you fresh.</div><div class="row" style="gap:8px;margin-top:10px"><button class="btn ghost" style="flex:1" id="pfnew">New student</button><button class="btn ghost" style="flex:1;color:#f87171" id="pfreset">Reset my data</button></div>`}</div></div>`;
+}
+ov.addEventListener('click',async e=>{
+  const b=e.target.closest('button');if(!b||!document.getElementById('pfsave'))return;
+  const d=b.dataset,i=b.id;
+  try{
+    if(d.pl){S.pf.name=document.getElementById('pfn').value;S.pf.level=S.pf.level===d.pl?'':d.pl;return profileSheet(0,1)}
+    if(i==='pfsave'||i==='pfskip'){
+      if(i==='pfsave'){b.disabled=true;await api('/profile',{student_id:SID,name:document.getElementById('pfn').value.trim(),level:S.pf.level});S.prof=await api('/profile/'+SID)}
+      localStorage.mm_asked='1';closeOv();return goalScreen()}
+    if(i==='pfreset'){if(!S.pf.arm){S.pf.arm=true;b.textContent='Tap again to confirm';return}
+      b.disabled=true;await api('/profile/reset',{student_id:SID});
+      Object.keys(localStorage).filter(k=>k.startsWith('mm_ans_')).forEach(k=>localStorage.removeItem(k));
+      location.reload();return}
+    if(i==='pfnew'){localStorage.removeItem('mm_student');localStorage.removeItem('mm_asked');location.href=location.pathname;return}
+  }catch(err){alert('Something went wrong ('+err.message+')');b.disabled=false}
+});
+(()=>{const s=document.createElement('style');s.textContent=`
+.hdr{min-height:40px;margin-bottom:16px}
+.hdr .bico{width:36px;height:36px;border-radius:11px}
+.hdr .bico svg{width:24px;height:24px}
+.hdr .bname{font-size:17px}
+.hdr .bsub{font-size:8px;letter-spacing:1.8px;margin-top:4px}
+.hdr .hact{gap:6px}
+.hdr .hbtn{height:34px;min-width:34px;padding:0 9px;border-radius:17px}
+.hdr .hbtn svg{width:17px;height:17px}
+.hdr .hbtn.hfl{gap:5px}
+.hdr .hbtn.hfl svg{width:13px;height:17px}
+.hdr .hbtn b{font-size:13.5px}
+.hdr .hbtn.av{font-size:14px;padding:0}
+`;document.head.appendChild(s)})();
 /* END app3.js */
