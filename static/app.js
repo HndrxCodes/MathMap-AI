@@ -6,7 +6,7 @@ const $=s=>document.querySelector(s);
 const esc=s=>String(s==null?'':s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
 const pend=[];
 const tex=(el,s,d)=>{if(!el)return;if(window.katex){try{katex.render(s,el,{displayMode:!!d,throwOnError:false})}catch(e){el.textContent=s}}else{el.textContent=s;pend.push([el,s,d])}};
-const rich=el=>window.renderMathInElement&&renderMathInElement(el,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false});
+const rich=el=>window.renderMathInElement&&renderMathInElement(el,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false},{left:'$',right:'$',display:false}],throwOnError:false});
 window.flush=()=>{while(pend.length){const p=pend.shift();tex(p[0],p[1],p[2])}rich(app)};
 const show=h=>{app.innerHTML=h;scrollTo(0,0)};
 async function api(p,b){const r=await fetch('/api'+p,b?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)}:{});if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}

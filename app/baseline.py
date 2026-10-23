@@ -398,7 +398,7 @@ def tutor(req: TutorReq):
     try:
         from app import clients  # impor lazy: server tetap menyala kalau nama konstanta berbeda
         model = getattr(clients, "MICROLESSON_MODEL", None) or clients.ORCHESTRATOR_MODEL
-        msgs = [{"role": "system", "content": TUTOR_SYS + "\n\nCONTEXT\n" + _ctx(req.kind, req.data)}]
+        msgs = [{"role": "system", "content": TUTOR_SYS + "\n\nMATH FORMAT: write inline math as $...$ and display math as $$...$$. Never use backslash-parenthesis or backslash-bracket delimiters.\n\nCONTEXT\n" + _ctx(req.kind, req.data)}]
         msgs += [{"role": m.get("role"), "content": str(m.get("content"))[:1500]}
                  for m in req.history[-6:] if m.get("role") in ("user", "assistant")]
         msgs.append({"role": "user", "content": req.message[:800]})
