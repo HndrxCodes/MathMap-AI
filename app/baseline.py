@@ -393,6 +393,55 @@ def _ctx(kind, d):
     return "STUDENT RESULT SUMMARY (json): " + json.dumps(d)[:2500]
 
 
+import json as _json, os as _os
+_HERE=_os.path.dirname(__file__)
+_LESSON_PATH=_os.path.join(_HERE,'lessons_v1.json')
+_LESSON_PROMPT="""You are writing a short math lesson for a student reading on a phone.
+Topic: {name}. Plain description: {plain}
+Write in English, 180-230 words in total. Use exactly these three bold labels, each on its own line, in this order:
+**Core idea**
+**Worked example**
+**Common mistakes**
+Rules: write math as $...$ only (never backslash-parenthesis or backslash-bracket delimiters); keep every formula on a single line; no tables, no # headings, no emojis. Worked example: one concrete problem solved in short numbered steps. Common mistakes: two short bullets starting with "- ". Be mathematically precise. If the topic mixes algebra and trigonometry, cover both."""
+def _lessons():
+    try:
+        return _json.load(open(_LESSON_PATH,encoding='utf-8'))
+    except Exception:
+        return {}
+def _concepts():
+    try:
+        d=_json.load(open(_os.path.join(_HERE,'concepts_v2.json'),encoding='utf-8'))
+        return d if isinstance(d,dict) else {}
+    except Exception:
+        return {}
+_LESSON_EXTRA={"Limit":r"""Extra requirements for this topic: write 300-380 words. Core idea must state, each correctly: (1) a 0/0 form means simplify first (factor and cancel), it is not the answer; (2) the standard trig limits $\lim_{x \to 0} \frac{\sin x}{x} = 1$, $\lim_{x \to 0} \frac{\tan x}{x} = 1$, $\lim_{x \to 0} \frac{\sin ax}{bx} = \frac{a}{b}$, and $\lim_{x \to 0} \frac{1-\cos x}{x^2} = \frac{1}{2}$. Worked example: two short problems, one algebraic (factor and cancel) and one trigonometric, for example $\lim_{x \to 0} \frac{\sin 5x}{3x} = \frac{5}{3}$. Common mistakes: exactly three bullets: treating 0/0 as the final answer, assuming $\frac{\sin kx}{x} = 1$ for every k, and forgetting that $\frac{1-\cos x}{x^2}$ tends to $\frac{1}{2}$ (the denominator is squared)."""}
+def _make_lesson(concept,info):
+    from app import clients
+    model=getattr(clients,'MICROLESSON_MODEL',None) or clients.ORCHESTRATOR_MODEL
+    pr=_LESSON_PROMPT.format(name=info.get('display',concept),plain=info.get('plain',''))
+    x=_LESSON_EXTRA.get(concept)
+    if x:
+        pr=pr.replace('180-230 words','300-380 words').replace('two short bullets','three short bullets')+'\n\n'+x
+    out=clients.nebius_client.chat.completions.create(model=model,messages=[{"role":"user","content":pr}])
+    return (out.choices[0].message.content or '').strip()
+@router.get("/lesson/{concept}")
+def lesson(concept: str):
+    cj=_concepts()
+    if concept not in cj:
+        return {"lesson":"","error":"unknown concept"}
+    data=_lessons()
+    if concept not in data:
+        try:
+            text=_make_lesson(concept,cj[concept])
+        except Exception as e:
+            return {"lesson":"","error":str(e)[:200]}
+        if len(text)<80:
+            return {"lesson":"","error":"empty"}
+        data[concept]=text
+        _json.dump(data,open(_LESSON_PATH,'w',encoding='utf-8'),ensure_ascii=False,indent=1)
+    return {"lesson":data[concept]}
+
+
 @router.post("/tutor")
 def tutor(req: TutorReq):
     try:
