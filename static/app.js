@@ -30,7 +30,7 @@ function goalScreen(anim){
     if(S.exam==='school')h+='<h2>Which topics are on it?</h2><p class="mut">Select all that apply.</p>'+topicList();
   }
   if(S.goal==='mastery')h+='<h2>Which topic?</h2>'+topicList();
-  show(h+`<p class="mut" style="text-align:center;font-size:.7rem;margin-top:24px">build 6</p><div class="bar"><button class="btn" id="go" ${ready()?'':'disabled'}>Start the test</button></div>`);
+  show(h+(S.res&&S.res.total?`<h2>History</h2><button class="card pick" id="hist"><b>Last diagnostic: ${S.res.correct}/${S.res.total}</b><div class="mut">Tap to see your results and learning path</div></button>`:'')+`<p class="mut" style="text-align:center;font-size:.7rem;margin-top:24px">build 8</p><div class="bar"><button class="btn" id="go" ${ready()?'':'disabled'}>Start the test</button></div>`);
   if(anim)requestAnimationFrame(()=>requestAnimationFrame(()=>{const e=document.getElementById('slot');if(e)e.classList.add('on')}));
 }
 
@@ -66,7 +66,7 @@ function resultScreen(){
   const r=S.res,g=r.goal||{},wrong=r.total-r.correct-r.unsure;
   const dn=k=>(S.concepts[k]||{display:k}).display;
   const title=r.mode==='topic'?`Path to ${esc(dn(r.topics[0]))}`:r.mode==='exam'?'Path to your test':'Your learning path';
-  const path=r.path.map(n=>`<div class="step"><div class="rail"><i style="background:${COL[n.status]}"></i></div><div class="sbody"><div class="row"><b>${esc(n.display)}</b><span>${n.goal?'<span class="tag">Goal</span>':''}${n.concept===r.start_concept?'<span class="tag go">Start here</span>':''}</span></div><div class="mut">${n.total?`${n.correct} of ${n.total} correct · ${LBL[n.status]}`:'Not tested in this check'}</div></div></div>`).join('');
+  const path=r.path.map(n=>`<div class="step" data-l="${esc(n.concept)}" style="cursor:pointer"><div class="rail"><i style="background:${COL[n.status]}"></i></div><div class="sbody"><div class="row"><b>${esc(n.display)}</b><span>${n.goal?'<span class="tag">Goal</span>':''}${n.concept===r.start_concept?'<span class="tag go">Start here</span>':''}</span></div><div class="mut">${n.total?`${n.correct} of ${n.total} correct · ${LBL[n.status]}`:'Not tested in this check'}</div></div></div>`).join('');
   const next=r.start_concept?`Start with <span class="hl">${esc(dn(r.start_concept))}</span>${g.study_minutes?` · ${g.study_minutes} min a day`:''}.`:(r.unchecked&&r.unchecked.length?`What we checked looks solid. Still to check: ${esc(r.unchecked.join(', '))}.`:'You look ready for this goal. Move on to harder practice.');
   const scan=(r.mode==='topic'&&r.unchecked&&r.unchecked.length)?`<div class="card"><b>Foundations not checked yet</b><div class="mut">Skills this topic builds on were not tested: ${esc(r.unchecked.join(', '))}.</div><button class="btn ghost" style="margin-top:8px" data-scan="1">Take the quick scan</button></div>`:'';
   const mis=r.misconceptions.length?r.misconceptions.map(m=>`<div class="card"><div class="row"><b>${esc(m.label)}</b><span class="mut">×${m.count}</span></div>
@@ -78,9 +78,9 @@ function resultScreen(){
   show(`<h1>Your diagnostic</h1>
   <div class="card hero">${donut(r.correct,wrong,r.unsure,r.total)}<div class="leg"><div><i style="background:#60a5fa"></i>${r.correct} correct</div><div><i style="background:#f87171"></i>${wrong} not quite</div><div><i style="background:#6b7394"></i>${r.unsure} unsure</div></div></div>
   <p class="mut">A short check is a starting point. Practice sharpens the picture.</p>
-  <h2>${title}</h2><p>${next}</p><div class="card">${path}</div>${scan}
+  <h2>${title}</h2><p>${next}</p><p class="mut">Tap a topic to open a short lesson.</p><div class="card">${path}</div>${scan}
   <h2>Where mistakes come from</h2>${mis}<h2>Review your answers</h2>${rev}
-  <div class="bar"><button class="btn ghost" id="retake">Retake</button><button class="btn" id="tutor">Ask the tutor</button></div>`);
+  <div class="bar"><button class="btn ghost" id="menu">Back to Menu</button>${r.start_concept?`<button class="btn" id="learn" data-l="${esc(r.start_concept)}">Start learning</button>`:''}</div>`);
   r.review.forEach((q,i)=>{texLines($('#rm'+i),q.math);if(q.chosen!=null)tex($('#ra'+i),q.options[q.chosen]);tex($('#rc'+i),q.options[q.correct_index])});
   rich(app);
 }

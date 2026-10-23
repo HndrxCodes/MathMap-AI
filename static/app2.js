@@ -31,6 +31,7 @@ ov.onclick=async e=>{
     if(t.id==='pok'){t.disabled=true;const first=!S.plan;S.plan={minutes:S.tmp.m,days:S.tmp.d,day:first?1:S.plan.day};
       await api('/goal',{student_id:SID,goal_type:S.goal||'find_gaps',topics:S.topics,study_minutes:S.tmp.m,study_days:S.tmp.d,exam:S.exam||''});
       closeOv();return goalScreen(first)}
+    if(d.chk){closeOv();S.start={mode:'topic',topics:[d.chk]};return startTest()}
     if(d.chip)return ask(d.chip);
     if(t.id==='tsend'){const i=document.getElementById('tin'),v=i.value.trim();if(v){i.value='';ask(v)}}
   }catch(err){alert('Something went wrong ('+err.message+')');t.disabled=false}
@@ -38,7 +39,7 @@ ov.onclick=async e=>{
 ov.onkeydown=e=>{if(e.key==='Enter'&&e.target.id==='tin'){const v=e.target.value.trim();if(v){e.target.value='';ask(v)}}};
 
 app.onclick=async e=>{
-  const t=e.target.closest('button');if(!t)return;const d=t.dataset;
+  const L=e.target.closest('[data-l]');if(L)return lessonSheet(L.dataset.l);const t=e.target.closest('button');if(!t)return;const d=t.dataset;
   try{
     if(d.g){S.goal=d.g;S.exam=null;S.topics=[];goalScreen();if(!S.plan)planModal();return}
     if(t.id==='flame')return planModal();
@@ -60,15 +61,30 @@ app.onclick=async e=>{
     if(t.id==='next'){if(S.i===S.qs.length-1){S.review=true;return reviewScreen()}S.i++;return testScreen()}
     if(t.id==='submit'){t.disabled=true;const a={};S.qs.forEach(q=>a[q.id]=S.ans[q.id]===undefined?null:S.ans[q.id]);
       S.res=await api('/baseline/submit',{session_id:S.sess,answers:a});localStorage.removeItem('mm_ans_'+S.sess);return resultScreen()}
-    if(t.id==='retake'){S.goal=null;S.exam=null;S.topics=[];return goalScreen()}
-    if(t.id==='tutor')return tutorSheet('summary');
+    if(t.id==='menu'){S.goal=null;S.exam=null;S.topics=[];return goalScreen()}
+    if(t.id==='hist')return resultScreen();
   }catch(err){alert('Something went wrong ('+err.message+'). Please try again.');t.disabled=false}
 };
 
 (async()=>{
   try{S.concepts=await api('/concepts');S.exams=await api('/exams');S.ready=await api('/topics/ready').catch(()=>[])}catch(e){return show(`<h1>Cannot load the app data</h1><p class="mut">${esc(e.message)}. The server may be restarting, or the /api routes are not connected.</p>`)}
   try{const g=await api('/goal/'+SID);if(g.study_minutes)S.plan={minutes:g.study_minutes,days:g.study_days||14,day:g.day||1}}catch(e){}
-  try{const r=await api('/baseline/result/'+SID);if(r&&r.total){S.res=r;return resultScreen()}}catch(e){}
+  try{const r=await api('/baseline/result/'+SID);if(r&&r.total){S.res=r}}catch(e){}
   goalScreen();
 })();
+const cdisp=k=>(S.concepts[k]||{display:k}).display;
+function mistakesHtml(k){
+  const ms=((S.res&&S.res.misconceptions)||[]).filter(m=>m.root_display===cdisp(k));
+  if(!ms.length)return '';
+  return '<div class="mut" style="margin-top:14px">From your test</div>'+ms.map(m=>`<div class="card"><b>${esc(m.label)}</b> <span class="mut">×${m.count}</span><div class="mut">${esc(m.description)}</div></div>`).join('');
+}
+async function lessonSheet(k){
+  ov.innerHTML=`<div class="ov"><div class="sheet tall"><div class="row"><b>${esc(cdisp(k))}</b><button class="x" id="tclose">✕</button></div><div id="lbody" class="msgs"><div class="mut">Preparing your lesson…</div></div><div id="lfoot"></div></div></div>`;
+  let r;try{r=await api('/lesson/'+encodeURIComponent(k))}catch(e){r={}}
+  const b=document.getElementById('lbody');if(!b)return;
+  b.innerHTML=(r.lesson?md(r.lesson):'<div class="mut">Sorry, this lesson could not be loaded. Please try again.</div>')+mistakesHtml(k);
+  rich(b);
+  const f=document.getElementById('lfoot');
+  if(f&&r.lesson&&S.ready.includes(k))f.innerHTML=`<button class="btn" style="width:100%;margin-top:10px" data-chk="${esc(k)}">Check yourself</button>`;
+}
 /* END app2.js */
