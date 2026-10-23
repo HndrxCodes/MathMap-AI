@@ -20,17 +20,38 @@ const topicList=()=>{
   return list.map(([k,v])=>`<button class="card pick ${S.topics.includes(k)?'on':''}" data-t="${esc(k)}"><b>${esc(v.display)}</b><div class="mut">${esc(v.plain.replace(/\^2/g,'²'))}</div></button>`).join('')+(only?'<p class="mut">More topics are coming soon.</p>':'');
 };
 
+(()=>{const l=document.createElement('link');l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@800&family=JetBrains+Mono:wght@600&display=swap';document.head.appendChild(l);const s=document.createElement('style');s.textContent=`.hdr{display:flex;align-items:center;justify-content:space-between;margin:0 0 20px;min-height:44px}
+.brand{display:flex;align-items:center;gap:10px;user-select:none}
+.bico{width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+.bico svg{width:27px;height:27px;overflow:visible}
+.bname{font:800 19px/1.05 'Plus Jakarta Sans',system-ui,sans-serif;color:#fff;letter-spacing:-.3px}
+.bname span{background:linear-gradient(135deg,#c084fc,#22d3ee);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.bsub{font:600 8.5px/1 'JetBrains Mono',ui-monospace,monospace;letter-spacing:2px;color:#94a3b8;margin-top:5px}
+.bsub i{color:#22d3ee;font-style:normal;padding:0 3px}
+.hact{display:flex;align-items:center;gap:8px}
+.hbtn{display:flex;align-items:center;justify-content:center;gap:6px;height:40px;min-width:40px;padding:0 12px;border-radius:20px;background:#151b33;border:1px solid #2a3050;color:#e8ebf7;font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s}
+.hbtn:active{transform:scale(.94)}
+.hbtn b{font-size:15px;line-height:1}
+.hfl{background:#14203f;border-color:#2b4a85}
+.pop{animation:hpop .4s cubic-bezier(.2,1.3,.4,1)}
+@keyframes hpop{0%{transform:scale(.5);opacity:0}100%{transform:none;opacity:1}}
+.bico .node{transform-origin:center;transform-box:fill-box;animation:nodeGlow 3s infinite ease-in-out}
+.bico .n2{animation-delay:1.5s}
+@keyframes nodeGlow{0%,100%{transform:scale(1);filter:brightness(1)}50%{transform:scale(1.15);filter:brightness(1.4)}}
+@media (prefers-reduced-motion:reduce){.bico .node,.pop{animation:none}}
+.card.pick.on{box-shadow:0 0 0 1px rgba(96,165,250,.45),0 0 18px rgba(96,165,250,.28)}`;document.head.appendChild(s)})();
+const hdr=anim=>`<div class="hdr"><div class="brand"><div class="bico"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="lgc" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#a855f7"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient><filter id="lgg" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="1.5" result="blur"/><feComposite in="SourceGraphic" in2="blur" operator="over"/></filter></defs><path d="M 23 8 C 18 8, 17 12, 17 17 L 17 23 C 17 28, 16 32, 11 32" fill="none" stroke="#334155" stroke-width="2" stroke-dasharray="2 2"/><path d="M 23 8 C 18 8, 17 12, 17 17 L 17 23 C 17 28, 16 32, 11 32" fill="none" stroke="url(#lgc)" stroke-width="3.5" stroke-linecap="round" filter="url(#lgg)"/><circle class="node" cx="23" cy="8" r="3" fill="#06b6d4"/><circle class="node n2" cx="11" cy="32" r="3" fill="#a855f7"/></svg></div><div><div class="bname">Math<span>Map</span></div><div class="bsub">DIAGNOSE<i>•</i>AI</div></div></div><div class="hact">${S.plan?`<button class="hbtn hfl ${anim?'pop':''}" id="flame" aria-label="Study plan"><svg class="fl" width="18" height="22" viewBox="0 0 24 24"><defs><linearGradient id="hfg2" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#e879f9"/><stop offset=".5" stop-color="#a855f7"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs><path fill="url(#hfg2)" d="M12 2c.8 3.2 5.5 5.2 5.5 10.2A5.5 5.5 0 0 1 6.5 14c0-2.2 1.2-3.8 2.4-5 .1 1.6.9 2.6 1.9 2.8C10.4 8 11 5 12 2z"/><path class="in" fill="#f5d0fe" fill-opacity=".9" d="M12 11.6c.4 1.4 2.4 2.2 2.4 4.1a2.4 2.4 0 0 1-4.8 0c0-.9.5-1.6 1.1-2.2 0 .7.4 1.1.8 1.2.1-.9.2-1.9.5-3.1z"/></svg><b>${S.plan.day}</b></button>`:''}<button class="hbtn" id="histbtn" aria-label="History"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/><path d="M12 7v5l3 2"/></svg></button></div></div>`;
 function goalScreen(anim){
-  const G=[['test_prep','🎯','Prepare for a test','Practice for SAT, CSCA or your own exam'],['mastery','📘','Master a topic','Take a focused test on one topic'],['find_gaps','🔍','Find my gaps','A broad scan of the basics to see where to start']];
+  const G=[['test_prep','<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9" fill="currentColor" fill-opacity=".12"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg>','Prepare for a test','Practice for SAT, CSCA or your own exam'],['mastery','<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4.5h10a3 3 0 0 1 3 3V20H8a3 3 0 0 1-3-3z" fill="currentColor" fill-opacity=".12"/><path d="M5 17a3 3 0 0 1 3-3h10"/></svg>','Master a topic','Take a focused test on one topic'],['find_gaps','<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.2"/><circle cx="18" cy="12" r="2.2" fill="currentColor" fill-opacity=".25"/><circle cx="7" cy="18" r="2.2"/><path d="M8 7l8 4M16 13l-7 4"/></svg>','Find my root cause','Not just right or wrong: we trace each mistake back to the skill it comes from. No need to know topic names.']];
   const fl=S.plan?`<div class="slot ${anim?'':'on'}" id="slot"><div class="flrow"><button class="flame" id="flame"><svg width="18" height="22" viewBox="0 0 24 24"><defs><linearGradient id="fg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#93c5fd"/><stop offset="1" stop-color="#2563eb"/></linearGradient></defs><path fill="url(#fg)" d="M12 2c.8 3.2 5.5 5.2 5.5 10.2A5.5 5.5 0 0 1 6.5 14c0-2.2 1.2-3.8 2.4-5 .1 1.6.9 2.6 1.9 2.8C10.4 8 11 5 12 2z"/></svg><b>${S.plan.day}</b></button></div></div>`:'';
-  let h=fl+'<h1>What brings you here?</h1><p class="mut">Pick one. You do not need to know topic names.</p>'+
-    G.map(g=>`<button class="card pick ${S.goal===g[0]?'on':''}" data-g="${g[0]}"><b>${g[1]} ${g[2]}</b><div class="mut">${g[3]}</div></button>`).join('');
+  let h='<h1>What brings you here?</h1><div style="height:6px"></div>'+
+    G.map(g=>`<button class="card pick ${S.goal===g[0]?'on':''}" data-g="${g[0]}"><b class="gt"><span class="gi">${g[1]}</span>${g[2]}</b><div class="mut">${g[3]}</div></button>`).join('');
   if(S.goal==='test_prep'){
     h+='<h2>Which test?</h2>'+Object.entries(S.exams).map(([k,e])=>`<button class="card pick ${S.exam===k?'on':''}" data-e="${k}"><b>${esc(e.name)}</b><div class="mut">${esc(e.facts)}</div>${e.covers.length?`<div class="mut" style="margin-top:6px">Covered here: ${esc(e.covers.join(', '))}</div><div class="mut">Not covered yet: ${esc(e.gaps.join(', '))}</div>`:''}</button>`).join('');
     if(S.exam==='school')h+='<h2>Which topics are on it?</h2><p class="mut">Select all that apply.</p>'+topicList();
   }
   if(S.goal==='mastery')h+='<h2>Which topic?</h2>'+topicList();
-  show('<button class="x" id="histbtn" aria-label="History" style="position:absolute;top:20px;left:14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/><path d="M12 7v5l3 2"/></svg></button>'+h+`<p class="mut" style="text-align:center;font-size:.7rem;margin-top:24px">build 9</p><div class="bar"><button class="btn" id="go" ${ready()?'':'disabled'}>Start the test</button></div>`);
+  show(hdr(anim)+h+`<p class="mut" style="text-align:center;font-size:.7rem;margin-top:24px">build 11</p><div class="bar"><button class="btn" id="go" ${ready()?'':'disabled'}>${S.goal?(S.goal==='find_gaps'?'Diagnose my root cause':S.goal==='mastery'?'Start topic test':'Start exam practice'):'Choose what you need'}</button></div>`);
   if(anim)requestAnimationFrame(()=>requestAnimationFrame(()=>{const e=document.getElementById('slot');if(e)e.classList.add('on')}));
 }
 
@@ -71,7 +92,7 @@ function resultScreen(){
   const scan=(r.mode==='topic'&&r.unchecked&&r.unchecked.length)?`<div class="card"><b>Foundations not checked yet</b><div class="mut">Skills this topic builds on were not tested: ${esc(r.unchecked.join(', '))}.</div><button class="btn ghost" style="margin-top:8px" data-scan="1">Take the quick scan</button></div>`:'';
   const mis=r.misconceptions.length?r.misconceptions.map(m=>`<div class="card"><div class="row"><b>${esc(m.label)}</b><span class="mut">×${m.count}</span></div>
     <div class="mut">${esc(m.description)}</div><div style="margin-top:6px">Root cause to revisit: <span class="hl">${esc(m.root_display)}</span></div></div>`).join(''):'<div class="card mut">No specific misconception pattern detected.</div>';
-  const rev=r.review.map((q,i)=>`<details class="card"><summary>Q${i+1} ${q.is_correct?'✅':'❌'}</summary><div style="margin-top:8px">${esc(q.stem)}</div><div class="math" id="rm${i}"></div>
+  const rev=r.review.map((q,i)=>`<details class="card">${qsum(i,q)}<div style="margin-top:8px">${esc(q.stem)}</div><div class="math" id="rm${i}"></div>
     <div class="mut">Your answer</div><div class="t" id="ra${i}">${q.chosen==null?'<i>I don\'t know</i>':''}</div>
     <div class="mut" style="margin-top:6px">Correct answer</div><div id="rc${i}"></div>
     ${q.reason&&!q.is_correct?`<p>${esc(q.reason)}</p>`:''}<p class="mut">${esc(q.solution)}</p><button class="btn ghost" data-ask="${i}">Ask the tutor about this</button></details>`).join('');

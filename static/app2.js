@@ -21,7 +21,7 @@ async function ask(text){
   const w=document.getElementById('wait');w.id='';w.innerHTML=md(reply);rich(w);box.scrollTop=box.scrollHeight;S.t.busy=false;
 }
 ov.onclick=async e=>{
-  const t=e.target.closest('button');if(!t){if(e.target.classList.contains('ov'))closeOv();return}
+  const t=e.target.closest('button');if(!t){if(e.target.classList.contains('ov')||e.target.id==='pbk')closeOv();return}
   const d=t.dataset;
   try{
     if(t.id==='qno'||t.id==='tclose')return closeOv();
