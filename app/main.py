@@ -66,6 +66,8 @@ from fastapi.staticfiles import StaticFiles
 
 from app.baseline import router as baseline_router
 from app.navigator import router as navigator_router
+from app.navchats import router as navchats_router
 app.include_router(baseline_router)
 app.include_router(navigator_router)
+app.include_router(navchats_router)
 app.mount("/", StaticFiles(directory="static", html=True), name="static")
