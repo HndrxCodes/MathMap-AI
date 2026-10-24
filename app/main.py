@@ -9,7 +9,7 @@ from collections import defaultdict, deque
 from fastapi import Request
 from fastapi.responses import JSONResponse
 
-_RL_PATHS = ("/api/tutor", "/api/agent/chat")  # endpoint yang memanggil LLM
+_RL_PATHS = ("/api/tutor", "/api/agent/chat", "/api/navigator")  # endpoint yang memanggil LLM
 _RL_PER_IP, _RL_TOTAL = 40, 800  # permintaan per jam
 _hits, _all = defaultdict(deque), deque()
 
@@ -32,7 +32,6 @@ async def _limit(request: Request, call_next):
     return await call_next(request)
 
 
-
 class ChatRequest(BaseModel):
     student_id: str
     message: str
@@ -50,7 +49,9 @@ def chat(req: ChatRequest):
     reply, updated_history = run_agent_turn(full_message, req.history, req.student_id)
     return {"reply": reply, "history": updated_history}
 
+
 from app.tools import get_mastery_map, get_goal
+
 
 @app.get("/api/mastery/{student_id}")
 def mastery(student_id: str):
@@ -60,8 +61,11 @@ def mastery(student_id: str):
         "goal": get_goal(student_id)
     }
 
+
 from fastapi.staticfiles import StaticFiles
 
 from app.baseline import router as baseline_router
+from app.navigator import router as navigator_router
 app.include_router(baseline_router)
+app.include_router(navigator_router)
 app.mount("/", StaticFiles(directory="static", html=True), name="static")
