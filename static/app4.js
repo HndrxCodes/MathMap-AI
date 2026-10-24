@@ -4,13 +4,19 @@ const NAV='Navigator';
 #nvfab:active{transform:scale(.95)}
 #nvfab.off{opacity:0;pointer-events:none;transform:translateY(10px)}
 #nvfab .nvfi{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#a855f7,#06b6d4);color:#fff}
-.nvtop{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:center;gap:12px;padding:calc(10px + env(safe-area-inset-top,0px)) 16px 10px;background:rgba(14,18,36,.9);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.06)}
-.nvtop .hbtn{flex:none}
+.nvtop{position:fixed;top:0;left:0;right:0;z-index:30;padding:calc(10px + env(safe-area-inset-top,0px)) 16px 10px;background:rgba(14,18,36,.92);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.06)}
+.nvrow{display:flex;align-items:center;gap:12px}
+.nvrow .hbtn{flex:none}
+.hbtn.nvmore{border:1.5px solid transparent;background:linear-gradient(#151b33,#151b33) padding-box,linear-gradient(135deg,#e879f9,#a855f7 55%,#22d3ee) border-box}
 .nvtt{flex:1;min-width:0}
 .nvt{font-weight:800;font-size:18px;letter-spacing:-.3px;line-height:1.1}
 .nvs{font-size:11.5px;color:#94a3b8;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.nvsp{height:calc(64px + env(safe-area-inset-top,0px))}
-.nvm{max-width:92%;padding:12px 15px;border-radius:18px;margin:10px 0;font-size:14.5px;word-wrap:break-word;scroll-margin-top:calc(76px + env(safe-area-inset-top,0px))}
+.nvtabs{display:flex;gap:8px;margin-top:10px;overflow-x:auto;scrollbar-width:none}
+.nvtabs::-webkit-scrollbar{display:none}
+.nvtab{flex:0 0 auto;max-width:150px;height:30px;padding:0 13px;border-radius:15px;border:1.5px solid #2a3050;background:#151b33;color:#94a3b8;font:600 12.5px 'Plus Jakarta Sans',system-ui,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
+.nvtab.on{color:#fff;border-color:transparent;background:linear-gradient(#1a1535,#1a1535) padding-box,linear-gradient(135deg,#e879f9,#a855f7 55%,#22d3ee) border-box}
+.nvsp{height:var(--nvtop,64px)}
+.nvm{max-width:92%;padding:12px 15px;border-radius:18px;margin:10px 0;font-size:14.5px;word-wrap:break-word;scroll-margin-top:calc(var(--nvtop,64px) + 12px)}
 .nvm.me{margin-left:auto;color:#fff;font-weight:500;line-height:1.5;background:linear-gradient(135deg,#4f8cff,#2f6df6);border-bottom-right-radius:5px;box-shadow:0 6px 18px rgba(47,109,246,.32)}
 .nvm.bot{background:#151b33;border:1px solid #232b4a;border-bottom-left-radius:5px;line-height:1.7}
 .nvp{margin:2px 0}
@@ -44,13 +50,13 @@ const NAV='Navigator';
 .nvbar .btn.nvsend{flex:0 0 40px!important;width:40px!important;height:40px;min-width:0;padding:0!important;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#60a5fa,#3b82f6);color:#fff;box-shadow:0 4px 14px rgba(59,130,246,.45);margin-bottom:2px;transition:opacity .15s,transform .12s}
 .nvbar .btn.nvsend:disabled{opacity:.4;box-shadow:none}
 .nvbar .btn.nvsend:active:not(:disabled){transform:scale(.92)}
-#nvdown{position:fixed;left:50%;bottom:calc(var(--nvh,72px) + 12px);z-index:25;width:34px;height:34px;padding:0;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#f0abfc;background:rgba(21,27,51,.78);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid rgba(232,121,249,.4);box-shadow:0 4px 16px rgba(232,121,249,.2);opacity:.85;transform:translateX(-50%);transition:opacity .2s,transform .2s;-webkit-tap-highlight-color:transparent;cursor:pointer}
+#nvdown{position:fixed;left:50%;bottom:calc(var(--nvh,72px) + 12px);z-index:25;width:34px;height:34px;padding:0;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#f0abfc;background:rgba(21,27,51,.78);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid rgba(232,121,249,.4);box-shadow:0 4px 16px rgba(232,121,249,.2);opacity:.85;transform:translateX(-50%);transition:opacity .2s,transform .2s;cursor:pointer}
 #nvdown.off{opacity:0;pointer-events:none;transform:translate(-50%,8px)}
-#nvdown:active{transform:translateX(-50%) scale(.92)}
 `;document.head.appendChild(s)})();
 const NAVI='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z" fill="currentColor" fill-opacity=".25"/></svg>';
 const SV=(p,w)=>'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="'+w+'" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>';
-const ICO={up:SV('<path d="M12 19V5M5 12l7-7 7 7"/>',3),down:SV('<path d="M12 5v14M5 12l7 7 7-7"/>',2.4),back:SV('<path d="M15 6l-6 6 6 6"/>',2.4),plus:SV('<path d="M12 5v14M5 12h14"/>',2.2)};
+const ICO={up:SV('<path d="M12 19V5M5 12l7-7 7 7"/>',3),down:SV('<path d="M12 5v14M5 12l7 7 7-7"/>',2.4),back:SV('<path d="M15 6l-6 6 6 6"/>',2.4)};
+const MORE='<svg width="18" height="18" viewBox="0 0 24 24"><defs><linearGradient id="nvmg" gradientUnits="userSpaceOnUse" x1="0" y1="3" x2="0" y2="21"><stop offset="0" stop-color="#e879f9"/><stop offset=".55" stop-color="#a855f7"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs><circle cx="12" cy="5" r="2.2" fill="url(#nvmg)"/><circle cx="12" cy="12" r="2.2" fill="url(#nvmg)"/><circle cx="12" cy="19" r="2.2" fill="url(#nvmg)"/></svg>';
 const NCH=['Plan my study session','Am I ready for Limits?','How have I improved?','I only have 10 minutes today'];
 const COARSE=!!(window.matchMedia&&matchMedia('(pointer:coarse)').matches);
 const nvCls={high:'k-hi',medium:'k-md',low:'k-lo','needs work':'k-nw',developing:'k-dv',strong:'k-st'};
@@ -79,23 +85,30 @@ function nvFmt(t){
   return out;
 }
 
-function nvLayout(){const b=document.querySelector('.nvbar');if(b)document.documentElement.style.setProperty('--nvh',b.offsetHeight+'px')}
+function nvLayout(){
+  const b=document.querySelector('.nvbar'),t=document.getElementById('nvtop'),r=document.documentElement.style;
+  if(b)r.setProperty('--nvh',b.offsetHeight+'px');
+  if(t)r.setProperty('--nvtop',t.offsetHeight+'px');
+}
 function nvAtBottom(){return window.innerHeight+window.scrollY>=document.documentElement.scrollHeight-150}
 function nvSyncBtn(){const d=document.getElementById('nvdown');if(d)d.classList.toggle('off',nvAtBottom())}
 function nvToBottom(smooth){window.scrollTo({top:document.documentElement.scrollHeight,behavior:smooth===false?'auto':'smooth'})}
 function nvUpd(){const i=document.getElementById('nvin'),b=document.getElementById('nvsend');if(b)b.disabled=!(i&&i.value.trim())||!!(S.nv&&S.nv.busy)}
 
-function navScreen(){
-  S.nv=S.nv||{log:[],hist:[],busy:false,model:null};
-  show(`<div class="nvtop"><button class="hbtn" data-nvback="1" aria-label="Back to menu">${ICO.back}</button><div class="nvtt"><div class="nvt">${NAV}</div><div class="nvs">Plans your next step from your own data</div></div><button class="hbtn" data-nvnew="1" aria-label="New chat">${ICO.plus}</button></div><div class="nvsp"></div><div id="nvlog"></div><button id="nvdown" class="off" aria-label="Scroll to latest">${ICO.down}</button><div class="bar nvbar"><textarea id="nvin" class="nvin" rows="1" placeholder="Ask what to do next…" enterkeyhint="enter" autocomplete="off" autocapitalize="sentences"></textarea><button class="btn nvsend" id="nvsend" aria-label="Send" disabled>${ICO.up}</button></div>`);
-  nvRender();nvLayout();nvUpd();
-  if(S.nv.log.length)setTimeout(()=>{nvToBottom(false);nvSyncBtn()},40);
+function nvHead(){
+  const N=S.nv,el=document.getElementById('nvtop');if(!el)return;
+  const tabs=N.chats.map(c=>({id:c.id,t:c.title}));
+  if(!N.cid&&tabs.length)tabs.push({id:'',t:'New chat'});
+  const row=`<div class="nvrow"><button class="hbtn" data-nvback="1" aria-label="Back to menu">${ICO.back}</button><div class="nvtt"><div class="nvt">${NAV}</div><div class="nvs">Plans your next step from your own data</div></div><button class="hbtn nvmore" id="nvmore" aria-label="More options">${MORE}</button></div>`;
+  const tb=tabs.length>=2?`<div class="nvtabs">${tabs.map(x=>`<button class="nvtab ${(x.id||null)===N.cid?'on':''}" data-nvtab="${esc(x.id)}">${esc(x.t)}</button>`).join('')}</div>`:'';
+  el.innerHTML=row+tb;nvLayout();
 }
 function nvRender(){
   const box=document.getElementById('nvlog');if(!box)return;const N=S.nv;
   const nm=(S.prof&&S.prof.name)?', '+esc(S.prof.name):'';
   let h='';
-  if(!N.log.length)h+=`<div class="nvm bot"><div class="nvp">Hi${nm}. I read your results and plan what to do next${S.plan?`, using your ${S.plan.minutes}-minute daily plan`:''}. Pick a question or ask your own.</div></div><div class="chips">${NCH.map(c=>`<button class="chip" data-nvchip="${esc(c)}">${esc(c)}</button>`).join('')}</div>`;
+  if(!N.loaded)h+='<div class="mut" style="margin-top:14px">Loading…</div>';
+  else if(!N.log.length)h+=`<div class="nvm bot"><div class="nvp">Hi${nm}. I read your results and plan what to do next${S.plan?`, using your ${S.plan.minutes}-minute daily plan`:''}. Pick a question or ask your own.</div></div><div class="chips">${NCH.map(c=>`<button class="chip" data-nvchip="${esc(c)}">${esc(c)}</button>`).join('')}</div>`;
   h+=N.log.map(m=>{
     if(m.role==='me')return `<div class="nvm me">${esc(m.text)}</div>`;
     if(m.pending)return `<div class="nvm bot"><span class="mut">Checking your results</span><span class="nvdots"><i></i><i></i><i></i></span></div>`;
@@ -103,24 +116,60 @@ function nvRender(){
     const tr=(m.trace||[]).length?`<div class="nvtr"><span>Tools</span>${m.trace.map(t=>`<span class="nvtp ${t.ok?'':'bad'}">${esc(t.tool)}</span>`).join('<i>›</i>')}</div>`:'';
     return `<div class="nvm bot">${nvFmt(m.text)}${acts?`<div class="nvacts">${acts}</div>`:''}${tr}</div>`;
   }).join('');
-  if(N.model)h+=`<div class="mut" style="font-size:.72rem;text-align:center;margin-top:8px">${esc(/nemotron/i.test(N.model)?'NVIDIA Nemotron':N.model.split('/').pop())} · Nebius Token Factory</div>`;
+  const lm=[...N.log].reverse().find(m=>m.role==='bot'&&m.model);
+  if(lm)h+=`<div class="mut" style="font-size:.72rem;text-align:center;margin-top:8px">${esc(/nemotron/i.test(lm.model)?'NVIDIA Nemotron':lm.model.split('/').pop())} · Nebius Token Factory</div>`;
   box.innerHTML=h+'<div style="height:calc(var(--nvh,72px) + 24px)"></div>';
   rich(box);
 }
+function nvShell(){
+  show(`<div class="nvtop" id="nvtop"></div><div class="nvsp"></div><div id="nvlog"></div><button id="nvdown" class="off" aria-label="Scroll to latest">${ICO.down}</button><div class="bar nvbar"><textarea id="nvin" class="nvin" rows="1" placeholder="Ask what to do next…" enterkeyhint="enter" autocomplete="off" autocapitalize="sentences"></textarea><button class="btn nvsend" id="nvsend" aria-label="Send" disabled>${ICO.up}</button></div>`);
+  nvHead();nvRender();nvLayout();nvUpd();
+}
+async function navScreen(){
+  S.nv=S.nv||{chats:[],cid:null,log:[],busy:false,loaded:false};
+  nvShell();
+  const N=S.nv;
+  try{
+    N.chats=await api('/nav/chats/'+SID);
+    if(N.cid&&!N.chats.some(c=>c.id===N.cid)){N.cid=null;N.log=[]}
+    if(!N.loaded&&!N.cid&&N.chats.length){
+      const last=N.chats.slice().sort((a,b)=>a.updated<b.updated?1:-1)[0];
+      const r=await api('/nav/chat/'+last.id+'?student_id='+encodeURIComponent(SID));
+      N.cid=last.id;N.log=r.messages||[];
+    }
+  }catch(e){}
+  N.loaded=true;
+  if(!document.getElementById('nvlog'))return;
+  nvHead();nvRender();
+  if(N.log.length)setTimeout(()=>{nvToBottom(false);nvSyncBtn()},40);
+}
+async function nvOpen(id){
+  const N=S.nv;if(N.busy||id===N.cid)return;
+  let r;try{r=await api('/nav/chat/'+id+'?student_id='+encodeURIComponent(SID))}catch(e){return}
+  N.cid=id;N.log=r.messages||[];nvHead();nvRender();
+  setTimeout(()=>{nvToBottom(false);nvSyncBtn()},40);
+}
 async function nvSend(text){
   const N=S.nv;text=(text||'').trim();if(!text||N.busy)return;
+  if(!N.cid){
+    let r;try{r=await api('/nav/new',{student_id:SID})}catch(e){r={}}
+    if(r.error==='limit'){const i=document.getElementById('nvin');if(i){i.value=text;nvUpd()}return nvLimit()}
+    if(!r.chat_id){alert('Could not start a chat. Please try again.');return}
+    N.cid=r.chat_id;
+  }
+  const cid=N.cid;
   N.busy=true;N.log.push({role:'me',text},{role:'bot',pending:true});
   nvRender();nvUpd();nvToBottom();
   let r;
-  try{r=await api('/navigator/chat',{student_id:SID,message:text,history:N.hist})}
+  try{r=await api('/navigator/send',{student_id:SID,chat_id:cid,message:text})}
   catch(e){r={reply:'Sorry, I could not reach the navigator.',trace:[],actions:[]}}
-  N.log.pop();
-  N.hist.push({role:'user',content:text},{role:'assistant',content:r.reply});
-  N.log.push({role:'bot',text:r.reply,trace:r.trace||[],actions:r.actions||[]});
-  if(r.model)N.model=r.model;
   N.busy=false;
+  try{N.chats=await api('/nav/chats/'+SID)}catch(e){}
+  if(r.error==='no_chat'&&N.cid===cid)N.cid=null;
+  N.log=N.log.filter(m=>!m.pending);
+  N.log.push({role:'bot',text:r.reply,trace:r.trace||[],actions:r.actions||[],model:r.model});
   if(!document.getElementById('nvlog'))return;
-  nvRender();nvUpd();
+  nvHead();nvRender();nvUpd();
   const bots=document.querySelectorAll('#nvlog .nvm.bot'),last=bots[bots.length-1];
   if(last)last.scrollIntoView({behavior:'smooth',block:'start'});
   setTimeout(nvSyncBtn,500);
@@ -129,12 +178,11 @@ function nvGo(){
   const i=document.getElementById('nvin');if(!i)return;
   const v=i.value;i.value='';i.style.height='auto';nvLayout();nvSend(v);
 }
-
 app.addEventListener('click',e=>{
   const b=e.target.closest('button');if(!b)return;const d=b.dataset;
   try{
     if(d.nvback)return goalScreen();
-    if(d.nvnew){S.nv={log:[],hist:[],busy:false,model:null};return navScreen()}
+    if(d.nvtab!==undefined)return d.nvtab?nvOpen(d.nvtab):null;
     if(d.nvchip)return nvSend(d.nvchip);
     if(b.id==='nvsend')return nvGo();
     if(b.id==='nvdown')return nvToBottom();
@@ -152,7 +200,6 @@ app.addEventListener('keydown',e=>{
 });
 window.addEventListener('scroll',nvSyncBtn,{passive:true});
 window.addEventListener('resize',()=>{nvLayout();nvSyncBtn()});
-
 const nvfab=document.createElement('button');
 nvfab.id='nvfab';nvfab.setAttribute('aria-label','Open Navigator');
 nvfab.innerHTML='<span class="nvfi">'+NAVI+'</span><span>Navigator</span>';
