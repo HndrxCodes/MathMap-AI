@@ -13,13 +13,21 @@ MathMap AI is a math learning agent that diagnoses the root cause of a student's
 
 ## Architecture
 
-A single-agent orchestrator with tool-calling, running three NVIDIA/open-source models via Nebius Token Factory:
+**Principle:** the deterministic core is the source of truth. The question bank, the scoring and the prerequisite graph decide what is right, what is mastered and where a mistake comes from. LLMs only provide language (lessons, explanations).
+
+**Flow:** diagnostic test, then per-concept mastery (rule of succession, so 2-3 questions never overstate the evidence), then every wrong option maps to a misconception code and its root concept on the prerequisite graph, then a learning path, a short lesson, Practice that targets the student's own mistakes, re-measurement and History.
+
+All models run on **Nebius Token Factory**:
 
 | Model | Role |
 |---|---|
-| nvidia/nemotron-3-super-120b-a12b | Main orchestrator — decides tool calls, composes replies to the student |
-| nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B | Classifies student misconceptions (high-frequency, lightweight) |
-| deepseek-ai/DeepSeek-V4-Pro | Generates in-depth learning content (micro-lessons) |
+| `deepseek-ai/DeepSeek-V4-Pro` | Micro-lessons, the AI tutor, and question generation |
+| `nvidia/nemotron-3-super-120b-a12b` (NVIDIA) | Blind verification of every generated question in the v2 banks (it solves each question without seeing the key and must agree); fallback model for the tutor; orchestrator of the experimental tool-calling agent (`/api/agent/chat`) |
+| `nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B` (NVIDIA) | Misconception classifier tool of the experimental agent |
+
+The tool-calling agent endpoint is kept as an experimental API. The web UI currently uses direct deterministic endpoints with the LLM as a language layer.
+
+**Known limits:** progress is tied to a private ID stored in the browser (no password). Only Limits has a dedicated topic bank so far. Lesson text is LLM-generated and reviewed by hand.
 
 ## Project Structure
 
@@ -32,22 +40,19 @@ A single-agent orchestrator with tool-calling, running three NVIDIA/open-source 
     └── tools.py         Data (concept graph, question bank) + all tool functions
     requirements.txt
 
-## Getting Started
+## Get started
 
-1. Clone this repo
-2. Install dependencies:
+```bash
+git clone https://github.com/HndrxCodes/MathMap-AI
+cd MathMap-AI
+pip install -r requirements.txt
+export NEBIUS_API_KEY=your_key_here      # Windows: set NEBIUS_API_KEY=your_key_here
+python -m uvicorn app.main:app --host 0.0.0.0 --port 8000
+```
 
-   pip install -r requirements.txt
+Open http://localhost:8000. Python 3.11 is recommended. The question banks and lessons ship in the repo, and the SQLite database (`mathmap.db`) is created automatically on first run.
 
-3. Create a `.env` file in the root (see `.env.example`), with:
-
-   NEBIUS_API_KEY=your_nebius_api_key_here
-
-4. Run the server:
-
-   uvicorn app.main:app --host 0.0.0.0 --port 8000
-
-5. Open `http://localhost:8000/docs` for the interactive API docs
+On Replit: add `NEBIUS_API_KEY` in Secrets and run `python3.11 -m uvicorn app.main:app --host 0.0.0.0 --port 8000`.
 
 ## Main Endpoint
 
