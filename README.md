@@ -4,8 +4,6 @@
 
 Built for the **Nebius x NVIDIA Global AI Hackathon** (track: Best Apps and Agents). Everything runs on **Nebius Token Factory**, with **NVIDIA Nemotron** powering the planning agent and verifying every generated question.
 
-- **Live demo:** YOUR_DEMO_URL (no login needed)
-- **Demo video (3 min):** YOUR_VIDEO_URL
 - **License:** MIT
 
 ---
