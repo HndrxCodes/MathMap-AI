@@ -4,6 +4,9 @@
 
 Built for the **Nebius x NVIDIA Global AI Hackathon** (track: Best Apps and Agents). Everything runs on **Nebius Token Factory**, with **NVIDIA Nemotron** powering the planning agent and verifying every generated question.
 
+- **Live Demo:** https://mathmap-ai.onrender.com
+- **Video Demo:**
+https://youtu.be/s2OKHyAU2FI?si=X29NlwPf-ZWgyt2U
 - **License:** MIT
 
 ---
