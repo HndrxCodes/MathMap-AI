@@ -30,8 +30,8 @@ ov.onclick=async e=>{
   try{
     if(t.id==='qno'||t.id==='tclose')return closeOv();
     if(t.id==='qyes'){closeOv();return goalScreen()}
-    if(d.pm){S.tmp.m=+d.pm;return renderPlan()}
-    if(d.pd){S.tmp.d=+d.pd;return renderPlan()}
+    if(d.pm){S.tmp.m=+d.pm;ov.querySelectorAll('[data-pm]').forEach(x=>x.classList.toggle('on',+x.dataset.pm===S.tmp.m));return}
+    if(d.pd){S.tmp.d=+d.pd;ov.querySelectorAll('[data-pd]').forEach(x=>x.classList.toggle('on',+x.dataset.pd===S.tmp.d));return}
     if(t.id==='pok'){t.disabled=true;const first=!S.plan;S.plan={minutes:S.tmp.m,days:S.tmp.d,day:first?1:S.plan.day};
       await api('/goal',{student_id:SID,goal_type:S.goal||'find_gaps',topics:S.topics,study_minutes:S.tmp.m,study_days:S.tmp.d,exam:S.exam||''});
       closeOv();return goalScreen(first)}
