@@ -144,7 +144,7 @@ app/
   clients.py        Nebius client and model constants
   database.py       SQLite schema
   question_bank_v2.json   Baseline bank (about 12 questions per concept, 6 concepts)
-  topic_bank_v2.json      Dedicated topic bank (Limits, 15 questions)
+  topic_bank_v2.json      Dedicated topic bank (Limits and Basic Algebra: 15 questions)
   misconceptions_v2.json  Misconception codes, labels and root concepts
   concepts_v2.json        Display names and plain-language descriptions
   lessons_v1.json         Pre-generated lessons
