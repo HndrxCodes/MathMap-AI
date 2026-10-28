@@ -13,11 +13,12 @@ const show=h=>{app.innerHTML=h;scrollTo(0,0)};
 async function api(p,b){const r=await fetch('/api'+p,b?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)}:{});if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}
 let S={goal:null,exam:null,topics:[],plan:null,ready:[],concepts:{},exams:{},review:false};
 
-const ready=()=>!!S.goal&&(S.goal==='find_gaps'||(S.goal==='mastery'&&S.topics.length===1)||(S.goal==='test_prep'&&S.exam&&(S.exam!=='school'||S.topics.length>0)));
+const ready=()=>!!S.goal&&(S.goal==='find_gaps'||(S.goal==='mastery'&&S.topics.length===1)||(S.goal==='test_prep'&&S.exam&&S.topics.length>0));
 const topicList=()=>{
   let list=Object.entries(S.concepts);
   const only=S.goal==='mastery'&&S.ready.length;
   if(only)list=list.filter(([k])=>S.ready.includes(k));
+  if(S.goal==='test_prep'&&S.exam&&S.exam!=='school'&&S.exams[S.exam])list=list.filter(([k])=>S.exams[S.exam].topics.includes(k));
   return list.map(([k,v])=>`<button class="card pick ${S.topics.includes(k)?'on':''}" data-t="${esc(k)}"><b>${esc(v.display)}</b><div class="mut">${esc(v.plain.replace(/\^2/g,'²'))}</div></button>`).join('')+(only?'<p class="mut">More topics are coming soon.</p>':'');
 };
 
@@ -59,7 +60,7 @@ function goalScreen(anim){
     G.map(g=>`<button class="card pick ${S.goal===g[0]?'on':''}" data-g="${g[0]}"><span class="gi">${g[1]}</span><span class="gcc"><span class="gtt">${g[2]}</span><span class="gd">${g[3]}</span></span></button>`).join('');
   if(S.goal==='test_prep'){
     h+='<h2>Which test?</h2>'+Object.entries(S.exams).map(([k,e])=>`<button class="card pick ${S.exam===k?'on':''}" data-e="${k}"><b>${esc(e.name)}</b><div class="mut">${esc(e.facts)}</div>${e.covers.length?`<div class="mut" style="margin-top:6px">Covered here: ${esc(e.covers.join(', '))}</div><div class="mut">Not covered yet: ${esc(e.gaps.join(', '))}</div>`:''}</button>`).join('');
-    if(S.exam==='school')h+='<h2>Which topics are on it?</h2><p class="mut">Select all that apply.</p>'+topicList();
+    if(S.exam==='school')h+='<h2>Which topics are on it?</h2><p class="mut">Select all that apply.</p>'+topicList();else if(S.exam)h+='<h2>Which topics do you want to practice?</h2><p class="mut">Everything this test covers here is selected. Tap to remove any you do not need.</p>'+topicList();
   }
   if(S.goal==='mastery')h+='<h2>Which topic?</h2>'+topicList();
   show(hdr(anim)+h+agentBlock()+`<p class="mut" style="text-align:center;font-size:.7rem;margin-top:24px">build 14</p><div class="bar"><button class="btn" id="go" ${ready()?'':'disabled'}>${S.goal?(S.goal==='find_gaps'?'Diagnose my root cause':S.goal==='mastery'?'Start topic test':'Start exam practice'):'Choose what you need'}</button></div>`);

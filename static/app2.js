@@ -51,14 +51,14 @@ app.onclick=async e=>{
     if(t.id==='quit')return quitModal();
     if(d.ask!==undefined)return tutorSheet('question',S.res.review[+d.ask]);
     if(d.scan){S.start={mode:'gaps',topics:[]};return startTest()}
-    if(d.e){S.exam=d.e;S.topics=[];return goalScreen()}
+    if(d.e){S.exam=d.e;S.topics=d.e==='school'?[]:((S.exams[d.e]&&S.exams[d.e].topics)||[]).slice();return goalScreen()}
     if(d.t){S.topics=S.goal==='test_prep'?(S.topics.includes(d.t)?S.topics.filter(x=>x!==d.t):[...S.topics,d.t]):[d.t];return goalScreen()}
     if(d.m){S.minutes=+d.m;return goalScreen()}
     if(d.o!==undefined){S.ans[S.qs[S.i].id]=d.o==='-1'?null:+d.o;localStorage['mm_ans_'+S.sess]=JSON.stringify(S.ans);return testScreen()}
     if(d.j!==undefined){S.review=false;S.i=+d.j;return testScreen()}
     if(t.id==='go'){t.disabled=true;
       const mode=S.goal==='mastery'?'topic':S.goal==='test_prep'?'exam':'gaps';
-      const topics=S.goal==='test_prep'&&S.exam!=='school'?S.exams[S.exam].topics:S.topics;
+      const topics=S.topics;
       S.start={mode,topics};
       await api('/goal',{student_id:SID,goal_type:S.goal,topics,study_minutes:S.plan?S.plan.minutes:20,study_days:S.plan?S.plan.days:14,exam:S.exam||''});
       return startTest()}

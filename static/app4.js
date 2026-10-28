@@ -68,7 +68,7 @@ function nvDecor(s){
   return s.replace(/\b(\d+\s?(?:minutes|mins|min))\b/gi,'<span class="k-mn">$1</span>');
 }
 function nvInline(s){
-  return s.split(/(\$\$[\s\S]+?\$\$|\$[^$\n]+?\$)/).map((p,i)=>i%2?esc(p):nvDecor(esc(p).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>'))).join('');
+  return s.split(/(\$\$[\s\S]+?\$\$|\$[^$\n]+?\$)/).map((p,i)=>i%2?esc(p):nvDecor(esc(p).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/(^|[^*\w])\*(?=\S)([^*\n]*?\S)\*(?![*\w])/g,'$1$2'))).join('');
 }
 function nvFmt(t){
   let out='',gap=false;
@@ -76,7 +76,10 @@ function nvFmt(t){
     const l=raw.trim();
     if(!l){if(!gap)out+='<div class="nvgap"></div>';gap=true;continue}
     gap=false;
-    let m=l.match(/^(\d+)[.)]\s+(.*)$/);
+    if(/^([-*_]\s*){3,}$/.test(l))continue;
+    let m=l.match(/^#{1,6}\s+(.*)$/);
+    if(m){out+=`<div class="nvp"><b>${nvInline(m[1])}</b></div>`;continue}
+    m=l.match(/^(\d+)[.)]\s+(.*)$/);
     if(m){out+=`<div class="nvst"><span class="nvn">${m[1]}</span><span>${nvInline(m[2])}</span></div>`;continue}
     m=l.match(/^[-•*]\s+(.*)$/);
     if(m){out+=`<div class="nvbl"><span class="nvd"></span><span>${nvInline(m[1])}</span></div>`;continue}

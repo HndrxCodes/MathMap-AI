@@ -29,11 +29,11 @@ window.resultScreen=function(){
     hero.insertAdjacentHTML('afterend',`<div class="card"><b>Exam pace</b><div class="mut" style="margin-top:4px">${fmt(ms)} for ${n} questions, about ${avg} s per question.</div>${line}</div>`);
   }catch(e){}
 };
-let last=Date.now();
+let last=performance.now();
 setInterval(()=>{
-  const now=Date.now(),d=Math.min(now-last,2000);last=now;
-  try{if(!isExam()||!document.getElementById('mmtimer'))return;
+  const now=performance.now(),d=Math.min(now-last,1000);last=now;
+  try{if(document.hidden||!isExam()||!document.getElementById('mmtimer'))return;
     const k=K(S.sess);set(k,get(k)+d);stamp()}catch(e){}
-},1000);
+},200);
 })();
 /* END app10.js */
