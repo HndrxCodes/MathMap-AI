@@ -63,7 +63,7 @@ function goalScreen(anim){
     if(S.exam==='school')h+='<h2>Which topics are on it?</h2><p class="mut">Select all that apply.</p>'+topicList();else if(S.exam)h+='<h2>Which topics do you want to practice?</h2><p class="mut">Everything this test covers here is selected. Tap to remove any you do not need.</p>'+topicList();
   }
   if(S.goal==='mastery')h+='<h2>Which topic?</h2>'+topicList();
-  show(hdr(anim)+h+agentBlock()+`<p class="mut" style="text-align:center;font-size:.7rem;margin-top:24px">build 14</p><div class="bar"><button class="btn" id="go" ${ready()?'':'disabled'}>${S.goal?(S.goal==='find_gaps'?'Diagnose my root cause':S.goal==='mastery'?'Start topic test':'Start exam practice'):'Choose what you need'}</button></div>`);
+  show(hdr(anim)+h+agentBlock()+`<div class="bar"><button class="btn" id="go" ${ready()?'':'disabled'}>${S.goal?(S.goal==='find_gaps'?'Diagnose my root cause':S.goal==='mastery'?'Start topic test':'Start exam practice'):'Choose what you need'}</button></div>`);
   if(anim)requestAnimationFrame(()=>requestAnimationFrame(()=>{const e=document.getElementById('slot');if(e)e.classList.add('on')}));
 }
 
