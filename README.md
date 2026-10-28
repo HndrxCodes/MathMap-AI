@@ -34,6 +34,11 @@ Other features: a study plan (minutes per day, number of days, a "Day N" flame),
 
 ---
 
+### Two ways to practice
+
+- **Master a topic** goes deep on **one** topic. The test traces your mistakes back through the topic's prerequisites, and the result shows a path to that topic. Use it when you know what you need to learn.
+- **Prepare for a test** mixes **several** topics, split evenly across the ones you keep selected. For **SAT** and **CSCA**, the topics MathMap covers are preselected and you can remove any of them. For a **school exam**, you choose the topics yourself. While you practice, an exam timer runs, and the result adds an **Exam pace** card that compares your seconds per question with the real test's format. Questions are original MathMap questions, not official exam items, and the topic mapping is our own approximation, not an official syllabus.
+
 ## Navigator: the planning agent
 
 Navigator is a single tool-calling agent, orchestrated by **NVIDIA Nemotron 3 Super** on Nebius Token Factory. It answers questions like *"I only have 10 minutes today, where do I start?"* or *"Am I ready for Limits?"*
@@ -152,7 +157,8 @@ generate_bank_v2.py, generate_topic_bank.py, review_v2.py   Question tooling
 
 ## Known limitations
 
-- Only **Limits** has a dedicated topic bank. Practice for other concepts draws on the baseline bank.
+- **Limits** and **Basic Algebra** have dedicated topic banks. Practice for the other concepts draws on the baseline bank (about 12 questions per concept), so questions repeat if you take the same test several times.
+- A small number of misconception explanations (22 answer options) were cleaned up after generation and now show a generic description of the mistake type instead of the exact worked slip. All other explanations are specific to the question.
 - A new test overwrites the stored mastery score for the concepts it covers, while Practice accumulates across all attempts. Older results keep showing the snapshot from when that test was taken.
 - Lessons are LLM-generated. The Limits lesson was reviewed by hand; the others have not been reviewed yet.
 - Navigator is English-only, read-only and limited to six tools.
