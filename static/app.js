@@ -68,7 +68,7 @@ function goalScreen(anim){
 }
 
 async function startTest(){
-  const s=await api('/baseline/start',{student_id:SID,mode:S.start.mode,topics:S.start.topics});
+  const s=await api('/baseline/start',{student_id:SID,mode:S.start.mode,topics:S.start.topics,exam:S.start.mode==='exam'?(S.exam||''):''});
   S.practice=null;S.fromHist=false;S.sess=s.session_id;S.qs=s.questions;S.i=0;S.review=false;
   S.ans=JSON.parse(localStorage['mm_ans_'+S.sess]||'{}');
   testScreen();

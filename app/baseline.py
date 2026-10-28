@@ -197,6 +197,7 @@ class StartReq(BaseModel):
     student_id: str
     mode: str = "gaps"  # gaps | topic | exam
     topics: list = []
+    exam: str = ""
 
 
 class SubmitReq(BaseModel):
@@ -267,7 +268,7 @@ def baseline_start(req: StartReq):
     row = cur.fetchone()
     if row:  # lanjutkan sesi yang sama (tahan reload)
         p = _unpack(row[1])
-        if p["mode"] == mode and p["topics"] == topics:
+        if p["mode"] == mode and p["topics"] == topics and (not req.exam or p.get("exam", "") == req.exam):
             return {"session_id": row[0], "questions": _public(p["items"])}
     seen = _seen(req.student_id)
     if mode in ("topic", "exam") and all(TOPIC.get(t) for t in topics):
@@ -281,9 +282,22 @@ def baseline_start(req: StartReq):
         items.append({"id": q["id"], "order": order})
     sid = uuid.uuid4().hex
     cur.execute("INSERT INTO baseline_sessions (session_id, student_id, plan) VALUES (?,?,?)",
-                (sid, req.student_id, json.dumps({"mode": mode, "topics": topics, "items": items})))
+                (sid, req.student_id, json.dumps({"mode": mode, "topics": topics, "items": items, "exam": req.exam})))
     conn.commit()
     return {"session_id": sid, "questions": _public(items)}
+
+
+class AbandonReq(BaseModel):
+    session_id: str
+    student_id: str
+
+
+@router.post("/baseline/abandon")
+def baseline_abandon(req: AbandonReq):
+    cur = conn.cursor()
+    cur.execute("DELETE FROM baseline_sessions WHERE session_id=? AND student_id=? AND submitted_at IS NULL", (req.session_id, req.student_id))
+    conn.commit()
+    return {"ok": True}
 
 
 @router.post("/baseline/submit")
